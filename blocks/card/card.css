@@ -1,11 +1,14 @@
-.photo-grid__item {
+.card {
   width: 282px;
   height: 361px;
-  display: block;
-  object-fit: cover;
+  border-radius: 10px;
+  background-color: #FFFFFF;
+  position: relative;
+
+  /* filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25)); */
 }
 
-/* .photo-grid__item {
+/* .card {
   width: 284px;
   height: 213px;
   display: block;
@@ -13,14 +16,14 @@
 }
 
 @media screen and (max-width: 1279px) {
-  .photo-grid__item {
+  .card {
     width: 300px;
     height: 225px;
   }
 }
 
 @media screen and (max-width: 1023px) {
-  .photo-grid__item {
+  .card {
     width: 352px;
     height: 264px;
   }
@@ -28,7 +31,7 @@
 
 
 @media screen and (max-width: 767px) {
-  .photo-grid__item {
+  .card {
     width: 288px;
     height: 216px;
   }
