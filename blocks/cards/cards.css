@@ -28,7 +28,7 @@
 @media screen and (max-width: 767px) {
   .cards {
     grid-template-columns: repeat(1, 1fr);
-    grid-template-rows: repeat(12, 1fr);
-    grid-gap: 12px;
+    grid-template-rows: repeat(6, 1fr);
+    grid-gap: 20px;
   }
 }

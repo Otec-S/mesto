@@ -5,11 +5,16 @@
   padding: 0;
   border: 1px solid #FFFFFF;
   background-color: black;
+  position: absolute;
+  top: 31px;
+  right: -42px;
 }
 
 @media screen and (max-width: 767px) {
   .profile__edit-button {
     width: 18px;
     height: 18px;
+    top: 14px;
+    right: -28px;
   }
 }

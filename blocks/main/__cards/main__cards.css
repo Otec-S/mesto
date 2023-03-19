@@ -1,3 +1,10 @@
 .main__cards {
   margin-top: 51px;
 }
+
+@media screen and (max-width: 767px) {
+  .main__cards {
+    margin-top: 36px;
+  }
+
+}
