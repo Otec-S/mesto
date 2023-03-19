@@ -1,11 +1,11 @@
 .main {
   display: flex;
   flex-direction: column;
+  margin: 40px auto 66px;
 }
 
 @media screen and (max-width: 767px) {
   .main {
-    margin-left: 19px;
-    margin-right: 19px;
+    margin: 42px auto 48px;
   }
 }
