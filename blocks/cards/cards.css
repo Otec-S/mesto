@@ -16,19 +16,18 @@
     gap: 14px;
   }
 }
+ */
 
-@media screen and (max-width: 1023px) {
+@media screen and (max-width: 1150px) {
   .cards {
     grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(6, 1fr);
-    grid-gap: 16px;
+    grid-template-rows: repeat(3, 1fr);
   }
-} */
+}
 
 @media screen and (max-width: 767px) {
   .cards {
     grid-template-columns: repeat(1, 1fr);
     grid-template-rows: repeat(6, 1fr);
-    grid-gap: 20px;
   }
 }
