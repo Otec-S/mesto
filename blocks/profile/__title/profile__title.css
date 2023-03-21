@@ -9,6 +9,7 @@
   align-items: center;
   display: flex;
   gap: 18px;
+  max-width: 336px;
 }
 
 @media screen and (max-width: 767px) {
@@ -16,5 +17,7 @@
     font-size: 27px;
     margin-bottom: 7px;
     gap: 10px;
+    max-width: 282px;
+    text-align: center;
   }
 }
