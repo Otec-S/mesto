@@ -10,7 +10,7 @@
 </head>
 
 <body class="root">
-<!-- TODO поправь наложение баттонов на респонсиве -->
+  <!-- TODO поправь наложение баттонов на респонсиве -->
   <header class="header">
     <img src="./images/header-logo-white.svg" class="header__logo" alt="Логотип Место">
     <div class="header__line"></div>
@@ -22,9 +22,9 @@
       <div class="profile__info">
         <img src="./images/profile-avatar-kusto.jpg" alt="Фото аватара" class="profile__avatar">
         <div class="profile__name">
-          <button type="submit" class="profile__edit-button">
-            <img src="./images/pencil.png" alt="Карандаш" class="profile__edit-button_type_pencil">
-          </button>
+          <!-- TODO поправь длинное название класса тоже-->
+          <img src="./images/edit-button-with-pencil.png" alt="Карандаш" class="profile__edit-button">
+
           <h1 class="profile__title">Жак-Ив Кусто</h1>
           <p class="profile__subtitle">Исследователь океана</p>
         </div>
@@ -84,18 +84,16 @@
   </footer>
 
 
-<!-- POPUP -->
+  <!-- POPUP -->
 
-<!-- что-то не то с размерами макета popup - проверяй на pixel perfect -->
+  <!-- что-то не то с размерами макета popup - проверяй на pixel perfect -->
   <section class="popup">
     <h2 class="popup__title">Редактировать профиль</h2>
     <form action="" class="popup__form">
 
-      <input type="text" class="popup__input popup__input_type_name"
-      name="name">
+      <input type="text" class="popup__input popup__input_type_name" name="name">
 
-      <input type="text" class="popup__input popup__input_type_status"
-      name="status">
+      <input type="text" class="popup__input popup__input_type_status" name="status">
 
       <button type="submit" class="popup__submit">Сохранить</button>
 
