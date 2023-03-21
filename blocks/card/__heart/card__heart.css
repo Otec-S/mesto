@@ -4,4 +4,9 @@
   right: 21px;
   height: 19px;
   cursor: pointer;
+  transition: opacity 0.6s;
+}
+
+.card__heart:hover {
+  opacity: 0.5;
 }
