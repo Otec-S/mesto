@@ -6,6 +6,11 @@
   right: -40px;
   transition: opacity 0.6s;
   cursor: pointer;
+  border: none;
+
+  background-color: black;
+  background-image: url(../../../images/close-cross.png);
+  background-position: center;
 }
 
 .popup__close-cross:hover {
