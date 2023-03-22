@@ -10,3 +10,11 @@
   flex-direction: column;
   position: relative;
 }
+
+@media screen and (max-width: 767px) {
+  .popup__content {
+    width: 282px;
+    min-height: 322px;
+    padding: 25px 22px;
+  }
+}

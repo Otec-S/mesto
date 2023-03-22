@@ -11,3 +11,12 @@
 .popup__close-cross:hover {
   opacity: 0.6;
 }
+
+@media screen and (max-width: 767px) {
+  .popup__close-cross {
+    width: 20px;
+    height: 20px;
+    top: -36px;
+    right: 0px;
+  }
+}
