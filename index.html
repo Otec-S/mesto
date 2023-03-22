@@ -86,18 +86,19 @@
 
   <!-- что-то не то с размерами макета popup - проверяй на pixel perfect -->
   <section class="popup">
-    <img src="./images/Close Icon.png" alt="Крестик для закрытия всплывающего окна" class="popup__close-cross">
-    <h2 class="popup__title">Редактировать профиль</h2>
-    <form action="" class="popup__form">
+    <div class="popup__content">
+      <img src="./images/Close Icon.png" alt="Крестик для закрытия всплывающего окна" class="popup__close-cross">
+      <h2 class="popup__title">Редактировать профиль</h2>
+      <form action="" class="popup__form">
 
-      <input type="text" class="popup__input popup__input_type_name" name="name">
+        <input type="text" class="popup__input popup__input_type_name" name="name">
 
-      <input type="text" class="popup__input popup__input_type_status" name="status">
+        <input type="text" class="popup__input popup__input_type_status" name="status">
 
-      <button type="submit" class="popup__submit">Сохранить</button>
+        <button type="submit" class="popup__submit">Сохранить</button>
 
-    </form>
-
+      </form>
+    </div>
   </section>
 </body>
 
