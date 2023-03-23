@@ -40,4 +40,5 @@
 @import url(../blocks/popup/__input/_type/popup__input_type_name.css);
 @import url(../blocks/popup/__input/_type/popup__input_type_status.css);
 @import url(../blocks/popup/__close-cross/popup__close-cross.css);
+@import url(../blocks/popup/_opened/popup_opened.css);
 
