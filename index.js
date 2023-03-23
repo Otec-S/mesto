@@ -25,6 +25,6 @@ editButton.addEventListener('click', () => {
 
 closeCross.addEventListener('click', () => {
   popUp.classList.remove('popup_opened');
-})
+});
 
 formElement.addEventListener('submit', handleFormSubmit);

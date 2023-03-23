@@ -8,7 +8,7 @@
   cursor: pointer;
   border: none;
 
-  background-color: black;
+  background: transparent;
   background-image: url(../../../images/close-cross.png);
   background-position: center;
 }
