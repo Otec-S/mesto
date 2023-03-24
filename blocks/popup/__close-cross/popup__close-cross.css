@@ -11,6 +11,7 @@
   background: transparent;
   background-image: url(../../../images/close-cross.png);
   background-position: center;
+  background-repeat: no-repeat;
 }
 
 .popup__close-cross:hover {
