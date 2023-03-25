@@ -12,7 +12,6 @@
 <body class="root">
   <header class="header">
     <img src="./images/header-logo-white.svg" class="header__logo" alt="Логотип Место">
-    <div class="header__line"></div>
   </header>
 
   <main class="main">
@@ -21,53 +20,53 @@
       <div class="profile__info">
         <img src="./images/profile-avatar-kusto.jpg" alt="Фото аватара" class="profile__avatar">
         <div class="profile__name">
-          <button type="button" class="profile__edit-button"></button>
+          <button type="button" aria-label="Кнопка редактирования" class="profile__edit-button"></button>
           <h1 class="profile__title">Жак-Ив Кусто</h1>
           <p class="profile__subtitle">Исследователь океана</p>
         </div>
       </div>
-      <button type="submit" class="profile__add-button">
-        <img src="./images/cross.png" alt="Крестик для добавления" class="profile__button-cross">
-      </button>
+      <button type="button" aria-label="Кнопкка добавления" class="profile__add-button"></button>
     </section>
 
-    <section class="main__cards">
+    <section class="cardsblock main__cardsblock">
       <ul class="cards">
+
+
         <li class="card">
-          <img src="./images/card-karachaevsk.png" class="card__photo" alt="Горная церковь Карачаевска">
-          <h2 class="card__title">Карачаевск
-            <button type="button" class="card__heart"></button>
-          </h2>
+
+          <img src="./images/card-karachaevsk-jpg.jpg" class="card__photo" alt="Горная церковь Карачаевска">
+
+          <h2 class="card__title">Карачаевск</h2>
+
+          <button type="button" aria-label="Сердечко для лайка" class="card__heart"></button>
         </li>
+
+
         <li class="card">
           <img src="./images/card-photo-elbrus.jpg" class="card__photo" alt="Гора Эльбрус">
-          <h2 class="card__title">Гора Эльбрус
-            <button type="button" class="card__heart"></button>
-          </h2>
+          <h2 class="card__title">Гора Эльбрус</h2>
+          <button type="button" aria-label="Сердечко для лайка" class="card__heart"></button>
+        </li>
+
+        <li class="card">
+          <img src="./images/card-dombay-jpg.jpg" class="card__photo" alt="Горы Домбая">
+          <h2 class="card__title">Домбай</h2>
+          <button type="button" aria-label="Сердечко для лайка" class="card__heart"></button>
         </li>
         <li class="card">
-          <img src="./images/card-dombay.png" class="card__photo" alt="Горы Домбая">
-          <h2 class="card__title">Домбай
-            <button type="button" class="card__heart"></button>
-          </h2>
+          <img src="./images/card-elbrus-jpg.jpg" class="card__photo" alt="Гора Эльбрус">
+          <h2 class="card__title">Эльбрус</h2>
+          <button type="button" aria-label="Сердечко для лайка" class="card__heart"></button>
         </li>
         <li class="card">
-          <img src="./images/card-elbrus.png" class="card__photo" alt="Гора Эльбрус">
-          <h2 class="card__title">Эльбрус
-            <button type="button" class="card__heart"></button>
-          </h2>
+          <img src="./images/card-dombay-jpg.jpg" class="card__photo" alt="Горы Домбая">
+          <h2 class="card__title">Домбай</h2>
+          <button type="button" aria-label="Сердечко для лайка" class="card__heart"></button>
         </li>
         <li class="card">
-          <img src="./images/card-dombay.png" class="card__photo" alt="Горы Домбая">
-          <h2 class="card__title">Домбай
-            <button type="button" class="card__heart"></button>
-          </h2>
-        </li>
-        <li class="card">
-          <img src="./images/card-karachaevsk.png" class="card__photo" alt="Горная церковь Карачаевска">
-          <h2 class="card__title">Карачаево-Черкессия
-            <button type="button" class="card__heart"></button>
-          </h2>
+          <img src="./images/card-karachaevsk-jpg.jpg" class="card__photo" alt="Горная церковь Карачаевска">
+          <h2 class="card__title">Карачаево-Черкессия</h2>
+          <button type="button" aria-label="Сердечко для лайка" class="card__heart"></button>
         </li>
       </ul>
     </section>
@@ -79,12 +78,12 @@
 
   <section class="popup">
     <div class="popup__content">
-      <button type="button" class="popup__close-cross"></button>
+      <button type="button" aria-label="Крестик для закрытия окна" class="popup__close-cross"></button>
       <h2 class="popup__title">Редактировать профиль</h2>
       <form action="" class="popup__form">
         <input type="text" class="popup__input popup__input_type_name" name="name">
         <input type="text" class="popup__input popup__input_type_status" name="status">
-        <button type="submit" class="popup__submit">Сохранить</button>
+        <button type="submit" aria-label="Кнопка для сохранения изменений" class="popup__submit">Сохранить</button>
       </form>
     </div>
   </section>
