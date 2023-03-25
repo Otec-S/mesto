@@ -1,5 +1,5 @@
 .card__title {
-  width: 197px;
+  grid-area: title;
   margin: 25px 0 0 21px;
   font-family: 'Inter', 'Arial', sans-serif;
   font-style: normal;

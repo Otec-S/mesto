@@ -11,6 +11,7 @@
   color: #FFFFFF;
   cursor: pointer;
   transition: opacity 0.6s;
+  border: none;
 }
 
 .popup__submit:hover {
