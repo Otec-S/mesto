@@ -1,5 +1,5 @@
 let popUp = document.querySelector('.popup');
-let closeCross = popUp.querySelector('.popup__close-cross');
+let crossToClose = popUp.querySelector('.popup__close-cross');
 let editButton = document.querySelector('.profile__edit-button');
 
 let currentName = document.querySelector('.profile__title');
@@ -23,7 +23,7 @@ editButton.addEventListener('click', () => {
    nameStatus.value = currentStatus.textContent;
 });
 
-closeCross.addEventListener('click', () => {
+crossToClose.addEventListener('click', () => {
   popUp.classList.remove('popup_opened');
 });
 
