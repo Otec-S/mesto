@@ -3,11 +3,10 @@
   height: 50px;
   border: 2px solid #FFFFFF;
   border-radius: 2px;
-  background-color: black;
   cursor: pointer;
   transition: opacity 0.6s;
 
-  background-color: black;
+  background-color: transparent;
   background-image: url(../../../images/add-cross-vector.svg);
   background-position: center;
   background-repeat: no-repeat;

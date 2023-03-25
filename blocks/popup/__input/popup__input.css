@@ -1,9 +1,8 @@
 .popup__input {
   border: 0;
-  border-bottom: 1px solid #bcbcc4;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
   outline: none;
 
-  margin-bottom: 30px;
   min-height: 27px;
   font-family: 'Inter', 'Arial', sans-serif;
   font-style: normal;
@@ -14,4 +13,18 @@
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
+}
+
+.popup__input:first-child {
+  margin-bottom: 30px;
+}
+
+.popup__input:nth-child(2) {
+  margin-bottom: 48px;
+}
+
+@media screen and (max-width: 767px) {
+  .popup__input:nth-child(2) {
+    margin-bottom: 45px;
+  }
 }
