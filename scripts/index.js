@@ -71,6 +71,9 @@ initialCards.forEach((item) => {
 
 //ФУНКЦИИ ДЛЯ ПОПАПА
 
+//сохраняем в переменную ссылку на form из pop-up, который делает новые карточки
+const editCardForm = document.querySelector(".popup__form_type_edit-card");
+
 // общая функция открывает окно попап
 function popupToOpen(pop) {
   pop.classList.add('popup_opened');
@@ -107,11 +110,37 @@ formElement.addEventListener('submit', handleFormSubmit);
 //слушатель события клика на кнопку addButton
 addButton.addEventListener('click', () => {
   popupToOpen(popUpNewCard);
-  // nameInput.value = currentName.textContent;
-  // nameStatus.value = currentStatus.textContent;
 });
 
 //слушатель события клика на крестик закрывания попапа NewCard
 crossToClosePopUpNewCard.addEventListener('click', () => {
   popupToClose(popUpNewCard);
 });
+
+// const renderVideoElement = (videoElement) => {
+//   videoGrid.prepend(videoElement);
+// };
+
+//пересылка пользовательских вводов в новую карточку
+function handleEditCardSubmit(event) {
+  event.preventDefault();
+
+  const newCardNameInput = editCardForm.querySelector(".popup__input_type_name");
+  const newCardLinkInput = editCardForm.querySelector(".popup__input_type_status");
+
+  const cardName = newCardNameInput.value;
+  const cardLink = newCardLinkInput.value;
+
+  const cardData = {
+    cardName,
+    cardLink,
+  };
+
+  cardsGrid.prepend(cardData);
+  popupToClose(popUpNewCard);
+
+  // renderVideoElement(createVideoElement(videoData));
+  // closePoup(editVideoPopup);
+};
+
+editCardForm.addEventListener("submit", handleEditCardSubmit);
