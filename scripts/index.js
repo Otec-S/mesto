@@ -12,7 +12,9 @@ const nameStatus = popUpProfile.querySelector(".popup__input_type_status");
 const formElement = popUpProfile.querySelector('.popup__form');
 
 // ПЕРЕМЕННЫЕ ДЛЯ POPUP NEW CARD
-
+const popUpNewCard = document.querySelector('.popup-newcard');
+const crossToClosePopUpNewCard = popUpNewCard.querySelector('.popup__close-cross');
+const addButton = document.querySelector('.profile__add-button');
 
 
 
@@ -94,10 +96,22 @@ editButton.addEventListener('click', () => {
   nameStatus.value = currentStatus.textContent;
 });
 
-//слушатель события клика на крестик закрывания попапа
+//слушатель события клика на крестик закрывания попапа Profile
 crossToClosePopUpProfile.addEventListener('click', () => {
   popupToClose(popUpProfile);
 });
 
-//слушатель события нажатия на кнопку "Сохранить"
+//слушатель события нажатия на кнопку "Сохранить" Profile
 formElement.addEventListener('submit', handleFormSubmit);
+
+//слушатель события клика на кнопку addButton
+addButton.addEventListener('click', () => {
+  popupToOpen(popUpNewCard);
+  // nameInput.value = currentName.textContent;
+  // nameStatus.value = currentStatus.textContent;
+});
+
+//слушатель события клика на крестик закрывания попапа NewCard
+crossToClosePopUpNewCard.addEventListener('click', () => {
+  popupToClose(popUpNewCard);
+});
