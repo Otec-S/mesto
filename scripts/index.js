@@ -60,52 +60,18 @@ initialCards.forEach((item) => {
 });
 
 
-// const createVideoElement = (videoData) => {
-//   const videoElement = videoTemplate.content
-//     .querySelector(".video")
-//     .cloneNode(true);
-
-//   const videoName = videoElement.querySelector(".video__name");
-//   const videoImage = videoElement.querySelector(".video__image");
-//   const channelName = videoElement.querySelector(".video__channel-name");
-
-//   videoName.textContent = videoData.name;
-//   videoImage.src = videoData.thumbnailUrl;
-//   videoImage.alt = videoData.name;
-//   channelName.textContent = videoData.channel.name;
-
-//   const deleteButton = videoElement.querySelector(
-//     ".video__overlay-delete-icon"
-//   );
-//   const likeButton = videoElement.querySelector(
-//     ".video__overlay-favorite-icon"
-//   );
-
-//   const handleDelete = () => {
-//     videoElement.remove();
-//   };
-
-//   const handleLike = () => {
-//     likeButton.classList.toggle("video__overlay-favorite-icon_active");
-//   };
-
-//   deleteButton.addEventListener("click", handleDelete);
-
-//   likeButton.addEventListener("click", handleLike);
-
-//   return videoElement;
-// };
+/******************** */
 
 
 
 // функция открывает окно попап
-function popupToOpen() {
-  popUp.classList.add('popup_opened');
+function popupToOpen(pop) {
+  pop.classList.add('popup_opened');
 }
 
 // функция закрывает окно попап
-function popupToClose() {
-  popUp.classList.remove('popup_opened');
+function popupToClose(pop) {
+  pop.classList.remove('popup_opened');
 }
 
 /*функция вставляет данные из заполненной формы попапа в профиль и закрывает попап*/
@@ -113,18 +79,20 @@ function handleFormSubmit(evt) {
   evt.preventDefault();
   currentName.textContent = nameInput.value;
   currentStatus.textContent = nameStatus.value;
-  popupToClose();
+  popupToClose(popUp);
 }
 
 //слушатель события клика на кнопку editButton
 editButton.addEventListener('click', () => {
-  popupToOpen();
+  popupToOpen(popUp);
   nameInput.value = currentName.textContent;
   nameStatus.value = currentStatus.textContent;
 });
 
 //слушатель события клика на крестик закрывания попапа
-crossToClose.addEventListener('click', popupToClose);
+crossToClose.addEventListener('click', () => {
+  popupToClose(popUp);
+});
 
 //слушатель события нажатия на кнопку "Сохранить"
 formElement.addEventListener('submit', handleFormSubmit);

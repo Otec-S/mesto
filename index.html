@@ -67,6 +67,7 @@
     <p class="footer__copyright" lang="en">&COPY; 2020 Mesto Russia</p>
   </footer>
 
+  <!-- POP-UP PROFILE -->
   <div class="popup">
     <div class="popup__content">
       <button type="button" aria-label="Крестик для закрытия окна" class="popup__close-cross"></button>
@@ -75,6 +76,19 @@
         <input type="text" class="popup__input popup__input_type_name" name="name" required>
         <input type="text" class="popup__input popup__input_type_status" name="status" required>
         <button type="submit" aria-label="Кнопка для сохранения изменений" class="popup__submit">Сохранить</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- POP-UP NEW CARD -->
+  <div class="popup">
+    <div class="popup__content">
+      <button type="button" aria-label="Крестик для закрытия окна" class="popup__close-cross"></button>
+      <h2 class="popup__title">Новое место</h2>
+      <form name="formForPopup" class="popup__form">
+        <input type="text" class="popup__input popup__input_type_name" name="name" required>
+        <input type="text" class="popup__input popup__input_type_status" name="status" required>
+        <button type="submit" aria-label="Кнопка для сохранения изменений" class="popup__submit">Создать</button>
       </form>
     </div>
   </div>
