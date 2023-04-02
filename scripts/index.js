@@ -47,44 +47,17 @@ const cardTemplate = document.querySelector('.card-template');
 //сохраняем в переменную ссылку на место добавления карточек
 const cardsGrid = document.querySelector(".cards");
 
-//клонируем узел с карточкой из шаблона
-const cardElement = cardTemplate.content.querySelector(".card").cloneNode(true);
-
-cardElement.querySelector(".card__title").textContent = initialCards[0].name;
-cardElement.querySelector(".card__photo").src = initialCards[0].link;
-
-
-cardsGrid.append(cardElement);
-
-// функция создает карточку из шаблона
-// function createCard() {
+//делаем цикл forEach, чтобы пробежаться во всем элементам изначального массива
+initialCards.forEach((item) => {
   //клонируем узел с карточкой из шаблона
-  // const cardElement = cardTemplate.content.querySelector(".card").cloneNode(true);
-
-//   const cardName = cardElement.querySelector(".card__title");
-//   const cardImage = cardElement.querySelector(".card__photo");
-
-//   return cardElement;
-// };
-
-//рисуем карточку в начале блока карт
-// function renderCardElement(cardElement) {
-//   cardsGrid.prepend(cardElement);
-// };
-
-//первоначальная отрисовка шести карт из массива initialCards
-/*??????? тут ошибка, так как рисует шесть карт Карачеевска, который в шаблоне. Пробегает по всем шести карточкам изначальным верно, но просто рисует не их, а Карачаевск из шаблона*/
-// initialCards.forEach((item) => {
-//   const element = createCard(item);
-//   renderCardElement(element);
-// });
-
-// const initialCards = [
-//   {
-//     name: 'Архыз',
-//     link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-//   },
-// ]
+  const cardElement = cardTemplate.content.querySelector(".card").cloneNode(true);
+  const cardName = cardElement.querySelector(".card__title");
+  const cardPhoto = cardElement.querySelector(".card__photo");
+  cardName.textContent = item.name;
+  cardPhoto.src = item.link;
+  //рисуем карточку на странице
+  cardsGrid.append(cardElement);
+});
 
 
 // const createVideoElement = (videoData) => {
