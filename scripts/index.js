@@ -78,7 +78,6 @@ initialCards.forEach((item) => {
 });
 
 
-
 /******************** */
 
 //ФУНКЦИИ ДЛЯ ПОПАПА
@@ -129,10 +128,6 @@ crossToClosePopUpNewCard.addEventListener('click', () => {
   popupToClose(popUpNewCard);
 });
 
-// const renderVideoElement = (videoElement) => {
-//   videoGrid.prepend(videoElement);
-// };
-
 //пересылка пользовательских вводов в новую карточку
 function handleEditCardSubmit(event) {
   event.preventDefault();
@@ -140,19 +135,17 @@ function handleEditCardSubmit(event) {
   const newCardNameInput = editCardForm.querySelector(".popup__input_type_name");
   const newCardLinkInput = editCardForm.querySelector(".popup__input_type_status");
 
-  const cardName = newCardNameInput.value;
-  const cardLink = newCardLinkInput.value;
+  const name = newCardNameInput.value;
+  const link = newCardLinkInput.value;
 
   const cardData = {
-    cardName,
-    cardLink,
+    name,
+    link,
   };
 
-  cardsGrid.prepend(cardData);
+  renderCardElement(createCardElement(cardData));
   popupToClose(popUpNewCard);
 
-  // renderVideoElement(createVideoElement(videoData));
-  // closePoup(editVideoPopup);
-};
+ };
 
 editCardForm.addEventListener("submit", handleEditCardSubmit);
