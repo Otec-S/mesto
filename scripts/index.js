@@ -56,14 +56,21 @@ const cardsGrid = document.querySelector(".cards");
 
 //делаем отдельную функцию для создания новой карточки из объекта
 function createCardElement(cardData) {
-    //клонируем узел с карточкой из шаблона
-    const cardElement = cardTemplate.content.querySelector(".card").cloneNode(true);
-    const cardName = cardElement.querySelector(".card__title");
-    const cardPhoto = cardElement.querySelector(".card__photo");
-    cardName.textContent = cardData.name;
-    cardPhoto.src = cardData.link;
+  //клонируем узел с карточкой из шаблона
+  const cardElement = cardTemplate.content.querySelector(".card").cloneNode(true);
+  const cardName = cardElement.querySelector(".card__title");
+  const cardPhoto = cardElement.querySelector(".card__photo");
+  cardName.textContent = cardData.name;
+  cardPhoto.src = cardData.link;
 
-    return cardElement;
+  //далаем ссылку на сердечко карточки
+  const heartToLike = cardElement.querySelector('.card__heart');
+  //слушатель нажатия на сердечко карточки
+  heartToLike.addEventListener('click', () => {
+    heartToLike.classList.add('card__heart_active');
+  });
+
+  return cardElement;
 }
 
 //функция вставления карточки в cardGrid
@@ -73,8 +80,8 @@ function renderCardElement(cardElement) {
 
 //делаем цикл forEach, чтобы пробежаться во всем элементам изначального массива
 initialCards.forEach((item) => {
-    const element = createCardElement(item);
-    renderCardElement(element);
+  const element = createCardElement(item);
+  renderCardElement(element);
 });
 
 
@@ -146,6 +153,11 @@ function handleEditCardSubmit(event) {
   renderCardElement(createCardElement(cardData));
   popupToClose(popUpNewCard);
 
- };
+};
 
 editCardForm.addEventListener("submit", handleEditCardSubmit);
+
+//слушатель нажатия на сердечко карточки
+// heartToLike.addEventListener('click', () => {
+//   heartToLike.classList.add('card__heart_active');
+// });
