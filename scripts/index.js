@@ -54,17 +54,29 @@ const cardTemplate = document.querySelector('.card-template');
 //сохраняем в переменную ссылку на место добавления карточек
 const cardsGrid = document.querySelector(".cards");
 
+//делаем отдельную функцию для создания новой карточки из объекта
+function createCardElement(cardData) {
+    //клонируем узел с карточкой из шаблона
+    const cardElement = cardTemplate.content.querySelector(".card").cloneNode(true);
+    const cardName = cardElement.querySelector(".card__title");
+    const cardPhoto = cardElement.querySelector(".card__photo");
+    cardName.textContent = cardData.name;
+    cardPhoto.src = cardData.link;
+
+    return cardElement;
+}
+
+//функция вставления карточки в cardGrid
+function renderCardElement(cardElement) {
+  cardsGrid.prepend(cardElement);
+};
+
 //делаем цикл forEach, чтобы пробежаться во всем элементам изначального массива
 initialCards.forEach((item) => {
-  //клонируем узел с карточкой из шаблона
-  const cardElement = cardTemplate.content.querySelector(".card").cloneNode(true);
-  const cardName = cardElement.querySelector(".card__title");
-  const cardPhoto = cardElement.querySelector(".card__photo");
-  cardName.textContent = item.name;
-  cardPhoto.src = item.link;
-  //рисуем карточку на странице
-  cardsGrid.append(cardElement);
+    const element = createCardElement(item);
+    renderCardElement(element);
 });
+
 
 
 /******************** */
