@@ -70,6 +70,13 @@ function createCardElement(cardData) {
     heartToLike.classList.add('card__heart_active');
   });
 
+  //делаем ссылку на кнопку удаления карточки
+  const trashCanCardToDelete = cardElement.querySelector('.card__trash-can');
+  //делаем функцию удаления карточки со страницы
+  function handleCardDelete() { cardElement.remove() };
+  //делаем слушатель на кнопку удаления карточки
+  trashCanCardToDelete.addEventListener("click", handleCardDelete);
+
   return cardElement;
 }
 

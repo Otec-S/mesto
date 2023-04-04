@@ -58,17 +58,32 @@
       <h2 class="popup__title">Новое место</h2>
       <form name="formForPopup" class="popup__form popup__form_type_edit-card">
         <input type="text" class="popup__input popup__input_type_name" name="name" placeholder="Название" required>
-        <input type="text" class="popup__input popup__input_type_status" name="status" placeholder="Ссылка на картинку" required>
+        <input type="text" class="popup__input popup__input_type_status" name="status" placeholder="Ссылка на картинку"
+          required>
         <button type="submit" aria-label="Кнопка для создания новой карточки" class="popup__submit">Создать</button>
       </form>
+    </div>
+  </div>
+
+  <!-- POP-UP BIG PHOTO -->
+  <div class="popup popup-big-photo">
+    <div class="popup__content">
+      <button type="button" aria-label="Крестик для закрытия окна" class="popup__close-cross"></button>
+      <figure>
+        <img src="images/helen.jpg" width="150" height="212" alt="Скульптура">
+        <figcaption>Деревянная скульптура</figcaption>
+      </figure>
     </div>
   </div>
 
   <!-- ШАБЛОН -->
   <template class="card-template">
     <li class="card">
-      <img src="./images/card-karachaevsk-jpg.jpg" class="card__photo" alt="Горная церковь Карачаевска">
-      <h2 class="card__title">Карачаевск</h2>
+      <button type="button" aria-label="Кнопка для удаления картинки" class="card__trash-can"></button>
+      <a class="card__link" href="">
+        <img src="" class="card__photo">
+      </a>
+      <h2 class="card__title"></h2>
       <button type="button" aria-label="Сердечко для лайка" class="card__heart"></button>
     </li>
   </template>
