@@ -16,7 +16,8 @@ const popUpNewCard = document.querySelector('.popup-newcard');
 const crossToClosePopUpNewCard = popUpNewCard.querySelector('.popup__close-cross');
 const addButton = document.querySelector('.profile__add-button');
 
-
+// ПЕРЕМЕННЫЕ ДЛЯ POPUP BIG PHOTO
+const popUpBigPhoto = document.querySelector('.popup-big-photo');
 
 /*************************************** */
 // ОТРИСОВКА КАРТОЧЕК
@@ -76,6 +77,14 @@ function createCardElement(cardData) {
   function handleCardDelete() { cardElement.remove() };
   //делаем слушатель на кнопку удаления карточки
   trashCanCardToDelete.addEventListener("click", handleCardDelete);
+
+  // BIG PHOTO
+//ссылка на событие нажатия на фотокарточку
+const pressingCardPhoto = cardElement.querySelector('.card__link');
+//слушатель при нажатии на фотокарточку
+pressingCardPhoto.addEventListener('click', () => {
+  popupToOpen(popUpBigPhoto);
+});
 
   return cardElement;
 }
@@ -164,7 +173,11 @@ function handleEditCardSubmit(event) {
 
 editCardForm.addEventListener("submit", handleEditCardSubmit);
 
-//слушатель нажатия на сердечко карточки
-// heartToLike.addEventListener('click', () => {
-//   heartToLike.classList.add('card__heart_active');
-// });
+/*********** */
+
+
+
+
+
+
+
