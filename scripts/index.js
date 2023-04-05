@@ -16,7 +16,6 @@ const popUpNewCard = document.querySelector('.popup-newcard');
 const crossToClosePopUpNewCard = popUpNewCard.querySelector('.popup__close-cross');
 const addButton = document.querySelector('.profile__add-button');
 
-// ПЕРЕМЕННЫЕ ДЛЯ POPUP BIG PHOTO
 
 /*************************************** */
 // ОТРИСОВКА КАРТОЧЕК
@@ -173,11 +172,17 @@ const popUpBigPhoto = document.querySelector('.popup-big-photo');
 console.log(popUpBigPhoto);
 //ссылка на событие нажатия на фотокарточку
 const pressingCardPhoto = document.querySelector('.card__link');
-console.log(pressingCardPhoto);
+
 //слушатель при нажатии на фотокарточку
 pressingCardPhoto.addEventListener('click', () => {
   popupToOpen(popUpBigPhoto);
 });
+const crossToClosePopUpBigPhoto = popUpBigPhoto.querySelector('.popup__close-cross');
+//слушатель события клика на крестик закрывания попапа BigPhoto
+crossToClosePopUpBigPhoto.addEventListener('click', () => {
+  popupToClose(popUpBigPhoto);
+});
+
 
 
 
