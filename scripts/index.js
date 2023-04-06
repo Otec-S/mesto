@@ -72,7 +72,7 @@ function createCardElement(cardData) {
   //делаем ссылку на кнопку удаления карточки
   const trashCanCardToDelete = cardElement.querySelector('.card__trash-can');
   //делаем функцию удаления карточки со страницы
-  function handleCardDelete() {cardElement.remove()};
+  function handleCardDelete() { cardElement.remove() };
   //делаем слушатель на кнопку удаления карточки
   trashCanCardToDelete.addEventListener("click", handleCardDelete);
 
@@ -167,23 +167,44 @@ editCardForm.addEventListener("submit", handleEditCardSubmit);
 
 /*********** */
 
-  // BIG PHOTO
-const popUpBigPhoto = document.querySelector('.popup-big-photo');
-console.log(popUpBigPhoto);
-//ссылка на событие нажатия на фотокарточку
-const pressingCardPhoto = document.querySelector('.card__link');
+// BIG PHOTO
 
-//слушатель при нажатии на фотокарточку
+// POP UP BIG PHOTO
+//делаю ссылку на popup с большим фото
+const popUpBigPhoto = document.querySelector('.popup-big-photo');
+//делаю ссылку на <img> в этом попапе BIG PHOTO
+const pictureOfPopUpBigPhoto = popUpBigPhoto.querySelector('.popup__big-photo-picture');
+//делаю ссылку на <figurecaption> в этом попапе BIG PHOTO
+const titleOfPopUpBigPhoto = popUpBigPhoto.querySelector('.popup__big-photo-caption');
+console.log(titleOfPopUpBigPhoto.textContent);
+
+//КАРТОЧКА САЙТА
+//ссылка на карточку сайта
+const currentCard = document.querySelector('.card');
+//делаю ссылку на <img> этой текущей карточки
+const pictureOfCurrentCard = currentCard.querySelector('.card__photo');
+//делаю ссылку на название этой текущей карточки
+const titleOfCurrentCard = currentCard.querySelector('.card__title');
+
+//НАЖАТИЕ НА КАРТОЧКУ САЙТА
+//ссылка на событие нажатия на фотокарточку
+const pressingCardPhoto = currentCard.querySelector('.card__link');
+//слушатель при нажатии на фотокарточку - что происходит в этот момент?
 pressingCardPhoto.addEventListener('click', () => {
+  pictureOfPopUpBigPhoto.src = pictureOfCurrentCard.src;
+  titleOfPopUpBigPhoto.textContent = titleOfCurrentCard.textContent;
   popupToOpen(popUpBigPhoto);
 });
+
+
 const crossToClosePopUpBigPhoto = popUpBigPhoto.querySelector('.popup__close-cross');
 //слушатель события клика на крестик закрывания попапа BigPhoto
 crossToClosePopUpBigPhoto.addEventListener('click', () => {
   popupToClose(popUpBigPhoto);
 });
 
-
+//совет наставника
+// cardImage.addEventListener('click', () => openPicturePopup(data));
 
 
 
