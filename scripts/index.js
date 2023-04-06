@@ -176,27 +176,28 @@ const popUpBigPhoto = document.querySelector('.popup-big-photo');
 const pictureOfPopUpBigPhoto = popUpBigPhoto.querySelector('.popup__big-photo-picture');
 //делаю ссылку на <figurecaption> в этом попапе BIG PHOTO
 const titleOfPopUpBigPhoto = popUpBigPhoto.querySelector('.popup__big-photo-caption');
-console.log(titleOfPopUpBigPhoto.textContent);
 
 //КАРТОЧКА САЙТА
 //ссылка на карточку сайта
 const currentCard = document.querySelector('.card');
 //делаю ссылку на <img> этой текущей карточки
-const pictureOfCurrentCard = currentCard.querySelector('.card__photo');
+const pictureOfCurrentCard = document.querySelectorAll('.card__photo');
 //делаю ссылку на название этой текущей карточки
-const titleOfCurrentCard = currentCard.querySelector('.card__title');
+const titleOfCurrentCard = document.querySelectorAll('.card__title');
 
 //НАЖАТИЕ НА КАРТОЧКУ САЙТА
 //ссылка на событие нажатия на фотокарточку
-const pressingCardPhoto = currentCard.querySelector('.card__link');
+const pressingCardPhoto = document.querySelectorAll('.card__link');
 //слушатель при нажатии на фотокарточку - что происходит в этот момент?
-pressingCardPhoto.addEventListener('click', () => {
-  pictureOfPopUpBigPhoto.src = pictureOfCurrentCard.src;
-  titleOfPopUpBigPhoto.textContent = titleOfCurrentCard.textContent;
+for (let i = 0; i < pressingCardPhoto.length; i++) {
+pressingCardPhoto[i].addEventListener('click', () => {
+  pictureOfPopUpBigPhoto.src = pictureOfCurrentCard[i].src;
+  titleOfPopUpBigPhoto.textContent = titleOfCurrentCard[i].textContent;
   popupToOpen(popUpBigPhoto);
 });
+};
 
-
+//ссылка на крест закрывания попапа BIG PHOTO
 const crossToClosePopUpBigPhoto = popUpBigPhoto.querySelector('.popup__close-cross');
 //слушатель события клика на крестик закрывания попапа BigPhoto
 crossToClosePopUpBigPhoto.addEventListener('click', () => {
