@@ -17,7 +17,6 @@ const crossToClosePopUpNewCard = popUpNewCard.querySelector('.popup__close-cross
 const addButton = document.querySelector('.profile__add-button');
 
 
-
 /*************************************** */
 // ОТРИСОВКА КАРТОЧЕК
 
@@ -54,6 +53,8 @@ const cardTemplate = document.querySelector('.card-template');
 //сохраняем в переменную ссылку на место добавления карточек
 const cardsGrid = document.querySelector(".cards");
 
+
+
 //делаем отдельную функцию для создания новой карточки из объекта
 function createCardElement(cardData) {
   //клонируем узел с карточкой из шаблона
@@ -76,6 +77,32 @@ function createCardElement(cardData) {
   function handleCardDelete() { cardElement.remove() };
   //делаем слушатель на кнопку удаления карточки
   trashCanCardToDelete.addEventListener("click", handleCardDelete);
+
+  // POP UP BIG PHOTO
+  //делаю ссылку на popup с большим фото
+  const popUpBigPhoto = document.querySelector('.popup-big-photo');
+  //делаю ссылку на <img> в этом попапе BIG PHOTO
+  const pictureOfPopUpBigPhoto = popUpBigPhoto.querySelector('.popup__big-photo-picture');
+  //делаю ссылку на <figurecaption> в этом попапе BIG PHOTO
+  const titleOfPopUpBigPhoto = popUpBigPhoto.querySelector('.popup__big-photo-caption');
+
+  //НАЖАТИЕ НА КАРТОЧКУ САЙТА
+  //ссылка на событие нажатия на фотокарточку
+  const pressingCardPhoto = cardElement.querySelector('.card__link');
+
+  //слушатель при нажатии на фотокарточку - что происходит в этот момент?
+  pressingCardPhoto.addEventListener('click', () => {
+    pictureOfPopUpBigPhoto.src = cardPhoto.src;
+    titleOfPopUpBigPhoto.textContent = cardName.textContent;
+    popupToOpen(popUpBigPhoto);
+  });
+
+  //ссылка на крест закрывания попапа BIG PHOTO
+  const crossToClosePopUpBigPhoto = popUpBigPhoto.querySelector('.popup__close-cross');
+  //слушатель события клика на крестик закрывания попапа BigPhoto
+  crossToClosePopUpBigPhoto.addEventListener('click', () => {
+    popupToClose(popUpBigPhoto);
+  });
 
   return cardElement;
 }
@@ -163,8 +190,3 @@ function handleEditCardSubmit(event) {
 };
 
 editCardForm.addEventListener("submit", handleEditCardSubmit);
-
-//слушатель нажатия на сердечко карточки
-// heartToLike.addEventListener('click', () => {
-//   heartToLike.classList.add('card__heart_active');
-// });
