@@ -16,10 +16,7 @@ const popUpNewCard = document.querySelector('.popup-newcard');
 const crossToClosePopUpNewCard = popUpNewCard.querySelector('.popup__close-cross');
 const addButton = document.querySelector('.profile__add-button');
 
-
-/*************************************** */
 // ОТРИСОВКА КАРТОЧЕК
-
 //изначальные карточки
 const initialCards = [
   {
@@ -52,8 +49,6 @@ const initialCards = [
 const cardTemplate = document.querySelector('.card-template');
 //сохраняем в переменную ссылку на место добавления карточек
 const cardsGrid = document.querySelector(".cards");
-
-
 
 //делаем отдельную функцию для создания новой карточки из объекта
 function createCardElement(cardData) {
@@ -90,18 +85,18 @@ function createCardElement(cardData) {
   //ссылка на событие нажатия на фотокарточку
   const pressingCardPhoto = cardElement.querySelector('.card__link');
 
-  //слушатель при нажатии на фотокарточку - что происходит в этот момент?
+  //слушатель при нажатии на фотокарточку
   pressingCardPhoto.addEventListener('click', () => {
     pictureOfPopUpBigPhoto.src = cardPhoto.src;
     titleOfPopUpBigPhoto.textContent = cardName.textContent;
-    popupToOpen(popUpBigPhoto);
+    openPopUp(popUpBigPhoto);
   });
 
   //ссылка на крест закрывания попапа BIG PHOTO
   const crossToClosePopUpBigPhoto = popUpBigPhoto.querySelector('.popup__close-cross');
   //слушатель события клика на крестик закрывания попапа BigPhoto
   crossToClosePopUpBigPhoto.addEventListener('click', () => {
-    popupToClose(popUpBigPhoto);
+    closePopUp(popUpBigPhoto);
   });
 
   return cardElement;
@@ -119,21 +114,19 @@ initialCards.forEach((item) => {
 });
 
 
-/******************** */
-
 //ФУНКЦИИ ДЛЯ ПОПАПА
 
 //сохраняем в переменную ссылку на form из pop-up, который делает новые карточки
 const editCardForm = document.querySelector(".popup__form_type_edit-card");
 
 // общая функция открывает окно попап
-function popupToOpen(pop) {
-  pop.classList.add('popup_opened');
+function openPopUp(popName) {
+  popName.classList.add('popup_opened');
 }
 
 // общая функция закрывает окно попап
-function popupToClose(pop) {
-  pop.classList.remove('popup_opened');
+function closePopUp(popName) {
+  popName.classList.remove('popup_opened');
 }
 
 /*функция вставляет данные из заполненной формы попапа в профиль и закрывает попап*/
@@ -141,19 +134,19 @@ function handleFormSubmit(evt) {
   evt.preventDefault();
   currentName.textContent = nameInput.value;
   currentStatus.textContent = nameStatus.value;
-  popupToClose(popUpProfile);
+  closePopUp(popUpProfile);
 }
 
 //слушатель события клика на кнопку editButton
 editButton.addEventListener('click', () => {
-  popupToOpen(popUpProfile);
+  openPopUp(popUpProfile);
   nameInput.value = currentName.textContent;
   nameStatus.value = currentStatus.textContent;
 });
 
 //слушатель события клика на крестик закрывания попапа Profile
 crossToClosePopUpProfile.addEventListener('click', () => {
-  popupToClose(popUpProfile);
+  closePopUp(popUpProfile);
 });
 
 //слушатель события нажатия на кнопку "Сохранить" Profile
@@ -161,12 +154,12 @@ formElement.addEventListener('submit', handleFormSubmit);
 
 //слушатель события клика на кнопку addButton
 addButton.addEventListener('click', () => {
-  popupToOpen(popUpNewCard);
+  openPopUp(popUpNewCard);
 });
 
 //слушатель события клика на крестик закрывания попапа NewCard
 crossToClosePopUpNewCard.addEventListener('click', () => {
-  popupToClose(popUpNewCard);
+  closePopUp(popUpNewCard);
 });
 
 //пересылка пользовательских вводов в новую карточку
@@ -185,7 +178,7 @@ function handleEditCardSubmit(event) {
   };
 
   renderCardElement(createCardElement(cardData));
-  popupToClose(popUpNewCard);
+  closePopUp(popUpNewCard);
 
 };
 
