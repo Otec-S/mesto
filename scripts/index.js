@@ -15,40 +15,26 @@ const formElement = popUpProfile.querySelector('.popup__form');
 const popUpNewCard = document.querySelector('.popup-newcard');
 const crossToClosePopUpNewCard = popUpNewCard.querySelector('.popup__close-cross');
 const addButton = document.querySelector('.profile__add-button');
+//сохраняем в переменную ссылку на form из pop-up, который делает новые карточки
+const editCardForm = document.querySelector(".popup__form_type_edit-card");
+const newCardNameInput = editCardForm.querySelector(".popup__input_type_name");
+const newCardLinkInput = editCardForm.querySelector(".popup__input_type_status");
 
-// ОТРИСОВКА КАРТОЧЕК
-//изначальные карточки
-const initialCards = [
-  {
-    name: 'Архыз',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-  },
-  {
-    name: 'Челябинская область',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-  },
-  {
-    name: 'Иваново',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-  },
-  {
-    name: 'Камчатка',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-  },
-  {
-    name: 'Холмогорский район',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-  },
-  {
-    name: 'Байкал',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-  }
-];
-
+// ПЕРЕМЕННЫЕ ДЛЯ ОТРИСОВКИ КАРТОЧЕК
 //сохраняем в переменную ссылку на шаблон карточки
 const cardTemplate = document.querySelector('.card-template');
 //сохраняем в переменную ссылку на место добавления карточек
 const cardsGrid = document.querySelector(".cards");
+
+// ПЕРЕМЕННЫЕ ДЛЯ POP UP BIG PHOTO
+//делаю ссылку на popup с большим фото
+const popUpBigPhoto = document.querySelector('.popup-big-photo');
+//делаю ссылку на <img> в этом попапе BIG PHOTO
+const pictureOfPopUpBigPhoto = popUpBigPhoto.querySelector('.popup__big-photo-picture');
+//делаю ссылку на <figurecaption> в этом попапе BIG PHOTO
+const titleOfPopUpBigPhoto = popUpBigPhoto.querySelector('.popup__big-photo-caption');
+//ссылка на крест закрывания попапа BIG PHOTO
+const crossToClosePopUpBigPhoto = popUpBigPhoto.querySelector('.popup__close-cross');
 
 //делаем отдельную функцию для создания новой карточки из объекта
 function createCardElement(cardData) {
@@ -58,12 +44,13 @@ function createCardElement(cardData) {
   const cardPhoto = cardElement.querySelector(".card__photo");
   cardName.textContent = cardData.name;
   cardPhoto.src = cardData.link;
+  cardPhoto.alt = cardData.name;
 
   //далаем ссылку на сердечко карточки
   const heartToLike = cardElement.querySelector('.card__heart');
   //слушатель нажатия на сердечко карточки
   heartToLike.addEventListener('click', () => {
-    heartToLike.classList.add('card__heart_active');
+    heartToLike.classList.toggle('card__heart_active');
   });
 
   //делаем ссылку на кнопку удаления карточки
@@ -73,27 +60,17 @@ function createCardElement(cardData) {
   //делаем слушатель на кнопку удаления карточки
   trashCanCardToDelete.addEventListener("click", handleCardDelete);
 
-  // POP UP BIG PHOTO
-  //делаю ссылку на popup с большим фото
-  const popUpBigPhoto = document.querySelector('.popup-big-photo');
-  //делаю ссылку на <img> в этом попапе BIG PHOTO
-  const pictureOfPopUpBigPhoto = popUpBigPhoto.querySelector('.popup__big-photo-picture');
-  //делаю ссылку на <figurecaption> в этом попапе BIG PHOTO
-  const titleOfPopUpBigPhoto = popUpBigPhoto.querySelector('.popup__big-photo-caption');
-
-  //НАЖАТИЕ НА КАРТОЧКУ САЙТА
   //ссылка на событие нажатия на фотокарточку
   const pressingCardPhoto = cardElement.querySelector('.card__link');
 
   //слушатель при нажатии на фотокарточку
   pressingCardPhoto.addEventListener('click', () => {
     pictureOfPopUpBigPhoto.src = cardPhoto.src;
+    pictureOfPopUpBigPhoto.alt = cardName.textContent;
     titleOfPopUpBigPhoto.textContent = cardName.textContent;
     openPopUp(popUpBigPhoto);
   });
 
-  //ссылка на крест закрывания попапа BIG PHOTO
-  const crossToClosePopUpBigPhoto = popUpBigPhoto.querySelector('.popup__close-cross');
   //слушатель события клика на крестик закрывания попапа BigPhoto
   crossToClosePopUpBigPhoto.addEventListener('click', () => {
     closePopUp(popUpBigPhoto);
@@ -115,10 +92,6 @@ initialCards.forEach((item) => {
 
 
 //ФУНКЦИИ ДЛЯ ПОПАПА
-
-//сохраняем в переменную ссылку на form из pop-up, который делает новые карточки
-const editCardForm = document.querySelector(".popup__form_type_edit-card");
-
 // общая функция открывает окно попап
 function openPopUp(popName) {
   popName.classList.add('popup_opened');
@@ -165,9 +138,6 @@ crossToClosePopUpNewCard.addEventListener('click', () => {
 //пересылка пользовательских вводов в новую карточку
 function handleEditCardSubmit(event) {
   event.preventDefault();
-
-  const newCardNameInput = editCardForm.querySelector(".popup__input_type_name");
-  const newCardLinkInput = editCardForm.querySelector(".popup__input_type_status");
 
   const name = newCardNameInput.value;
   const link = newCardLinkInput.value;
