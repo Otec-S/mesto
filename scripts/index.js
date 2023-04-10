@@ -1,6 +1,5 @@
 // ПЕРЕМЕННЫЕ ДЛЯ POPUP PROFILE
 const popUpProfile = document.querySelector('.popup-profile');
-const crossToClosePopUpProfile = popUpProfile.querySelector('.popup__close-cross');
 const editButton = document.querySelector('.profile__edit-button');
 //уже имеющиеся в профиле имя и статус
 const currentName = document.querySelector('.profile__title');
@@ -13,7 +12,6 @@ const formElement = popUpProfile.querySelector('.popup__form');
 
 // ПЕРЕМЕННЫЕ ДЛЯ POPUP NEW CARD
 const popUpNewCard = document.querySelector('.popup-newcard');
-const crossToClosePopUpNewCard = popUpNewCard.querySelector('.popup__close-cross');
 const addButton = document.querySelector('.profile__add-button');
 //сохраняем в переменную ссылку на form из pop-up, который делает новые карточки
 const editCardForm = document.querySelector(".popup__form_type_edit-card");
@@ -34,7 +32,11 @@ const pictureOfPopUpBigPhoto = popUpBigPhoto.querySelector('.popup__big-photo-pi
 //делаю ссылку на <figurecaption> в этом попапе BIG PHOTO
 const titleOfPopUpBigPhoto = popUpBigPhoto.querySelector('.popup__big-photo-caption');
 //ссылка на крест закрывания попапа BIG PHOTO
-const crossToClosePopUpBigPhoto = popUpBigPhoto.querySelector('.popup__close-cross');
+
+// УНИВЕРСАЛЬНЫЕ ПЕРЕМЕННЫЕ
+//ссылка на псевдомассив NodeList всех крестиков закрывания попапов
+const crossToClose = document.querySelectorAll('.popup__close-cross');
+console.log(crossToClose);
 
 //делаем отдельную функцию для создания новой карточки из объекта
 function createCardElement(cardData) {
@@ -71,11 +73,6 @@ function createCardElement(cardData) {
     openPopUp(popUpBigPhoto);
   });
 
-  //слушатель события клика на крестик закрывания попапа BigPhoto
-  crossToClosePopUpBigPhoto.addEventListener('click', () => {
-    closePopUp(popUpBigPhoto);
-  });
-
   return cardElement;
 }
 
@@ -110,16 +107,18 @@ function handleFormSubmit(evt) {
   closePopUp(popUpProfile);
 }
 
+//цикл для крестиков закрытия всех попапов
+//спасибо Сергей! :))
+crossToClose.forEach(button => {
+  const buttonsPopup = button.closest('.popup'); // нашли родителя с нужным классом
+  button.addEventListener('click', () => closePopUp(buttonsPopup)); // закрыли попап
+});
+
 //слушатель события клика на кнопку editButton
 editButton.addEventListener('click', () => {
   openPopUp(popUpProfile);
   nameInput.value = currentName.textContent;
   nameStatus.value = currentStatus.textContent;
-});
-
-//слушатель события клика на крестик закрывания попапа Profile
-crossToClosePopUpProfile.addEventListener('click', () => {
-  closePopUp(popUpProfile);
 });
 
 //слушатель события нажатия на кнопку "Сохранить" Profile
@@ -128,11 +127,6 @@ formElement.addEventListener('submit', handleFormSubmit);
 //слушатель события клика на кнопку addButton
 addButton.addEventListener('click', () => {
   openPopUp(popUpNewCard);
-});
-
-//слушатель события клика на крестик закрывания попапа NewCard
-crossToClosePopUpNewCard.addEventListener('click', () => {
-  closePopUp(popUpNewCard);
 });
 
 //пересылка пользовательских вводов в новую карточку
