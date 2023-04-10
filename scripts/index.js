@@ -127,6 +127,9 @@ formElement.addEventListener('submit', handleFormSubmit);
 //слушатель события клика на кнопку addButton
 addButton.addEventListener('click', () => {
   openPopUp(popUpNewCard);
+  //очищаем поля ввода при открытии нового попапа
+  newCardNameInput.value = '';
+  newCardLinkInput.value = '';
 });
 
 //пересылка пользовательских вводов в новую карточку
@@ -143,7 +146,6 @@ function handleEditCardSubmit(event) {
 
   renderCardElement(createCardElement(cardData));
   closePopUp(popUpNewCard);
-
 };
 
 editCardForm.addEventListener("submit", handleEditCardSubmit);
