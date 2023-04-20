@@ -45,8 +45,13 @@
       <h2 class="popup__title">Редактировать профиль</h2>
 
       <form name="formForPopup" class="popup__form">
-        <input type="text" class="popup__input popup__input_type_name" name="name" required minlength="2" maxlength="40">
-        <input type="text" class="popup__input popup__input_type_status" name="status" required minlength="2" maxlength="200">
+
+        <input type="text" class="popup__input popup__input_type_name" name="name" required minlength="2" maxlength="40" autocomplete="off">
+        <span id="error-name" class="error-message"></span>
+
+        <input type="text" class="popup__input popup__input_type_status" name="status" required minlength="2" maxlength="200" autocomplete="off">
+        <span id="error-status" class="error-message"></span>
+
         <button type="submit" aria-label="Кнопка для сохранения изменений" class="popup__submit">Сохранить</button>
       </form>
     </div>
@@ -60,9 +65,13 @@
       <h2 class="popup__title">Новое место</h2>
 
       <form name="formForPopup" class="popup__form popup__form_type_edit-card">
-        <input type="text" class="popup__input popup__input_type_name" name="name" placeholder="Название" required minlength="2" maxlength="30">
+
+        <input type="text" class="popup__input popup__input_type_name" name="name" placeholder="Название" required minlength="2" maxlength="30" autocomplete="off">
+        <!-- <span id="error-username" class="error-message"></span> -->
+
         <input type="url" class="popup__input popup__input_type_status" name="status" placeholder="Ссылка на картинку"
-          required>
+          required autocomplete="off">
+
         <button type="submit" aria-label="Кнопка для создания новой карточки" class="popup__submit">Создать</button>
       </form>
     </div>
