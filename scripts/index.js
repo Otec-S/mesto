@@ -36,7 +36,6 @@ const titleOfPopUpBigPhoto = popUpBigPhoto.querySelector('.popup__big-photo-capt
 // УНИВЕРСАЛЬНЫЕ ПЕРЕМЕННЫЕ
 //ссылка на псевдомассив NodeList всех крестиков закрывания попапов
 const crossToClose = document.querySelectorAll('.popup__close-cross');
-console.log(crossToClose);
 
 //делаем отдельную функцию для создания новой карточки из объекта
 function createCardElement(cardData) {
