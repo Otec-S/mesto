@@ -46,11 +46,11 @@
 
       <form name="formForProfilePopup" class="popup__form" novalidate>
 
-        <input type="text" class="popup__input popup__input_type_name" name="name" required minlength="2" maxlength="40"
+        <input id="name" type="text" class="popup__input popup__input_type_name" name="name" required minlength="2" maxlength="40"
           autocomplete="off">
         <span id="error-name" class="error-message"></span>
 
-        <input type="text" class="popup__input popup__input_type_status" name="status" required minlength="2"
+        <input id="status" type="text" class="popup__input popup__input_type_status" name="status" required minlength="2"
           maxlength="200" autocomplete="off">
         <span id="error-status" class="error-message"></span>
 
@@ -68,11 +68,11 @@
 
       <form name="formForNewCardPopup" class="popup__form popup__form_type_edit-card" novalidate>
 
-        <input type="text" class="popup__input popup__input_type_name" name="card-title" placeholder="Название" required
+        <input id="card-title" type="text" class="popup__input popup__input_type_name" name="card-title" placeholder="Название" required
           minlength="2" maxlength="30" autocomplete="off">
         <span id="error-card-title" class="error-message"></span>
 
-        <input type="url" class="popup__input popup__input_type_status" name="card-url" placeholder="Ссылка на картинку"
+        <input id="card-url" type="url" class="popup__input popup__input_type_status" name="card-url" placeholder="Ссылка на картинку"
           required autocomplete="off">
         <span id="error-card-url" class="error-message"></span>
 
