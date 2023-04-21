@@ -3,4 +3,10 @@
   background-color: transparent;
   opacity: 0.2;
   cursor: default;
+  color: #000000;
+}
+
+/* кривоватое решение, но лучше не придумал */
+.popup__submit_disabled:hover {
+  opacity: 0.2;
 }

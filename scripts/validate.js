@@ -27,10 +27,31 @@ function checkInputValidity(input) {
 
 };
 
+function disableButton(button) {
+  button.setAttribute('disabled', '');
+  button.classList.add('popup__submit_disabled');
+};
+
+function enableButton(button) {
+  button.removeAttribute('disabled');
+  button.classList.remove('popup__submit_disabled');
+};
+
+
+//получаем ссылку на массив из двух кнопок submit
+function toggleButtonValidity() {
+  const submitButton = Array.from(document.querySelectorAll('.popup__submit'));
+  //по идее по массиву нужно прыгать
+  submitButton.forEach((buttonItem) => {
+    disableButton(buttonItem);
+  })
+
+};
+
+
 
 //общая функция проверки валидации
 function enableValidation() {
-
 
   //делаем массив formList на все формы в документе
   const formList = Array.from(document.querySelectorAll('.popup__form'));
@@ -44,8 +65,8 @@ function enableValidation() {
     fieldsetList.forEach(function (input) {
       //вешаем слушатель ввода на каждый ввод символа
       input.addEventListener('input', () => {
-
         checkInputValidity(input);
+        toggleButtonValidity();
 
       })
     });
