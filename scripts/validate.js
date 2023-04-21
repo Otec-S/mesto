@@ -1,3 +1,16 @@
+function setInputValidState(input, errorElement) {
+  input.classList.remove('popup__input_invalid');
+  errorElement.textContent = '';
+};
+
+
+function setInputInvalidState(input, errorElement) {
+  input.classList.add('popup__input_invalid');
+  errorElement.textContent = input.validationMessage;
+};
+
+
+
 //функция проверки каждого вводимого в поле символа
 function checkInputValidity(input) {
   //спорненько, что тут глобальный поиск, но пока лучше не придумал
@@ -5,13 +18,11 @@ function checkInputValidity(input) {
 
   if (input.validity.valid) {
     //если валидно
-    input.classList.remove('popup__input_invalid');
-    errorElement.textContent = '';
+    setInputValidState(input, errorElement);
 
   } else {
     //если невалидно
-    input.classList.add('popup__input_invalid');
-    errorElement.textContent = input.validationMessage;
+    setInputInvalidState(input, errorElement);
   }
 
 };
