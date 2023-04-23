@@ -6,10 +6,10 @@ function enableValidation() {
   console.log("formList это");
   console.log(formList);
 
-    //проходимся по массиву inputList и на каждый ввод в input явно вызываем функцию setEventListeners
+  //проходимся по массиву inputList и на каждый ввод в input явно вызываем функцию setEventListeners
   formList.forEach((formElement) => {
 
-     setEventListeners(formElement);
+    setEventListeners(formElement);
   });
 };
 
@@ -26,6 +26,11 @@ function setEventListeners(formElement) {
   console.log(buttonElement);
   // ???Вызовите функцию toggleButtonState после определения константы buttonElement. Это проверит состояние кнопки при первой загрузке страницы. Тогда кнопка перестанет быть активной до ввода данных в одно из полей.
   toggleButtonState(inputList, buttonElement);
+
+  formElement.addEventListener('submit', function () {
+    formElement.reset();
+    toggleButtonState(inputList, buttonElement);
+  });
 
   //проходим по массиву всех импутов inputList
   inputList.forEach((inputElement) => {
