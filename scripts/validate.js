@@ -1,15 +1,14 @@
+//устанавливаем валидное состаяние
 function setInputValidState(input, errorElement) {
   input.classList.remove('popup__input_invalid');
   errorElement.textContent = '';
 };
 
-
+//устанавливаем невалидное состаяние
 function setInputInvalidState(input, errorElement) {
   input.classList.add('popup__input_invalid');
   errorElement.textContent = input.validationMessage;
 };
-
-
 
 //функция проверки каждого вводимого в поле символа
 function checkInputValidity(input) {
@@ -24,31 +23,33 @@ function checkInputValidity(input) {
     //если невалидно
     setInputInvalidState(input, errorElement);
   }
-
 };
 
+//делаем кнопку отправки неактивной
 function disableButton(button) {
   button.setAttribute('disabled', '');
   button.classList.add('popup__submit_disabled');
 };
 
+//делаем кнопку отправки активной
 function enableButton(button) {
   button.removeAttribute('disabled');
   button.classList.remove('popup__submit_disabled');
 };
 
-
-//получаем ссылку на массив из двух кнопок submit
-function toggleButtonValidity() {
+//функция переключения состояния кнопки
+function toggleButtonValidity(input) {
+  //получаем ссылку на массив из двух кнопок submit
   const submitButton = Array.from(document.querySelectorAll('.popup__submit'));
-  //по идее по массиву нужно прыгать
+  //проверяем каждый элемент массива и меняем состяние кнопки от этого
   submitButton.forEach((buttonItem) => {
-    disableButton(buttonItem);
+    if (input.checkValidity()) {
+      enableButton(buttonItem);
+    } else {
+      disableButton(buttonItem);
+    }
   })
-
 };
-
-
 
 //общая функция проверки валидации
 function enableValidation() {
@@ -66,7 +67,7 @@ function enableValidation() {
       //вешаем слушатель ввода на каждый ввод символа
       input.addEventListener('input', () => {
         checkInputValidity(input);
-        toggleButtonValidity();
+        toggleButtonValidity(input);
 
       })
     });
