@@ -27,6 +27,7 @@ function setEventListeners(formElement) {
   // ???Вызовите функцию toggleButtonState после определения константы buttonElement. Это проверит состояние кнопки при первой загрузке страницы. Тогда кнопка перестанет быть активной до ввода данных в одно из полей.
   toggleButtonState(inputList, buttonElement);
 
+  //чистим форму после ее отправки и тут же проверяем кнопку на валидность, делая ее невалидной
   formElement.addEventListener('submit', function () {
     formElement.reset();
     toggleButtonState(inputList, buttonElement);
