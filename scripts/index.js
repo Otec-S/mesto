@@ -31,12 +31,12 @@ const popUpBigPhoto = document.querySelector('.popup-big-photo');
 const pictureOfPopUpBigPhoto = popUpBigPhoto.querySelector('.popup__big-photo-picture');
 //делаю ссылку на <figurecaption> в этом попапе BIG PHOTO
 const titleOfPopUpBigPhoto = popUpBigPhoto.querySelector('.popup__big-photo-caption');
-//ссылка на крест закрывания попапа BIG PHOTO
 
 // УНИВЕРСАЛЬНЫЕ ПЕРЕМЕННЫЕ
 //ссылка на псевдомассив NodeList всех крестиков закрывания попапов
 const crossToClose = document.querySelectorAll('.popup__close-cross');
 
+//СОЗДАНИЕ НОВОЙ КАРТОЧКИ
 //делаем отдельную функцию для создания новой карточки из объекта
 function createCardElement(cardData) {
   //клонируем узел с карточкой из шаблона
@@ -70,6 +70,8 @@ function createCardElement(cardData) {
     pictureOfPopUpBigPhoto.alt = cardName.textContent;
     titleOfPopUpBigPhoto.textContent = cardName.textContent;
     openPopUp(popUpBigPhoto);
+    closePopUpByEscape(popUpBigPhoto);
+    closePopUpByClickToOverlay(popUpBigPhoto);
   });
 
   return cardElement;
@@ -93,9 +95,6 @@ function openPopUp(popName) {
   popName.classList.add('popup_opened');
 }
 
-
-/************************* */
-
 // общая функция закрывает окно попап
 function closePopUp(popName) {
   popName.classList.remove('popup_opened');
@@ -108,9 +107,6 @@ function handleFormSubmit(evt) {
   currentStatus.textContent = nameStatus.value;
   closePopUp(popUpProfile);
 }
-
-
-/***************************** */
 
 //цикл для крестиков закрытия всех попапов
 crossToClose.forEach(button => {
@@ -125,13 +121,11 @@ editButton.addEventListener('click', () => {
   nameStatus.value = currentStatus.textContent;
   //вставляем функцию закрытия popup по нажатию escape
   closePopUpByEscape(popUpProfile);
+  closePopUpByClickToOverlay(popUpProfile);
 });
 
 //слушатель события нажатия на кнопку "Сохранить" Profile
 formElement.addEventListener('submit', handleFormSubmit);
-
-
-/********************* */
 
 //слушатель события клика на кнопку addButton
 addButton.addEventListener('click', () => {
@@ -141,6 +135,7 @@ addButton.addEventListener('click', () => {
   newCardLinkInput.value = '';
   //вставляем функцию закрытия popup по нажатию escape
   closePopUpByEscape(popUpNewCard);
+  closePopUpByClickToOverlay(popUpNewCard);
 });
 
 //пересылка пользовательских вводов в новую карточку
@@ -161,21 +156,7 @@ function handleEditCardSubmit(event) {
 
 editCardForm.addEventListener("submit", handleEditCardSubmit);
 
-
-/************************** */
-
-// const input = document.querySelector('#input');
-
-// input.addEventListener('keydown', function (evt) {
-//   // Проверяем, была ли введена цифра
-//     if (!(evt.keyCode <= 57 && evt.keyCode >= 48)) {
-//     // Если пользователь ввёл не цифру, показываем блок с ошибкой
-//     error.style.display = 'block';
-//     };
-// });
-
-/////////////
-
+//закрытие popup по клику на escape
 function closePopUpByEscape(popName) {
   document.addEventListener('keydown', function (evt) {
     if (evt.key === 'Escape') {
@@ -184,3 +165,12 @@ function closePopUpByEscape(popName) {
   })
 };
 
+//закрытие popup по клику на overlay
+function closePopUpByClickToOverlay(popName) {
+  document.addEventListener('click', function (evt) {
+    const stringClassName = evt.target.className.toString();
+    if (stringClassName.includes('popup_opened')) {
+      closePopUp(popName);
+    }
+  })
+}
