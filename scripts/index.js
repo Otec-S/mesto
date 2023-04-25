@@ -93,6 +93,9 @@ function openPopUp(popName) {
   popName.classList.add('popup_opened');
 }
 
+
+/************************* */
+
 // общая функция закрывает окно попап
 function closePopUp(popName) {
   popName.classList.remove('popup_opened');
@@ -106,8 +109,10 @@ function handleFormSubmit(evt) {
   closePopUp(popUpProfile);
 }
 
+
+/***************************** */
+
 //цикл для крестиков закрытия всех попапов
-//спасибо Сергей! :))
 crossToClose.forEach(button => {
   const buttonsPopup = button.closest('.popup'); // нашли родителя с нужным классом
   button.addEventListener('click', () => closePopUp(buttonsPopup)); // закрыли попап
@@ -118,10 +123,15 @@ editButton.addEventListener('click', () => {
   openPopUp(popUpProfile);
   nameInput.value = currentName.textContent;
   nameStatus.value = currentStatus.textContent;
+  //вставляем функцию закрытия popup по нажатию escape
+  closePopUpByEscape(popUpProfile);
 });
 
 //слушатель события нажатия на кнопку "Сохранить" Profile
 formElement.addEventListener('submit', handleFormSubmit);
+
+
+/********************* */
 
 //слушатель события клика на кнопку addButton
 addButton.addEventListener('click', () => {
@@ -129,6 +139,8 @@ addButton.addEventListener('click', () => {
   //очищаем поля ввода при открытии нового попапа
   newCardNameInput.value = '';
   newCardLinkInput.value = '';
+  //вставляем функцию закрытия popup по нажатию escape
+  closePopUpByEscape(popUpNewCard);
 });
 
 //пересылка пользовательских вводов в новую карточку
@@ -148,3 +160,27 @@ function handleEditCardSubmit(event) {
 };
 
 editCardForm.addEventListener("submit", handleEditCardSubmit);
+
+
+/************************** */
+
+// const input = document.querySelector('#input');
+
+// input.addEventListener('keydown', function (evt) {
+//   // Проверяем, была ли введена цифра
+//     if (!(evt.keyCode <= 57 && evt.keyCode >= 48)) {
+//     // Если пользователь ввёл не цифру, показываем блок с ошибкой
+//     error.style.display = 'block';
+//     };
+// });
+
+/////////////
+
+function closePopUpByEscape(popName) {
+  document.addEventListener('keydown', function (evt) {
+    if (evt.key === 'Escape') {
+      closePopUp(popName);
+    }
+  })
+};
+
