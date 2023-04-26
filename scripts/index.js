@@ -31,13 +31,42 @@ const popUpBigPhoto = document.querySelector('.popup-big-photo');
 const pictureOfPopUpBigPhoto = popUpBigPhoto.querySelector('.popup__big-photo-picture');
 //делаю ссылку на <figurecaption> в этом попапе BIG PHOTO
 const titleOfPopUpBigPhoto = popUpBigPhoto.querySelector('.popup__big-photo-caption');
-//ссылка на крест закрывания попапа BIG PHOTO
 
 // УНИВЕРСАЛЬНЫЕ ПЕРЕМЕННЫЕ
 //ссылка на псевдомассив NodeList всех крестиков закрывания попапов
 const crossToClose = document.querySelectorAll('.popup__close-cross');
-console.log(crossToClose);
 
+
+// общая функция открывает окно попап
+function openPopUp(popName) {
+  popName.classList.add('popup_opened');
+}
+
+// общая функция закрывает окно попап
+function closePopUp(popName) {
+  popName.classList.remove('popup_opened');
+}
+
+//закрытие popup по клику на escape
+function closePopUpByEscape(popName) {
+  document.addEventListener('keydown', function (evt) {
+    if (evt.key === 'Escape') {
+      closePopUp(popName);
+    }
+  })
+};
+
+//закрытие popup по клику на overlay
+function closePopUpByClickToOverlay(popName) {
+  document.addEventListener('click', function (evt) {
+    const stringClassName = evt.target.className.toString();
+    if (stringClassName.includes('popup_opened')) {
+      closePopUp(popName);
+    }
+  })
+}
+
+//СОЗДАНИЕ НОВОЙ КАРТОЧКИ
 //делаем отдельную функцию для создания новой карточки из объекта
 function createCardElement(cardData) {
   //клонируем узел с карточкой из шаблона
@@ -71,6 +100,8 @@ function createCardElement(cardData) {
     pictureOfPopUpBigPhoto.alt = cardName.textContent;
     titleOfPopUpBigPhoto.textContent = cardName.textContent;
     openPopUp(popUpBigPhoto);
+    closePopUpByEscape(popUpBigPhoto);
+    closePopUpByClickToOverlay(popUpBigPhoto);
   });
 
   return cardElement;
@@ -89,16 +120,6 @@ initialCards.forEach((item) => {
 
 
 //ФУНКЦИИ ДЛЯ ПОПАПА
-// общая функция открывает окно попап
-function openPopUp(popName) {
-  popName.classList.add('popup_opened');
-}
-
-// общая функция закрывает окно попап
-function closePopUp(popName) {
-  popName.classList.remove('popup_opened');
-}
-
 /*функция вставляет данные из заполненной формы попапа в профиль и закрывает попап*/
 function handleFormSubmit(evt) {
   evt.preventDefault();
@@ -108,7 +129,6 @@ function handleFormSubmit(evt) {
 }
 
 //цикл для крестиков закрытия всех попапов
-//спасибо Сергей! :))
 crossToClose.forEach(button => {
   const buttonsPopup = button.closest('.popup'); // нашли родителя с нужным классом
   button.addEventListener('click', () => closePopUp(buttonsPopup)); // закрыли попап
@@ -119,6 +139,9 @@ editButton.addEventListener('click', () => {
   openPopUp(popUpProfile);
   nameInput.value = currentName.textContent;
   nameStatus.value = currentStatus.textContent;
+  //вставляем функцию закрытия popup по нажатию escape
+  closePopUpByEscape(popUpProfile);
+  closePopUpByClickToOverlay(popUpProfile);
 });
 
 //слушатель события нажатия на кнопку "Сохранить" Profile
@@ -130,6 +153,9 @@ addButton.addEventListener('click', () => {
   //очищаем поля ввода при открытии нового попапа
   newCardNameInput.value = '';
   newCardLinkInput.value = '';
+  //вставляем функцию закрытия popup по нажатию escape
+  closePopUpByEscape(popUpNewCard);
+  closePopUpByClickToOverlay(popUpNewCard);
 });
 
 //пересылка пользовательских вводов в новую карточку

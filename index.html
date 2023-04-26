@@ -43,12 +43,17 @@
     <div class="popup__content">
       <button type="button" aria-label="Крестик для закрытия окна" class="popup__close-cross"></button>
       <h2 class="popup__title">Редактировать профиль</h2>
-      <form name="formForPopup" class="popup__form">
-        <input type="text" class="popup__input popup__input_type_name" name="name" required>
-        <input type="text" class="popup__input popup__input_type_status" name="status" required>
+      <form name="formForProfilePopup" class="popup__form" novalidate>
+        <input id="name" type="text" class="popup__input popup__input_type_name" name="name" required minlength="2" maxlength="40"
+          autocomplete="off">
+        <span id="error-name" class="error-message"></span>
+        <input id="status" type="text" class="popup__input popup__input_type_status" name="status" required minlength="2"
+          maxlength="200" autocomplete="off">
+        <span id="error-status" class="error-message"></span>
         <button type="submit" aria-label="Кнопка для сохранения изменений" class="popup__submit">Сохранить</button>
       </form>
     </div>
+
   </div>
 
   <!-- POP-UP NEW CARD -->
@@ -56,10 +61,13 @@
     <div class="popup__content">
       <button type="button" aria-label="Крестик для закрытия окна" class="popup__close-cross"></button>
       <h2 class="popup__title">Новое место</h2>
-      <form name="formForPopup" class="popup__form popup__form_type_edit-card">
-        <input type="text" class="popup__input popup__input_type_name" name="name" placeholder="Название" required>
-        <input type="text" class="popup__input popup__input_type_status" name="status" placeholder="Ссылка на картинку"
-          required>
+      <form name="formForNewCardPopup" class="popup__form popup__form_type_edit-card" novalidate>
+        <input id="card-title" type="text" class="popup__input popup__input_type_name" name="card-title" placeholder="Название" required
+          minlength="2" maxlength="30" autocomplete="off">
+        <span id="error-card-title" class="error-message"></span>
+        <input id="card-url" type="url" class="popup__input popup__input_type_status" name="card-url" placeholder="Ссылка на картинку"
+          required autocomplete="off">
+        <span id="error-card-url" class="error-message"></span>
         <button type="submit" aria-label="Кнопка для создания новой карточки" class="popup__submit">Создать</button>
       </form>
     </div>
@@ -76,7 +84,7 @@
     </div>
   </div>
 
-  <!-- ШАБЛОН -->
+  <!-- ШАБЛОН ДЛЯ КАРТИНОК-->
   <template class="card-template">
     <li class="card">
       <button type="button" aria-label="Кнопка для удаления картинки" class="card__trash-can"></button>
@@ -90,6 +98,7 @@
 
   <script src="./scripts/initial-cards-array.js"></script>
   <script src="./scripts/index.js"></script>
+  <script src="./scripts/validate.js"></script>
 </body>
 
 </html>
