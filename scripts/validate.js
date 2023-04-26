@@ -93,7 +93,6 @@ function toggleButtonState(config, inputList, buttonElement) {
   }
 };
 
-
 //запускаем основную функцию валидации
 enableValidation({
   formSelector: '.popup__form',
@@ -101,5 +100,4 @@ enableValidation({
   submitButtonSelector: '.popup__submit',
   inactiveButtonClass: 'popup__submit_disabled',
   inputErrorClass: 'popup__input_invalid',
-  errorClass: 'popup__error_visible'
 });

@@ -8,16 +8,6 @@
   height: 48px;
 }
 
-/* .error-message:first-child {
-  height: 30px;
-} */
-
 .error-message:nth-child(2) {
   height: 30px;
 }
-
-/* @media screen and (max-width: 767px) {
-  .popup__input:nth-child(2) {
-    margin-bottom: 45px;
-  }
-} */

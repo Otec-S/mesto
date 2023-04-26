@@ -36,6 +36,36 @@ const titleOfPopUpBigPhoto = popUpBigPhoto.querySelector('.popup__big-photo-capt
 //ссылка на псевдомассив NodeList всех крестиков закрывания попапов
 const crossToClose = document.querySelectorAll('.popup__close-cross');
 
+
+// общая функция открывает окно попап
+function openPopUp(popName) {
+  popName.classList.add('popup_opened');
+}
+
+// общая функция закрывает окно попап
+function closePopUp(popName) {
+  popName.classList.remove('popup_opened');
+}
+
+//закрытие popup по клику на escape
+function closePopUpByEscape(popName) {
+  document.addEventListener('keydown', function (evt) {
+    if (evt.key === 'Escape') {
+      closePopUp(popName);
+    }
+  })
+};
+
+//закрытие popup по клику на overlay
+function closePopUpByClickToOverlay(popName) {
+  document.addEventListener('click', function (evt) {
+    const stringClassName = evt.target.className.toString();
+    if (stringClassName.includes('popup_opened')) {
+      closePopUp(popName);
+    }
+  })
+}
+
 //СОЗДАНИЕ НОВОЙ КАРТОЧКИ
 //делаем отдельную функцию для создания новой карточки из объекта
 function createCardElement(cardData) {
@@ -90,16 +120,6 @@ initialCards.forEach((item) => {
 
 
 //ФУНКЦИИ ДЛЯ ПОПАПА
-// общая функция открывает окно попап
-function openPopUp(popName) {
-  popName.classList.add('popup_opened');
-}
-
-// общая функция закрывает окно попап
-function closePopUp(popName) {
-  popName.classList.remove('popup_opened');
-}
-
 /*функция вставляет данные из заполненной формы попапа в профиль и закрывает попап*/
 function handleFormSubmit(evt) {
   evt.preventDefault();
@@ -155,22 +175,3 @@ function handleEditCardSubmit(event) {
 };
 
 editCardForm.addEventListener("submit", handleEditCardSubmit);
-
-//закрытие popup по клику на escape
-function closePopUpByEscape(popName) {
-  document.addEventListener('keydown', function (evt) {
-    if (evt.key === 'Escape') {
-      closePopUp(popName);
-    }
-  })
-};
-
-//закрытие popup по клику на overlay
-function closePopUpByClickToOverlay(popName) {
-  document.addEventListener('click', function (evt) {
-    const stringClassName = evt.target.className.toString();
-    if (stringClassName.includes('popup_opened')) {
-      closePopUp(popName);
-    }
-  })
-}
