@@ -5,9 +5,9 @@
   font-size: 12px;
   line-height: 1.25;
   color: #FF0000;
-  height: 48px;
+  min-height: 48px;
 }
 
 .error-message:nth-child(2) {
-  height: 30px;
+  min-height: 30px;
 }
