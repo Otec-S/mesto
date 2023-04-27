@@ -36,7 +36,7 @@ const titleOfPopUpBigPhoto = popUpBigPhoto.querySelector('.popup__big-photo-capt
 //ссылка на псевдомассив NodeList всех крестиков закрывания попапов
 const crossToClose = document.querySelectorAll('.popup__close-cross');
 
-/************************** */
+
 // общая функция закрывает окно попап
 function closePopUp(popName) {
   popName.classList.remove('popup_opened');
@@ -60,14 +60,15 @@ function openPopUp(popName) {
 }
 
 //закрытие popup по клику на overlay
-function closePopUpByClickToOverlay(popName) {
-  document.addEventListener('click', function (evt) {
-    const stringClassName = evt.target.className.toString();
-    if (stringClassName.includes('popup_opened')) {
-      closePopUp(popName);
+function closePopUpByClickToOverlay() {
+  document.addEventListener('mousedown', function (evt) {
+    if (evt.target.classList.contains('popup_opened')) {
+      closePopUp(evt.target);
     }
   })
 }
+
+closePopUpByClickToOverlay();
 
 //СОЗДАНИЕ НОВОЙ КАРТОЧКИ
 //делаем отдельную функцию для создания новой карточки из объекта
@@ -103,8 +104,6 @@ function createCardElement(cardData) {
     pictureOfPopUpBigPhoto.alt = cardName.textContent;
     titleOfPopUpBigPhoto.textContent = cardName.textContent;
     openPopUp(popUpBigPhoto);
-    // closePopUpByEscape(popUpBigPhoto);
-    closePopUpByClickToOverlay(popUpBigPhoto);
   });
 
   return cardElement;
@@ -142,9 +141,6 @@ editButton.addEventListener('click', () => {
   openPopUp(popUpProfile);
   nameInput.value = currentName.textContent;
   nameStatus.value = currentStatus.textContent;
-  //вставляем функцию закрытия popup по нажатию escape
-  // closePopUpByEscape(popUpProfile);
-  closePopUpByClickToOverlay(popUpProfile);
 });
 
 //слушатель события нажатия на кнопку "Сохранить" Profile
@@ -156,9 +152,6 @@ addButton.addEventListener('click', () => {
   //очищаем поля ввода при открытии нового попапа
   newCardNameInput.value = '';
   newCardLinkInput.value = '';
-  //вставляем функцию закрытия popup по нажатию escape
-  // closePopUpByEscape(popUpNewCard);
-  closePopUpByClickToOverlay(popUpNewCard);
 });
 
 //пересылка пользовательских вводов в новую карточку
