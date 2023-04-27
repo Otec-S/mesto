@@ -36,25 +36,28 @@ const titleOfPopUpBigPhoto = popUpBigPhoto.querySelector('.popup__big-photo-capt
 //ссылка на псевдомассив NodeList всех крестиков закрывания попапов
 const crossToClose = document.querySelectorAll('.popup__close-cross');
 
+/************************** */
+// общая функция закрывает окно попап
+function closePopUp(popName) {
+  popName.classList.remove('popup_opened');
+  document.removeEventListener('keydown', closePopUpByEscape);
+}
+
+//закрытие popup по клику на escape
+function closePopUpByEscape(evt, popName) {
+  if (evt.key === 'Escape') {
+    closePopUp(popName);
+  }
+};
 
 // общая функция открывает окно попап
 function openPopUp(popName) {
   popName.classList.add('popup_opened');
-}
-
-// общая функция закрывает окно попап
-function closePopUp(popName) {
-  popName.classList.remove('popup_opened');
-}
-
-//закрытие popup по клику на escape
-function closePopUpByEscape(popName) {
+  //вешаем слушатель функции на эскейп на этот элемент
   document.addEventListener('keydown', function (evt) {
-    if (evt.key === 'Escape') {
-      closePopUp(popName);
-    }
-  })
-};
+    closePopUpByEscape(evt, popName);
+  });
+}
 
 //закрытие popup по клику на overlay
 function closePopUpByClickToOverlay(popName) {
@@ -100,7 +103,7 @@ function createCardElement(cardData) {
     pictureOfPopUpBigPhoto.alt = cardName.textContent;
     titleOfPopUpBigPhoto.textContent = cardName.textContent;
     openPopUp(popUpBigPhoto);
-    closePopUpByEscape(popUpBigPhoto);
+    // closePopUpByEscape(popUpBigPhoto);
     closePopUpByClickToOverlay(popUpBigPhoto);
   });
 
@@ -140,7 +143,7 @@ editButton.addEventListener('click', () => {
   nameInput.value = currentName.textContent;
   nameStatus.value = currentStatus.textContent;
   //вставляем функцию закрытия popup по нажатию escape
-  closePopUpByEscape(popUpProfile);
+  // closePopUpByEscape(popUpProfile);
   closePopUpByClickToOverlay(popUpProfile);
 });
 
@@ -154,7 +157,7 @@ addButton.addEventListener('click', () => {
   newCardNameInput.value = '';
   newCardLinkInput.value = '';
   //вставляем функцию закрытия popup по нажатию escape
-  closePopUpByEscape(popUpNewCard);
+  // closePopUpByEscape(popUpNewCard);
   closePopUpByClickToOverlay(popUpNewCard);
 });
 
