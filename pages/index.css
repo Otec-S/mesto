@@ -44,4 +44,6 @@
 @import url(../blocks/popup/__close-cross/popup__close-cross.css);
 @import url(../blocks/popup/_opened/popup_opened.css);
 
+@import url(../blocks/popup-big-photo/popup-big-photo.css);
+
 @import url(../blocks/error-message/error-message.css);
