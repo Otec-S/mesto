@@ -44,9 +44,12 @@ function closePopUp(popName) {
 }
 
 //закрытие popup по клику на escape
-function closePopUpByEscape(evt, popName) {
+function closePopUpByEscape(evt) {
   if (evt.key === 'Escape') {
-    closePopUp(popName);
+    //ищем открытый popup по его модификатору
+    const popUpOpened = document.querySelector('.popup_opened');
+    //команда закрыть именно этот открытый popup
+    closePopUp(popUpOpened);
   }
 };
 
@@ -54,10 +57,9 @@ function closePopUpByEscape(evt, popName) {
 function openPopUp(popName) {
   popName.classList.add('popup_opened');
   //вешаем слушатель функции на эскейп на этот элемент
-  document.addEventListener('keydown', function (evt) {
-    closePopUpByEscape(evt, popName);
-  });
-}
+  document.addEventListener('keydown', closePopUpByEscape);
+};
+
 
 //закрытие popup по клику на overlay
 function closePopUpByClickToOverlay() {
