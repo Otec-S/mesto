@@ -34,7 +34,7 @@ const titleOfPopUpBigPhoto = popUpBigPhoto.querySelector('.popup__big-photo-capt
 
 // УНИВЕРСАЛЬНЫЕ ПЕРЕМЕННЫЕ
 //ссылка на псевдомассив NodeList всех крестиков закрывания попапов
-const crossToClose = document.querySelectorAll('.popup__close-cross');
+const crossesToClose = document.querySelectorAll('.popup__close-cross');
 
 
 // общая функция закрывает окно попап
@@ -133,7 +133,7 @@ function handleFormSubmit(evt) {
 }
 
 //цикл для крестиков закрытия всех попапов
-crossToClose.forEach(button => {
+crossesToClose.forEach(button => {
   const buttonsPopup = button.closest('.popup'); // нашли родителя с нужным классом
   button.addEventListener('click', () => closePopUp(buttonsPopup)); // закрыли попап
 });
