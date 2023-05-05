@@ -17,11 +17,24 @@ export default class Card {
     return heartToLike;
   }
 
+
+  _handleTrashCanCardToDelete() {
+    //делаем ссылку на кнопку удаления карточки
+    const trashCanCardToDelete = this._element.querySelector('.card__trash-can');
+    return trashCanCardToDelete;
+  }
+
   _setEventListeners() {
-    this._heart = this._handleHeartToLike();
     //слушатель нажатия на сердечко карточки
+    this._heart = this._handleHeartToLike();
     this._heart.addEventListener('click', () => {
       this._heart.classList.toggle('card__heart_active');
+    });
+
+    //слушатель на корзину удаления карточки
+    this._can = this._handleTrashCanCardToDelete();
+    this._can.addEventListener("click", () => {
+      this._element.remove();
     });
   }
 
@@ -42,12 +55,7 @@ export default class Card {
 
   // createCardElement(cardData) {
 
-  //   //делаем ссылку на кнопку удаления карточки
-  //   const trashCanCardToDelete = cardElement.querySelector('.card__trash-can');
-  //   //делаем функцию удаления карточки со страницы
-  //   function handleCardDelete() { cardElement.remove() };
-  //   //делаем слушатель на кнопку удаления карточки
-  //   trashCanCardToDelete.addEventListener("click", handleCardDelete);
+
 
   //   //ссылка на событие нажатия на фотокарточку
   //   const pressingCardPhoto = cardElement.querySelector('.card__link');
