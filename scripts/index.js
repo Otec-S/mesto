@@ -84,7 +84,11 @@ function renderCardElement(cardElement) {
   cardsGrid.prepend(cardElement);
 };
 
-//делаем цикл forEach, чтобы пробежаться во всем элементам изначального массива
+
+
+//!!!!!!!!!!!!!!!
+
+//делаем цикл forEach, чтобы пробежаться во всем элементам изначального массива и рисуем изначальный массив
 initialCards.forEach((item) => {
   // const element = createCardElement(item);
   const card = new Card(item);

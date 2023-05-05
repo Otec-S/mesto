@@ -11,19 +11,25 @@ export default class Card {
     return cardElement;
   }
 
-  // _handleHeartToLike() {
-  //   //далаем ссылку на сердечко карточки
-  //   const heartToLike = cardElement.querySelector('.card__heart');
-  //   //слушатель нажатия на сердечко карточки
-  //   heartToLike.addEventListener('click', () => {
-  //     heartToLike.classList.toggle('card__heart_active');
-  //   });
-  // }
+  _handleHeartToLike() {
+    //далаем ссылку на сердечко карточки
+    const heartToLike = this._element.querySelector('.card__heart');
+    return heartToLike;
+  }
+
+  _setEventListeners() {
+    this._heart = this._handleHeartToLike();
+    //слушатель нажатия на сердечко карточки
+    this._heart.addEventListener('click', () => {
+      this._heart.classList.toggle('card__heart_active');
+    });
+  }
 
   //публичный метод для создания карточки
   generateCard() {
     //ссылка на клонированный узел шаблона из html
     this._element = this._getTemplate();
+    this._setEventListeners();
     //название карточки - элемент name из объекта cardData
     this._element.querySelector(".card__title").textContent = this._name;
     //url карточки - элемент link из объекта cardData
