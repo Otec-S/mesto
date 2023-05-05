@@ -1,3 +1,7 @@
+import initialCards from './initial-cards-array.js';
+import Card from './Card.js';
+
+
 // ПЕРЕМЕННЫЕ ДЛЯ POPUP PROFILE
 const popUpProfile = document.querySelector('.popup-profile');
 const editButton = document.querySelector('.profile__edit-button');
@@ -19,8 +23,7 @@ const newCardNameInput = editCardForm.querySelector(".popup__input_type_name");
 const newCardLinkInput = editCardForm.querySelector(".popup__input_type_status");
 
 // ПЕРЕМЕННЫЕ ДЛЯ ОТРИСОВКИ КАРТОЧЕК
-//сохраняем в переменную ссылку на шаблон карточки
-const cardTemplate = document.querySelector('.card-template');
+
 //сохраняем в переменную ссылку на место добавления карточек
 const cardsGrid = document.querySelector(".cards");
 
@@ -74,42 +77,7 @@ closePopUpByClickToOverlay();
 
 //СОЗДАНИЕ НОВОЙ КАРТОЧКИ
 //делаем отдельную функцию для создания новой карточки из объекта
-function createCardElement(cardData) {
-  //клонируем узел с карточкой из шаблона
-  const cardElement = cardTemplate.content.querySelector(".card").cloneNode(true);
-  const cardName = cardElement.querySelector(".card__title");
-  const cardPhoto = cardElement.querySelector(".card__photo");
-  cardName.textContent = cardData.name;
-  cardPhoto.src = cardData.link;
-  cardPhoto.alt = cardData.name;
 
-  //далаем ссылку на сердечко карточки
-  const heartToLike = cardElement.querySelector('.card__heart');
-  //слушатель нажатия на сердечко карточки
-  heartToLike.addEventListener('click', () => {
-    heartToLike.classList.toggle('card__heart_active');
-  });
-
-  //делаем ссылку на кнопку удаления карточки
-  const trashCanCardToDelete = cardElement.querySelector('.card__trash-can');
-  //делаем функцию удаления карточки со страницы
-  function handleCardDelete() { cardElement.remove() };
-  //делаем слушатель на кнопку удаления карточки
-  trashCanCardToDelete.addEventListener("click", handleCardDelete);
-
-  //ссылка на событие нажатия на фотокарточку
-  const pressingCardPhoto = cardElement.querySelector('.card__link');
-
-  //слушатель при нажатии на фотокарточку
-  pressingCardPhoto.addEventListener('click', () => {
-    pictureOfPopUpBigPhoto.src = cardPhoto.src;
-    pictureOfPopUpBigPhoto.alt = cardName.textContent;
-    titleOfPopUpBigPhoto.textContent = cardName.textContent;
-    openPopUp(popUpBigPhoto);
-  });
-
-  return cardElement;
-}
 
 //функция вставления карточки в cardGrid
 function renderCardElement(cardElement) {
@@ -118,7 +86,9 @@ function renderCardElement(cardElement) {
 
 //делаем цикл forEach, чтобы пробежаться во всем элементам изначального массива
 initialCards.forEach((item) => {
-  const element = createCardElement(item);
+  // const element = createCardElement(item);
+  const card = new Card(item);
+  const element = card.generateCard();
   renderCardElement(element);
 });
 
