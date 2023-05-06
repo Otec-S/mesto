@@ -75,24 +75,21 @@ function closePopUpByClickToOverlay() {
 
 closePopUpByClickToOverlay();
 
-//СОЗДАНИЕ НОВОЙ КАРТОЧКИ
-//делаем отдельную функцию для создания новой карточки из объекта
 
 
-//функция вставления карточки в cardGrid
+//!!!!!!!!!!!!!!!
+//функция вставки карточки в cardGrid
 function renderCardElement(cardElement) {
   cardsGrid.prepend(cardElement);
 };
 
-
-
-//!!!!!!!!!!!!!!!
-
 //делаем цикл forEach, чтобы пробежаться во всем элементам изначального массива и рисуем изначальный массив
 initialCards.forEach((item) => {
-  // const element = createCardElement(item);
+  //делаем экземпляр класса Card из каждого элемнта изначального массива
   const card = new Card(item);
+  //запускаем публичный метод класса Card для создания/генерации карточки
   const element = card.generateCard();
+  //вставляем готовые карточки в нужное место разметки html
   renderCardElement(element);
 });
 

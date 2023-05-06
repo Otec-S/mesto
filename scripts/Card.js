@@ -1,5 +1,5 @@
 export default class Card {
-
+  //принимаем данные из объекта
   constructor(cardData) {
     this._name = cardData.name;
     this._link = cardData.link;
@@ -13,28 +13,30 @@ export default class Card {
 
   _handleHeartToLike() {
     //далаем ссылку на сердечко карточки
-    const heartToLike = this._element.querySelector('.card__heart');
-    return heartToLike;
+    this._heart = this._element.querySelector('.card__heart');
+    // console.log(this._heart);
+    //????ПОТЕРЯ КОНТЕКСТА - СРАБАТЫВАЕТ ПО КЛИКУ НА САМУ КАРТОЧКУ В ЛЮБОМ МЕСТЕ????
+    this._heart.classList.toggle('card__heart_active');
+    return this._heart;
   }
 
-
-  _handleTrashCanCardToDelete() {
-    //делаем ссылку на кнопку удаления карточки
-    const trashCanCardToDelete = this._element.querySelector('.card__trash-can');
-    return trashCanCardToDelete;
+  _handleTrashCanToRemoveCard() {
+    this._can = this._element.querySelector('.card__trash-can');
+    this._element.remove();
+    return this._can;
   }
 
   _setEventListeners() {
     //слушатель нажатия на сердечко карточки
-    this._heart = this._handleHeartToLike();
-    this._heart.addEventListener('click', () => {
-      this._heart.classList.toggle('card__heart_active');
+    this._heartToLike = this._handleHeartToLike();
+    this._heartToLike.addEventListener('click', () => {
+      this._handleHeartToLike();
     });
 
     //слушатель на корзину удаления карточки
-    this._can = this._handleTrashCanCardToDelete();
-    this._can.addEventListener("click", () => {
-      this._element.remove();
+    this._trashCan = this._handleTrashCanToRemoveCard();
+    this._trashCan.addEventListener("click", () => {
+      this._handleTrashCanToRemoveCard();
     });
   }
 
@@ -42,6 +44,7 @@ export default class Card {
   generateCard() {
     //ссылка на клонированный узел шаблона из html
     this._element = this._getTemplate();
+    //навешиваем все слушатели
     this._setEventListeners();
     //название карточки - элемент name из объекта cardData
     this._element.querySelector(".card__title").textContent = this._name;
