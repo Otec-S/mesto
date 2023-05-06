@@ -14,13 +14,12 @@ export default class Card {
   _handleHeartToLike() {
     //далаем ссылку на сердечко карточки
     this._heart = this._element.querySelector('.card__heart');
-    // console.log(this._heart);
-    //????ПОТЕРЯ КОНТЕКСТА - СРАБАТЫВАЕТ ПО КЛИКУ НА САМУ КАРТОЧКУ В ЛЮБОМ МЕСТЕ????
     this._heart.classList.toggle('card__heart_active');
     return this._heart;
   }
 
   _handleTrashCanToRemoveCard() {
+    //делаем ссылку на мусорную корзину
     this._can = this._element.querySelector('.card__trash-can');
     this._element.remove();
     return this._can;
@@ -29,6 +28,7 @@ export default class Card {
   _setEventListeners() {
     //слушатель нажатия на сердечко карточки
     this._heartToLike = this._handleHeartToLike();
+    this._heartToLike.classList.remove('card__heart_active');
     this._heartToLike.addEventListener('click', () => {
       this._handleHeartToLike();
     });
