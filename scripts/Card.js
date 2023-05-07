@@ -1,3 +1,5 @@
+import openPopUp from "./utils.js";
+
 export default class Card {
   //принимаем данные из объекта
   constructor(cardData) {
@@ -25,6 +27,25 @@ export default class Card {
     return this._can;
   }
 
+
+  _handlePressToCardPhoto() {
+
+    // ПЕРЕМЕННЫЕ ДЛЯ POP UP BIG PHOTO
+    //делаю ссылку на popup с большим фото
+    const popUpBigPhoto = document.querySelector('.popup-big-photo');
+    //делаю ссылку на <img> в этом попапе BIG PHOTO
+    const pictureOfPopUpBigPhoto = popUpBigPhoto.querySelector('.popup__big-photo-picture');
+    //делаю ссылку на <figurecaption> в этом попапе BIG PHOTO
+    const titleOfPopUpBigPhoto = popUpBigPhoto.querySelector('.popup__big-photo-caption');
+
+    pictureOfPopUpBigPhoto.src = this._link;
+    pictureOfPopUpBigPhoto.alt = this._name;
+    titleOfPopUpBigPhoto.textContent = this._name;
+
+    openPopUp(popUpBigPhoto);
+
+  }
+
   _setEventListeners() {
     //слушатель нажатия на сердечко карточки
     this._heartToLike = this._handleHeartToLike();
@@ -37,6 +58,12 @@ export default class Card {
     this._trashCan = this._handleTrashCanToRemoveCard();
     this._trashCan.addEventListener("click", () => {
       this._handleTrashCanToRemoveCard();
+    });
+
+    //слушатель при нажатии на фотокарточку
+    this._element.querySelector('.card__link').addEventListener('click', () => {
+      // openPopUp(popUpBigPhoto);
+      this._handlePressToCardPhoto();
     });
   }
 
@@ -55,23 +82,5 @@ export default class Card {
     //возвращаем готовую карточку
     return this._element;
   }
-
-  // createCardElement(cardData) {
-
-
-
-  //   //ссылка на событие нажатия на фотокарточку
-  //   const pressingCardPhoto = cardElement.querySelector('.card__link');
-
-  //   //слушатель при нажатии на фотокарточку
-  //   pressingCardPhoto.addEventListener('click', () => {
-  //     pictureOfPopUpBigPhoto.src = cardPhoto.src;
-  //     pictureOfPopUpBigPhoto.alt = cardName.textContent;
-  //     titleOfPopUpBigPhoto.textContent = cardName.textContent;
-  //     openPopUp(popUpBigPhoto);
-  //   });
-
-  //   return cardElement;
-  // }
 
 }

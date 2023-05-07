@@ -1,5 +1,7 @@
 import initialCards from './initial-cards-array.js';
 import Card from './Card.js';
+import openPopUp from "./utils.js";
+
 
 
 // ПЕРЕМЕННЫЕ ДЛЯ POPUP PROFILE
@@ -27,17 +29,13 @@ const newCardLinkInput = editCardForm.querySelector(".popup__input_type_status")
 //сохраняем в переменную ссылку на место добавления карточек
 const cardsGrid = document.querySelector(".cards");
 
-// ПЕРЕМЕННЫЕ ДЛЯ POP UP BIG PHOTO
-//делаю ссылку на popup с большим фото
-const popUpBigPhoto = document.querySelector('.popup-big-photo');
-//делаю ссылку на <img> в этом попапе BIG PHOTO
-const pictureOfPopUpBigPhoto = popUpBigPhoto.querySelector('.popup__big-photo-picture');
-//делаю ссылку на <figurecaption> в этом попапе BIG PHOTO
-const titleOfPopUpBigPhoto = popUpBigPhoto.querySelector('.popup__big-photo-caption');
+
 
 // УНИВЕРСАЛЬНЫЕ ПЕРЕМЕННЫЕ
 //ссылка на псевдомассив NodeList всех крестиков закрывания попапов
 const crossesToClose = document.querySelectorAll('.popup__close-cross');
+
+
 
 
 // общая функция закрывает окно попап
@@ -57,11 +55,11 @@ function closePopUpByEscape(evt) {
 };
 
 // общая функция открывает окно попап
-function openPopUp(popName) {
-  popName.classList.add('popup_opened');
-  //вешаем слушатель функции на эскейп на этот элемент
-  document.addEventListener('keydown', closePopUpByEscape);
-};
+// function openPopUp(popName) {
+//   popName.classList.add('popup_opened');
+//   //вешаем слушатель функции на эскейп на этот элемент
+//   document.addEventListener('keydown', closePopUpByEscape);
+// };
 
 
 //закрытие popup по клику на overlay
