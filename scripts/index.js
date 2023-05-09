@@ -126,16 +126,15 @@ addButton.addEventListener('click', () => {
 //пересылка пользовательских вводов в новую карточку
 function handleEditCardSubmit(event) {
   event.preventDefault();
-
   const name = newCardNameInput.value;
   const link = newCardLinkInput.value;
-
   const cardData = {
     name,
     link,
   };
-
-  renderCardElement(createCardElement(cardData));
+  const card = new Card(cardData);
+  const element = card.generateCard();
+  renderCardElement(element);
   closePopUp(popUpNewCard);
 };
 
