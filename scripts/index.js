@@ -2,7 +2,6 @@ import initialCards from './initial-cards-array.js';
 import Card from './Card.js';
 import { openPopUp, closePopUp, closePopUpByClickToOverlay } from './utils.js';
 
-
 // ПЕРЕМЕННЫЕ ДЛЯ POPUP PROFILE
 const popUpProfile = document.querySelector('.popup-profile');
 const editButton = document.querySelector('.profile__edit-button');

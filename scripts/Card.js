@@ -2,14 +2,15 @@ import { openPopUp } from "./utils.js";
 
 export default class Card {
   //принимаем данные из объекта
-  constructor(cardData) {
+  constructor(cardData, templateSelector = '.card-template') {
     this._name = cardData.name;
     this._link = cardData.link;
+    this._templateSelector = templateSelector;
   }
 
   _getTemplate() {
     //клонируем узел с карточкой из шаблона
-    const cardElement = document.querySelector('.card-template').content.querySelector('.card').cloneNode(true);
+    const cardElement = document.querySelector(this._templateSelector).content.querySelector('.card').cloneNode(true);
     return cardElement;
   }
 
