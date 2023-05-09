@@ -1,7 +1,6 @@
 import initialCards from './initial-cards-array.js';
 import Card from './Card.js';
-import openPopUp from "./utils.js";
-
+import { openPopUp, closePopUp, closePopUpByClickToOverlay } from './utils.js';
 
 
 // ПЕРЕМЕННЫЕ ДЛЯ POPUP PROFILE
@@ -39,20 +38,20 @@ const crossesToClose = document.querySelectorAll('.popup__close-cross');
 
 
 // общая функция закрывает окно попап
-function closePopUp(popName) {
-  popName.classList.remove('popup_opened');
-  document.removeEventListener('keydown', closePopUpByEscape);
-}
+// function closePopUp(popName) {
+//   popName.classList.remove('popup_opened');
+//   document.removeEventListener('keydown', closePopUpByEscape);
+// }
 
 //закрытие popup по клику на escape
-function closePopUpByEscape(evt) {
-  if (evt.key === 'Escape') {
-    //ищем открытый popup по его модификатору
-    const popUpOpened = document.querySelector('.popup_opened');
-    //команда закрыть именно этот открытый popup
-    closePopUp(popUpOpened);
-  }
-};
+// function closePopUpByEscape(evt) {
+//   if (evt.key === 'Escape') {
+//     //ищем открытый popup по его модификатору
+//     const popUpOpened = document.querySelector('.popup_opened');
+//     //команда закрыть именно этот открытый popup
+//     closePopUp(popUpOpened);
+//   }
+// };
 
 // общая функция открывает окно попап
 // function openPopUp(popName) {
@@ -63,13 +62,13 @@ function closePopUpByEscape(evt) {
 
 
 //закрытие popup по клику на overlay
-function closePopUpByClickToOverlay() {
-  document.addEventListener('mousedown', function (evt) {
-    if (evt.target.classList.contains('popup_opened')) {
-      closePopUp(evt.target);
-    }
-  })
-}
+// function closePopUpByClickToOverlay() {
+//   document.addEventListener('mousedown', function (evt) {
+//     if (evt.target.classList.contains('popup_opened')) {
+//       closePopUp(evt.target);
+//     }
+//   })
+// }
 
 closePopUpByClickToOverlay();
 
