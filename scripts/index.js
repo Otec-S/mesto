@@ -1,6 +1,7 @@
 import initialCards from './initial-cards-array.js';
 import Card from './Card.js';
 import { openPopUp, closePopUp, closePopUpByClickToOverlay } from './utils.js';
+import FormValidator from './FormValidator.js';
 
 // ПЕРЕМЕННЫЕ ДЛЯ POPUP PROFILE
 const popUpProfile = document.querySelector('.popup-profile');
@@ -139,3 +140,13 @@ function handleEditCardSubmit(event) {
 };
 
 editCardForm.addEventListener("submit", handleEditCardSubmit);
+
+//???????????
+const validity = new FormValidator(config, currentCheckingForm);
+enableValidation({
+  formSelector: '.popup__form',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__submit',
+  inactiveButtonClass: 'popup__submit_disabled',
+  inputErrorClass: 'popup__input_invalid',
+});
