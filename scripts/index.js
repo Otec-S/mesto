@@ -1,3 +1,8 @@
+import initialCards from './initial-cards-array.js';
+import Card from './Card.js';
+import { openPopUp, closePopUp, closePopUpByClickToOverlay } from './utils.js';
+import FormValidator from './FormValidator.js';
+
 // ПЕРЕМЕННЫЕ ДЛЯ POPUP PROFILE
 const popUpProfile = document.querySelector('.popup-profile');
 const editButton = document.querySelector('.profile__edit-button');
@@ -18,107 +23,26 @@ const editCardForm = document.querySelector(".popup__form_type_edit-card");
 const newCardNameInput = editCardForm.querySelector(".popup__input_type_name");
 const newCardLinkInput = editCardForm.querySelector(".popup__input_type_status");
 
-// ПЕРЕМЕННЫЕ ДЛЯ ОТРИСОВКИ КАРТОЧЕК
-//сохраняем в переменную ссылку на шаблон карточки
-const cardTemplate = document.querySelector('.card-template');
 //сохраняем в переменную ссылку на место добавления карточек
 const cardsGrid = document.querySelector(".cards");
 
-// ПЕРЕМЕННЫЕ ДЛЯ POP UP BIG PHOTO
-//делаю ссылку на popup с большим фото
-const popUpBigPhoto = document.querySelector('.popup-big-photo');
-//делаю ссылку на <img> в этом попапе BIG PHOTO
-const pictureOfPopUpBigPhoto = popUpBigPhoto.querySelector('.popup__big-photo-picture');
-//делаю ссылку на <figurecaption> в этом попапе BIG PHOTO
-const titleOfPopUpBigPhoto = popUpBigPhoto.querySelector('.popup__big-photo-caption');
-
-// УНИВЕРСАЛЬНЫЕ ПЕРЕМЕННЫЕ
 //ссылка на псевдомассив NodeList всех крестиков закрывания попапов
-const crossToClose = document.querySelectorAll('.popup__close-cross');
-
-
-// общая функция закрывает окно попап
-function closePopUp(popName) {
-  popName.classList.remove('popup_opened');
-  document.removeEventListener('keydown', closePopUpByEscape);
-}
-
-//закрытие popup по клику на escape
-function closePopUpByEscape(evt) {
-  if (evt.key === 'Escape') {
-    //ищем открытый popup по его модификатору
-    const popUpOpened = document.querySelector('.popup_opened');
-    //команда закрыть именно этот открытый popup
-    closePopUp(popUpOpened);
-  }
-};
-
-// общая функция открывает окно попап
-function openPopUp(popName) {
-  popName.classList.add('popup_opened');
-  //вешаем слушатель функции на эскейп на этот элемент
-  document.addEventListener('keydown', closePopUpByEscape);
-};
-
-
-//закрытие popup по клику на overlay
-function closePopUpByClickToOverlay() {
-  document.addEventListener('mousedown', function (evt) {
-    if (evt.target.classList.contains('popup_opened')) {
-      closePopUp(evt.target);
-    }
-  })
-}
+const crossesToClose = document.querySelectorAll('.popup__close-cross');
 
 closePopUpByClickToOverlay();
 
-//СОЗДАНИЕ НОВОЙ КАРТОЧКИ
-//делаем отдельную функцию для создания новой карточки из объекта
-function createCardElement(cardData) {
-  //клонируем узел с карточкой из шаблона
-  const cardElement = cardTemplate.content.querySelector(".card").cloneNode(true);
-  const cardName = cardElement.querySelector(".card__title");
-  const cardPhoto = cardElement.querySelector(".card__photo");
-  cardName.textContent = cardData.name;
-  cardPhoto.src = cardData.link;
-  cardPhoto.alt = cardData.name;
-
-  //далаем ссылку на сердечко карточки
-  const heartToLike = cardElement.querySelector('.card__heart');
-  //слушатель нажатия на сердечко карточки
-  heartToLike.addEventListener('click', () => {
-    heartToLike.classList.toggle('card__heart_active');
-  });
-
-  //делаем ссылку на кнопку удаления карточки
-  const trashCanCardToDelete = cardElement.querySelector('.card__trash-can');
-  //делаем функцию удаления карточки со страницы
-  function handleCardDelete() { cardElement.remove() };
-  //делаем слушатель на кнопку удаления карточки
-  trashCanCardToDelete.addEventListener("click", handleCardDelete);
-
-  //ссылка на событие нажатия на фотокарточку
-  const pressingCardPhoto = cardElement.querySelector('.card__link');
-
-  //слушатель при нажатии на фотокарточку
-  pressingCardPhoto.addEventListener('click', () => {
-    pictureOfPopUpBigPhoto.src = cardPhoto.src;
-    pictureOfPopUpBigPhoto.alt = cardName.textContent;
-    titleOfPopUpBigPhoto.textContent = cardName.textContent;
-    openPopUp(popUpBigPhoto);
-  });
-
-  return cardElement;
-}
-
-//функция вставления карточки в cardGrid
+//функция вставки карточки в cardGrid
 function renderCardElement(cardElement) {
   cardsGrid.prepend(cardElement);
 };
 
-//делаем цикл forEach, чтобы пробежаться во всем элементам изначального массива
+//делаем цикл forEach, чтобы пробежаться во всем элементам изначального массива и рисуем изначальный массив
 initialCards.forEach((item) => {
-  const element = createCardElement(item);
+  //делаем экземпляр класса Card из каждого элемнта изначального массива
+  const card = new Card(item);
+  //запускаем публичный метод класса Card для создания/генерации карточки
+  const element = card.generateCard();
+  //вставляем готовые карточки в нужное место разметки html
   renderCardElement(element);
 });
 
@@ -133,7 +57,7 @@ function handleFormSubmit(evt) {
 }
 
 //цикл для крестиков закрытия всех попапов
-crossToClose.forEach(button => {
+crossesToClose.forEach(button => {
   const buttonsPopup = button.closest('.popup'); // нашли родителя с нужным классом
   button.addEventListener('click', () => closePopUp(buttonsPopup)); // закрыли попап
 });
@@ -159,17 +83,30 @@ addButton.addEventListener('click', () => {
 //пересылка пользовательских вводов в новую карточку
 function handleEditCardSubmit(event) {
   event.preventDefault();
-
   const name = newCardNameInput.value;
   const link = newCardLinkInput.value;
-
   const cardData = {
     name,
     link,
   };
-
-  renderCardElement(createCardElement(cardData));
+  const card = new Card(cardData);
+  const element = card.generateCard();
+  renderCardElement(element);
   closePopUp(popUpNewCard);
 };
 
 editCardForm.addEventListener("submit", handleEditCardSubmit);
+
+//валидация форм
+const config = {
+  formSelector: '.popup__form',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__submit',
+  inactiveButtonClass: 'popup__submit_disabled',
+  inputErrorClass: 'popup__input_invalid',
+}
+
+//создаем экземпляр класса FormValidator для каждой проверяемой формы
+const validity = new FormValidator(config, config.formSelector);
+//запускаем проверку валидации этой формы через публичный метод класса
+validity.enableValidation(config);
