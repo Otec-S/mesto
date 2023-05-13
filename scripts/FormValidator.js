@@ -40,7 +40,7 @@ export default class FormValidator {
     this._toggleButtonState(config, inputList, buttonElement);
 
     //чистим форму после ее отправки и тут же проверяем кнопку на валидность, делая ее невалидной
-    formElement.addEventListener('submit', function () {
+    formElement.addEventListener('submit', () => {
       formElement.reset();
       this._toggleButtonState(config, inputList, buttonElement);
     });
@@ -48,7 +48,7 @@ export default class FormValidator {
     //проходим по массиву всех инпутов inputList
     inputList.forEach((inputElement) => {
       //вешаем на каждый input слушатель ввода
-      inputElement.addEventListener('input', function () {
+      inputElement.addEventListener('input', () => {
         //вызываем функцию checkInputValidity
         this._checkInputValidity(config, formElement, inputElement);
         //вызываем функцию toggleButtonState в теле обработчика события input. Передаём ей массив полей формы и элемент кнопки. Такой вызов проверит состояние кнопки при каждом изменении символа в любом из полей.
@@ -91,7 +91,7 @@ export default class FormValidator {
   // Обход массива прекратится и вся функция
   // hasInvalidInput вернёт true
   _hasInvalidInput(inputList) {
-    return inputList.some(function (inputElement) {
+    return inputList.some((inputElement) => {
       return !inputElement.validity.valid;
     });
   };
