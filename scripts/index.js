@@ -23,58 +23,14 @@ const editCardForm = document.querySelector(".popup__form_type_edit-card");
 const newCardNameInput = editCardForm.querySelector(".popup__input_type_name");
 const newCardLinkInput = editCardForm.querySelector(".popup__input_type_status");
 
-// ПЕРЕМЕННЫЕ ДЛЯ ОТРИСОВКИ КАРТОЧЕК
-
 //сохраняем в переменную ссылку на место добавления карточек
 const cardsGrid = document.querySelector(".cards");
 
-
-
-// УНИВЕРСАЛЬНЫЕ ПЕРЕМЕННЫЕ
 //ссылка на псевдомассив NodeList всех крестиков закрывания попапов
 const crossesToClose = document.querySelectorAll('.popup__close-cross');
 
-
-
-
-// общая функция закрывает окно попап
-// function closePopUp(popName) {
-//   popName.classList.remove('popup_opened');
-//   document.removeEventListener('keydown', closePopUpByEscape);
-// }
-
-//закрытие popup по клику на escape
-// function closePopUpByEscape(evt) {
-//   if (evt.key === 'Escape') {
-//     //ищем открытый popup по его модификатору
-//     const popUpOpened = document.querySelector('.popup_opened');
-//     //команда закрыть именно этот открытый popup
-//     closePopUp(popUpOpened);
-//   }
-// };
-
-// общая функция открывает окно попап
-// function openPopUp(popName) {
-//   popName.classList.add('popup_opened');
-//   //вешаем слушатель функции на эскейп на этот элемент
-//   document.addEventListener('keydown', closePopUpByEscape);
-// };
-
-
-//закрытие popup по клику на overlay
-// function closePopUpByClickToOverlay() {
-//   document.addEventListener('mousedown', function (evt) {
-//     if (evt.target.classList.contains('popup_opened')) {
-//       closePopUp(evt.target);
-//     }
-//   })
-// }
-
 closePopUpByClickToOverlay();
 
-
-
-//!!!!!!!!!!!!!!!
 //функция вставки карточки в cardGrid
 function renderCardElement(cardElement) {
   cardsGrid.prepend(cardElement);
@@ -141,7 +97,7 @@ function handleEditCardSubmit(event) {
 
 editCardForm.addEventListener("submit", handleEditCardSubmit);
 
-//???????????
+//валидация форм
 const config = {
   formSelector: '.popup__form',
   inputSelector: '.popup__input',
@@ -149,5 +105,8 @@ const config = {
   inactiveButtonClass: 'popup__submit_disabled',
   inputErrorClass: 'popup__input_invalid',
 }
+
+//создаем экземпляр класса FormValidator для каждой проверяемой формы
 const validity = new FormValidator(config, config.formSelector);
+//запускаем проверку валидации этой формы через публичный метод класса
 validity.enableValidation(config);

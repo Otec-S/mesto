@@ -1,19 +1,15 @@
 export default class FormValidator {
 
-  // formSelector = '.popup__form', inputSelector = '.popup__input', submitButtonSelector = '.popup__submit', inactiveButtonClass = 'popup__submit_disabled', inputErrorClass = 'popup__input_invalid'
-
   constructor(config, currentCheckingForm) {
     this._formSelector = config.formSelector;
     this._inputSelector = config.inputSelector;
     this._submitButtonSelector = config.submitButtonSelector;
     this._inactiveButtonClass = config.inactiveButtonClass;
     this._inputErrorClass = config.inputErrorClass;
-    //ссылка на HTML-элемент проверяемой формы?
-    //ссылка на форму, которую необходимо валидировать?
+    //ссылка на HTML-элемент проверяемой формы
+    //ссылка на форму, которую необходимо валидировать
     this._currentCheckingForm = currentCheckingForm;
   }
-
-
 
   //единственный публичный метод класса
   enableValidation(config) {
@@ -109,8 +105,4 @@ export default class FormValidator {
       buttonElement.classList.remove(config.inactiveButtonClass);
     }
   };
-
-
 };
-
-

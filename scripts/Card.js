@@ -28,7 +28,6 @@ export default class Card {
     return this._can;
   }
 
-
   _handlePressToCardPhoto() {
     // ПЕРЕМЕННЫЕ ДЛЯ POP UP BIG PHOTO
     //делаю ссылку на popup с большим фото
