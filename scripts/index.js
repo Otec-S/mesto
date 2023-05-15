@@ -36,14 +36,18 @@ function renderCardElement(cardElement) {
   cardsGrid.prepend(cardElement);
 };
 
-//делаем цикл forEach, чтобы пробежаться во всем элементам изначального массива и рисуем изначальный массив
-initialCards.forEach((item) => {
-  //делаем экземпляр класса Card из каждого элемнта изначального массива
-  const card = new Card(item);
+//делаем отдельную функцию по созданию экземпляра класса Card
+function makeElementOfClassCard(data) {
+  const card = new Card(data);
   //запускаем публичный метод класса Card для создания/генерации карточки
   const element = card.generateCard();
   //вставляем готовые карточки в нужное место разметки html
   renderCardElement(element);
+}
+
+//делаем цикл forEach, чтобы пробежаться во всем элементам изначального массива и рисуем изначальный массив
+initialCards.forEach((item) => {
+  makeElementOfClassCard(item);
 });
 
 
@@ -89,9 +93,7 @@ function handleEditCardSubmit(event) {
     name,
     link,
   };
-  const card = new Card(cardData);
-  const element = card.generateCard();
-  renderCardElement(element);
+  makeElementOfClassCard(cardData);
   closePopUp(popUpNewCard);
 };
 
