@@ -49,7 +49,7 @@ initialCards.forEach((item) => {
 
 //ФУНКЦИИ ДЛЯ ПОПАПА
 /*функция вставляет данные из заполненной формы попапа в профиль и закрывает попап*/
-function handleFormSubmit(evt) {
+function handleProfileFormSubmit(evt) {
   evt.preventDefault();
   currentName.textContent = nameInput.value;
   currentStatus.textContent = nameStatus.value;
@@ -70,7 +70,7 @@ editButton.addEventListener('click', () => {
 });
 
 //слушатель события нажатия на кнопку "Сохранить" Profile
-formElement.addEventListener('submit', handleFormSubmit);
+formElement.addEventListener('submit', handleProfileFormSubmit);
 
 //слушатель события клика на кнопку addButton
 addButton.addEventListener('click', () => {
