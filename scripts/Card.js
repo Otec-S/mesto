@@ -1,4 +1,4 @@
-import { openPopUp } from "./utils.js";
+import { openPopUp, popUpBigPhoto, pictureOfPopUpBigPhoto, titleOfPopUpBigPhoto} from "./utils.js";
 
 export default class Card {
   //принимаем данные из объекта
@@ -29,13 +29,6 @@ export default class Card {
   }
 
   _handlePressToCardPhoto() {
-    // ПЕРЕМЕННЫЕ ДЛЯ POP UP BIG PHOTO
-    //делаю ссылку на popup с большим фото
-    const popUpBigPhoto = document.querySelector('.popup-big-photo');
-    //делаю ссылку на <img> в этом попапе BIG PHOTO
-    const pictureOfPopUpBigPhoto = popUpBigPhoto.querySelector('.popup__big-photo-picture');
-    //делаю ссылку на <figurecaption> в этом попапе BIG PHOTO
-    const titleOfPopUpBigPhoto = popUpBigPhoto.querySelector('.popup__big-photo-caption');
     pictureOfPopUpBigPhoto.src = this._link;
     pictureOfPopUpBigPhoto.alt = this._name;
     titleOfPopUpBigPhoto.textContent = this._name;
