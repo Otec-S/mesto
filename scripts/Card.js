@@ -1,4 +1,4 @@
-import { openPopUp, popUpBigPhoto, pictureOfPopUpBigPhoto, titleOfPopUpBigPhoto} from "./utils.js";
+import { openPopUp, popUpBigPhoto, pictureOfPopUpBigPhoto, titleOfPopUpBigPhoto } from "./utils.js";
 
 export default class Card {
   //принимаем данные из объекта
@@ -15,17 +15,12 @@ export default class Card {
   }
 
   _handleHeartToLike() {
-    //далаем ссылку на сердечко карточки
-    this._heart = this._element.querySelector('.card__heart');
     this._heart.classList.toggle('card__heart_active');
-    return this._heart;
   }
 
   _handleTrashCanToRemoveCard() {
-    //делаем ссылку на мусорную корзину
-    this._can = this._element.querySelector('.card__trash-can');
     this._element.remove();
-    return this._can;
+    this._element = null;
   }
 
   _handlePressToCardPhoto() {
@@ -36,16 +31,17 @@ export default class Card {
   }
 
   _setEventListeners() {
-    //слушатель нажатия на сердечко карточки
-    this._heartToLike = this._handleHeartToLike();
-    this._heartToLike.classList.remove('card__heart_active');
-    this._heartToLike.addEventListener('click', () => {
+    //далаем ссылку на сердечко карточки
+    this._heart = this._element.querySelector('.card__heart');
+    //вешаем на него вызов функции по клику
+    this._heart.addEventListener('click', () => {
       this._handleHeartToLike();
     });
 
+    //делаем ссылку на мусорную корзину
+    this._can = this._element.querySelector('.card__trash-can');
     //слушатель на корзину удаления карточки
-    this._trashCan = this._handleTrashCanToRemoveCard();
-    this._trashCan.addEventListener("click", () => {
+    this._can.addEventListener("click", () => {
       this._handleTrashCanToRemoveCard();
     });
 
