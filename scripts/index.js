@@ -1,7 +1,7 @@
 import initialCards from './initial-cards-array.js';
 import Card from './Card.js';
 import { openPopUp, closePopUp, closePopUpByClickToOverlay } from './utils.js';
-import FormValidator from './FormValidator.js';
+import { FormValidator } from './FormValidator.js';
 
 // ПЕРЕМЕННЫЕ ДЛЯ POPUP PROFILE
 const popUpProfile = document.querySelector('.popup-profile');
@@ -36,20 +36,24 @@ function renderCardElement(cardElement) {
   cardsGrid.prepend(cardElement);
 };
 
-//делаем цикл forEach, чтобы пробежаться во всем элементам изначального массива и рисуем изначальный массив
-initialCards.forEach((item) => {
-  //делаем экземпляр класса Card из каждого элемнта изначального массива
-  const card = new Card(item);
+//делаем отдельную функцию по созданию экземпляра класса Card
+function makeElementOfClassCard(data) {
+  const card = new Card(data);
   //запускаем публичный метод класса Card для создания/генерации карточки
   const element = card.generateCard();
   //вставляем готовые карточки в нужное место разметки html
   renderCardElement(element);
+}
+
+//делаем цикл forEach, чтобы пробежаться во всем элементам изначального массива и рисуем изначальный массив
+initialCards.forEach((item) => {
+  makeElementOfClassCard(item);
 });
 
 
 //ФУНКЦИИ ДЛЯ ПОПАПА
 /*функция вставляет данные из заполненной формы попапа в профиль и закрывает попап*/
-function handleFormSubmit(evt) {
+function handleProfileFormSubmit(evt) {
   evt.preventDefault();
   currentName.textContent = nameInput.value;
   currentStatus.textContent = nameStatus.value;
@@ -70,7 +74,7 @@ editButton.addEventListener('click', () => {
 });
 
 //слушатель события нажатия на кнопку "Сохранить" Profile
-formElement.addEventListener('submit', handleFormSubmit);
+formElement.addEventListener('submit', handleProfileFormSubmit);
 
 //слушатель события клика на кнопку addButton
 addButton.addEventListener('click', () => {
@@ -89,9 +93,7 @@ function handleEditCardSubmit(event) {
     name,
     link,
   };
-  const card = new Card(cardData);
-  const element = card.generateCard();
-  renderCardElement(element);
+  makeElementOfClassCard(cardData);
   closePopUp(popUpNewCard);
 };
 
@@ -106,7 +108,13 @@ const config = {
   inputErrorClass: 'popup__input_invalid',
 }
 
-//создаем экземпляр класса FormValidator для каждой проверяемой формы
-const validity = new FormValidator(config, config.formSelector);
+//создаем экземпляр класса FormValidator для формы заполнения новой карточки
+const cardFormValidator = new FormValidator(config, '.popup__form_type_profile');
 //запускаем проверку валидации этой формы через публичный метод класса
-validity.enableValidation(config);
+cardFormValidator.enableValidation(config);
+
+//создаем экземпляр класса FormValidator для формы профайла
+const profileFormValidator = new FormValidator(config, '.popup__form_type_edit-card');
+//запускаем проверку валидации этой формы через публичный метод класса
+profileFormValidator.enableValidation(config);
+

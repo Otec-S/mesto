@@ -1,4 +1,4 @@
-import { openPopUp } from "./utils.js";
+import { openPopUp, popUpBigPhoto, pictureOfPopUpBigPhoto, titleOfPopUpBigPhoto } from "./utils.js";
 
 export default class Card {
   //принимаем данные из объекта
@@ -15,27 +15,15 @@ export default class Card {
   }
 
   _handleHeartToLike() {
-    //далаем ссылку на сердечко карточки
-    this._heart = this._element.querySelector('.card__heart');
     this._heart.classList.toggle('card__heart_active');
-    return this._heart;
   }
 
   _handleTrashCanToRemoveCard() {
-    //делаем ссылку на мусорную корзину
-    this._can = this._element.querySelector('.card__trash-can');
     this._element.remove();
-    return this._can;
+    this._element = null;
   }
 
   _handlePressToCardPhoto() {
-    // ПЕРЕМЕННЫЕ ДЛЯ POP UP BIG PHOTO
-    //делаю ссылку на popup с большим фото
-    const popUpBigPhoto = document.querySelector('.popup-big-photo');
-    //делаю ссылку на <img> в этом попапе BIG PHOTO
-    const pictureOfPopUpBigPhoto = popUpBigPhoto.querySelector('.popup__big-photo-picture');
-    //делаю ссылку на <figurecaption> в этом попапе BIG PHOTO
-    const titleOfPopUpBigPhoto = popUpBigPhoto.querySelector('.popup__big-photo-caption');
     pictureOfPopUpBigPhoto.src = this._link;
     pictureOfPopUpBigPhoto.alt = this._name;
     titleOfPopUpBigPhoto.textContent = this._name;
@@ -43,16 +31,17 @@ export default class Card {
   }
 
   _setEventListeners() {
-    //слушатель нажатия на сердечко карточки
-    this._heartToLike = this._handleHeartToLike();
-    this._heartToLike.classList.remove('card__heart_active');
-    this._heartToLike.addEventListener('click', () => {
+    //далаем ссылку на сердечко карточки
+    this._heart = this._element.querySelector('.card__heart');
+    //вешаем на него вызов функции по клику
+    this._heart.addEventListener('click', () => {
       this._handleHeartToLike();
     });
 
+    //делаем ссылку на мусорную корзину
+    this._can = this._element.querySelector('.card__trash-can');
     //слушатель на корзину удаления карточки
-    this._trashCan = this._handleTrashCanToRemoveCard();
-    this._trashCan.addEventListener("click", () => {
+    this._can.addEventListener("click", () => {
       this._handleTrashCanToRemoveCard();
     });
 
