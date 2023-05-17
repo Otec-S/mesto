@@ -1,7 +1,7 @@
 import initialCards from './initial-cards-array.js';
 import Card from './Card.js';
 import { openPopUp, closePopUp, closePopUpByClickToOverlay } from './utils.js';
-import FormValidator from './FormValidator.js';
+import { FormValidator } from './FormValidator.js';
 
 // ПЕРЕМЕННЫЕ ДЛЯ POPUP PROFILE
 const popUpProfile = document.querySelector('.popup-profile');
@@ -108,7 +108,13 @@ const config = {
   inputErrorClass: 'popup__input_invalid',
 }
 
-//создаем экземпляр класса FormValidator для каждой проверяемой формы
-const validity = new FormValidator(config, config.formSelector);
+//создаем экземпляр класса FormValidator для формы заполнения новой карточки
+const cardFormValidator = new FormValidator(config, '.popup__form_type_profile');
 //запускаем проверку валидации этой формы через публичный метод класса
-validity.enableValidation(config);
+cardFormValidator.enableValidation(config);
+
+//создаем экземпляр класса FormValidator для формы профайла
+const profileFormValidator = new FormValidator(config, '.popup__form_type_edit-card');
+//запускаем проверку валидации этой формы через публичный метод класса
+profileFormValidator.enableValidation(config);
+

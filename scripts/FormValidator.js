@@ -1,4 +1,4 @@
-export default class FormValidator {
+class FormValidator {
 
   constructor(config, currentCheckingForm) {
     this._formSelector = config.formSelector;
@@ -6,33 +6,14 @@ export default class FormValidator {
     this._submitButtonSelector = config.submitButtonSelector;
     this._inactiveButtonClass = config.inactiveButtonClass;
     this._inputErrorClass = config.inputErrorClass;
-    //ссылка на HTML-элемент проверяемой формы
-    //ссылка на форму, которую необходимо валидировать
     this._currentCheckingForm = currentCheckingForm;
   }
 
-  // Класс описывает логику абстрактной сущности - одной формы в данном случае.
-  // Для каждой формы создается свой экземпляр, который управляет только ей.
-  // Не должно быть методов, которые для каждого экземпляра будут проходить и искать все формы в проекте и для них циклом создавать слушатели событий.
-  // Этот метод должен создать слушатели только для текущей формы
-
-
-  //единственный публичный метод класса
   enableValidation(config) {
 
-    //делаем массив formList на две формы в документе
-    const formList = Array.from(document.querySelectorAll(config.formSelector));
-
-    //проходимся по массиву formList и на каждый ввод в input явно вызываем функцию setEventListeners
-    formList.forEach((formElement) => {
-      this._setEventListeners(config, formElement);
-    });
-  };
-
-
-  //ВТОРИЧНАЯ ФУНКЦИЯ ПРОВЕРКИ ВАЛИДНОСТИ
-  _setEventListeners(config, formElement) {
-    //проходимся по formList и делаем массив inputList из всех инпутов
+    //делаем ссылку на переданную в конструктор форму
+    const formElement = document.querySelector(this._currentCheckingForm);
+    //проходимся по текущей форме и делаем массив inputList из всех инпутов текущей формы
     const inputList = Array.from(formElement.querySelectorAll(config.inputSelector));
 
     //ссылка на кнопку текушего formElement
@@ -112,3 +93,6 @@ export default class FormValidator {
     }
   };
 };
+
+
+export { FormValidator };
