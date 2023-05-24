@@ -1,5 +1,6 @@
 import initialCards from './initial-cards-array.js';
 import Card from './Card.js';
+import Section from './Section.js';
 import { openPopUp, closePopUp, closePopUpByClickToOverlay } from './utils.js';
 import { FormValidator } from './FormValidator.js';
 
@@ -23,32 +24,63 @@ const editCardForm = document.querySelector(".popup__form_type_edit-card");
 const newCardNameInput = editCardForm.querySelector(".popup__input_type_name");
 const newCardLinkInput = editCardForm.querySelector(".popup__input_type_status");
 
+
+/****************************** */
 //сохраняем в переменную ссылку на место добавления карточек
 const cardsGrid = document.querySelector(".cards");
+/***************************** */
+
 
 //ссылка на псевдомассив NodeList всех крестиков закрывания попапов
 const crossesToClose = document.querySelectorAll('.popup__close-cross');
 
 closePopUpByClickToOverlay();
 
+
+/************************** */
 //функция вставки карточки в cardGrid
-function renderCardElement(cardElement) {
-  cardsGrid.prepend(cardElement);
-};
+// function renderCardElement(cardElement) {
+//   cardsGrid.prepend(cardElement);
+// };
+/************************** */
 
+
+/************************** */
 //делаем отдельную функцию по созданию экземпляра класса Card
-function makeElementOfClassCard(data) {
-  const card = new Card(data);
-  //запускаем публичный метод класса Card для создания/генерации карточки
-  const element = card.generateCard();
-  //вставляем готовые карточки в нужное место разметки html
-  renderCardElement(element);
-}
+// function makeElementOfClassCard(data) {
+//   const card = new Card(data);
+//   //запускаем публичный метод класса Card для создания/генерации карточки
+//   const element = card.generateCard();
+//   //вставляем готовые карточки в нужное место разметки html
+//   renderCardElement(element);
+// }
+/***************************** */
 
+/***************************** */
 //делаем цикл forEach, чтобы пробежаться во всем элементам изначального массива и рисуем изначальный массив
-initialCards.forEach((item) => {
-  makeElementOfClassCard(item);
-});
+// initialCards.forEach((item) => {
+//   makeElementOfClassCard(item);
+// });
+/***************************** */
+
+//отрисовываем изначальный массив карточек
+const cardList = new Section({
+  items: initialCards,
+  renderer: (data) => {
+    const card = new Card(data);
+    const cardElement = card.generateCard();
+    cardList.addItem(cardElement);
+  }
+}, ".cards");
+
+
+//отрисовка карточек на странице
+cardList.renderItems();
+
+
+
+
+
 
 
 //ФУНКЦИИ ДЛЯ ПОПАПА
