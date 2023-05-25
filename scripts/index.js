@@ -27,14 +27,14 @@ const newCardLinkInput = editCardForm.querySelector(".popup__input_type_status")
 
 /****************************** */
 //сохраняем в переменную ссылку на место добавления карточек
-const cardsGrid = document.querySelector(".cards");
+// const cardsGrid = document.querySelector(".cards");
 /***************************** */
 
 
 //ссылка на псевдомассив NodeList всех крестиков закрывания попапов
 const crossesToClose = document.querySelectorAll('.popup__close-cross');
 
-closePopUpByClickToOverlay();
+// closePopUpByClickToOverlay();
 
 
 /************************** */
@@ -47,13 +47,13 @@ closePopUpByClickToOverlay();
 
 /************************** */
 // делаем отдельную функцию по созданию экземпляра класса Card
-function makeElementOfClassCard(data) {
-  const card = new Card(data);
-  //запускаем публичный метод класса Card для создания/генерации карточки
-  const element = card.generateCard();
-  //вставляем готовые карточки в нужное место разметки html
-  renderCardElement(element);
-}
+// function makeElementOfClassCard(data) {
+//   const card = new Card(data);
+//   //запускаем публичный метод класса Card для создания/генерации карточки
+//   const element = card.generateCard();
+//   //вставляем готовые карточки в нужное место разметки html
+//   renderCardElement(element);
+// }
 /***************************** */
 
 /***************************** */
@@ -81,8 +81,6 @@ cardList.renderItems();
 
 
 
-
-
 //ФУНКЦИИ ДЛЯ ПОПАПА
 /*функция вставляет данные из заполненной формы попапа в профиль и закрывает попап*/
 function handleProfileFormSubmit(evt) {
@@ -92,11 +90,11 @@ function handleProfileFormSubmit(evt) {
   closePopUp(popUpProfile);
 }
 
-//цикл для крестиков закрытия всех попапов
-crossesToClose.forEach(button => {
-  const buttonsPopup = button.closest('.popup'); // нашли родителя с нужным классом
-  button.addEventListener('click', () => closePopUp(buttonsPopup)); // закрыли попап
-});
+// //цикл для крестиков закрытия всех попапов
+// crossesToClose.forEach(button => {
+//   const buttonsPopup = button.closest('.popup'); // нашли родителя с нужным классом
+//   button.addEventListener('click', () => closePopUp(buttonsPopup)); // закрыли попап
+// });
 
 //слушатель события клика на кнопку editButton
 editButton.addEventListener('click', () => {
@@ -146,9 +144,9 @@ function handleEditCardSubmit(event) {
 editCardForm.addEventListener("submit", handleEditCardSubmit);
 
 
+/***************************************** */
 
-
-//валидация форм
+//ВАЛИДАЦИЯ форм
 const config = {
   formSelector: '.popup__form',
   inputSelector: '.popup__input',
