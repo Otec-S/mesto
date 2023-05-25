@@ -1,7 +1,7 @@
 //отвечает за отрисовку элементов на странице
 //items — это массив данных, которые нужно добавить на страницу при инициализации класса
 //renderer — это функция, которая отвечает за создание и отрисовку данных на странице
-//electorContainer - селектор контейнера, в который нужно добавлять созданные элементы
+//containerSelector - селектор контейнера, в который нужно добавлять созданные элементы
 export default class Section {
   constructor ({ items, renderer }, containerSelector) {
     this._renderedItems = items;
@@ -14,11 +14,17 @@ export default class Section {
     this._container.prepend(element);
   }
 
-  //cодержит публичный метод, который отвечает за отрисовку всех элементов. Отрисовка каждого отдельного элемента должна осуществляться функцией renderer.
+  //отрисовка массива карточек
+  // Отрисовка каждого отдельного элемента должна осуществляться функцией renderer.
   renderItems() {
     this._renderedItems.forEach(item => {
       this._renderer(item);
     });
   }
+
+  //отрисовка одной карточки
+  renderItem() {
+      this._renderer(this._renderedItems);
+    };
 
 }

@@ -38,7 +38,7 @@ closePopUpByClickToOverlay();
 
 
 /************************** */
-//функция вставки карточки в cardGrid
+// функция вставки карточки в cardGrid
 // function renderCardElement(cardElement) {
 //   cardsGrid.prepend(cardElement);
 // };
@@ -46,14 +46,14 @@ closePopUpByClickToOverlay();
 
 
 /************************** */
-//делаем отдельную функцию по созданию экземпляра класса Card
-// function makeElementOfClassCard(data) {
-//   const card = new Card(data);
-//   //запускаем публичный метод класса Card для создания/генерации карточки
-//   const element = card.generateCard();
-//   //вставляем готовые карточки в нужное место разметки html
-//   renderCardElement(element);
-// }
+// делаем отдельную функцию по созданию экземпляра класса Card
+function makeElementOfClassCard(data) {
+  const card = new Card(data);
+  //запускаем публичный метод класса Card для создания/генерации карточки
+  const element = card.generateCard();
+  //вставляем готовые карточки в нужное место разметки html
+  renderCardElement(element);
+}
 /***************************** */
 
 /***************************** */
@@ -108,6 +108,8 @@ editButton.addEventListener('click', () => {
 //слушатель события нажатия на кнопку "Сохранить" Profile
 formElement.addEventListener('submit', handleProfileFormSubmit);
 
+
+
 //слушатель события клика на кнопку addButton
 addButton.addEventListener('click', () => {
   openPopUp(popUpNewCard);
@@ -125,11 +127,26 @@ function handleEditCardSubmit(event) {
     name,
     link,
   };
-  makeElementOfClassCard(cardData);
+
+  const newCard = new Section({
+    items: cardData,
+    renderer: (data) => {
+      const card = new Card(data);
+      const cardElement = card.generateCard();
+      newCard.addItem(cardElement);
+    }
+  }, ".cards");
+
+  newCard.renderItem();
+
+  // makeElementOfClassCard(cardData);
   closePopUp(popUpNewCard);
 };
 
 editCardForm.addEventListener("submit", handleEditCardSubmit);
+
+
+
 
 //валидация форм
 const config = {
