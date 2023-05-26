@@ -1,6 +1,8 @@
 //импорт popName ?
 //импорт crossesToClose ?
 
+import { crossesToClose } from './utils.js'
+
 
 export default class Popup {
   constructor(popupSelector) {
@@ -8,14 +10,14 @@ export default class Popup {
   }
 
   // публичный метод открывает окно попап
-  open() {
+  open(popName) {
     popName.classList.add('popup_opened');
     //вешаем слушатель функции на эскейп на этот элемент
     document.addEventListener('keydown', this._handleEscClose);
   };
 
   // публичный метод закрывает окно попап
-  close() {
+  close(popName) {
     popName.classList.remove('popup_opened');
     document.removeEventListener('keydown', this._handleEscClose);
   }
@@ -51,6 +53,7 @@ export default class Popup {
   }
 
   //вызов приватного метода закрытия popup по клику на overlay
+  //в этом месте его вызывать, или сделать публичным и вызывать в index.js ??
   _handleOverlayClose()
 
 }

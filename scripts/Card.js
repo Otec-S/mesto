@@ -1,11 +1,13 @@
-import { openPopUp, popUpBigPhoto, pictureOfPopUpBigPhoto, titleOfPopUpBigPhoto } from "./utils.js";
+// import { openPopUp, popUpBigPhoto, pictureOfPopUpBigPhoto, titleOfPopUpBigPhoto } from "./utils.js";
 
 export default class Card {
   //принимаем данные из объекта
-  constructor(cardData, templateSelector = '.card-template') {
+  constructor(cardData, templateSelector = '.card-template', clickToCard) {
     this._name = cardData.name;
     this._link = cardData.link;
     this._templateSelector = templateSelector;
+    this._clickToCard = clickToCard;
+
   }
 
   _getTemplate() {
@@ -23,12 +25,12 @@ export default class Card {
     this._element = null;
   }
 
-  _handlePressToCardPhoto() {
-    pictureOfPopUpBigPhoto.src = this._link;
-    pictureOfPopUpBigPhoto.alt = this._name;
-    titleOfPopUpBigPhoto.textContent = this._name;
-    openPopUp(popUpBigPhoto);
-  }
+  // _handlePressToCardPhoto() {
+  //   pictureOfPopUpBigPhoto.src = this._link;
+  //   pictureOfPopUpBigPhoto.alt = this._name;
+  //   titleOfPopUpBigPhoto.textContent = this._name;
+  //   openPopUp(popUpBigPhoto);
+  // }
 
   _setEventListeners() {
     //далаем ссылку на сердечко карточки
@@ -45,10 +47,10 @@ export default class Card {
       this._handleTrashCanToRemoveCard();
     });
 
-    //слушатель при нажатии на фотокарточку
+    //слушатель при нажатии на фотокарточку - просто вызываем функцию _clickToCard
     this._element.querySelector('.card__link').addEventListener('click', () => {
       // openPopUp(popUpBigPhoto);
-      this._handlePressToCardPhoto();
+      this._clickToCard();
     });
   }
 
