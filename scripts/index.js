@@ -2,7 +2,7 @@ import initialCards from './initial-cards-array.js';
 import Card from './Card.js';
 import Section from './Section.js';
 // import Popup from './Popup.js';
-import PopupWithImage from './PopupWithImage.js';
+// import PopupWithImage from './PopupWithImage.js';
 import { popUpBigPhoto } from './utils.js';
 import { FormValidator } from './FormValidator.js';
 
@@ -66,15 +66,15 @@ const newCardLinkInput = editCardForm.querySelector(".popup__input_type_status")
 /***************************** */
 
 //отрисовываем изначальный массив карточек
+//() => {console.log('CLICK')}
 const cardList = new Section({
   items: initialCards,
   renderer: (data) => {
-    const card = new Card(data);
+    const card = new Card(data, (data) => {console.log(data)});
     const cardElement = card.generateCard();
     cardList.addItem(cardElement);
   }
 }, ".cards");
-
 
 //отрисовка карточек на странице
 cardList.renderItems();
@@ -82,13 +82,11 @@ cardList.renderItems();
 
 
 //нажатие на карточку - вызов попапа с большим фото
-const card = new Card (cardData, () => {
-  const popWithImage = new PopupWithImage (cardData, popUpBigPhoto);
-  const bigPhotoOpen = popWithImage.open();
-}
-
-
-)
+// const card = new Card (cardData, () => {
+//   const popWithImage = new PopupWithImage (cardData, popUpBigPhoto);
+//   const bigPhotoOpen = popWithImage.open();
+// }
+// )
 
 
 

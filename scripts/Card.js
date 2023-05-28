@@ -2,12 +2,11 @@
 
 export default class Card {
   //принимаем данные из объекта
-  constructor(cardData, templateSelector = '.card-template', clickToCard) {
+  constructor(cardData, handleCardClick, templateSelector = '.card-template') {
     this._name = cardData.name;
     this._link = cardData.link;
     this._templateSelector = templateSelector;
-    this._clickToCard = clickToCard;
-
+    this._handleCardClick = handleCardClick;
   }
 
   _getTemplate() {
@@ -32,6 +31,18 @@ export default class Card {
   //   openPopUp(popUpBigPhoto);
   // }
 
+
+
+
+  /*************** */
+  _handleClick() {
+    this._handleCardClick ({ name: this._name, link: this._link });
+  }
+  /***************** */
+
+
+
+
   _setEventListeners() {
     //далаем ссылку на сердечко карточки
     this._heart = this._element.querySelector('.card__heart');
@@ -50,7 +61,7 @@ export default class Card {
     //слушатель при нажатии на фотокарточку - просто вызываем функцию _clickToCard
     this._element.querySelector('.card__link').addEventListener('click', () => {
       // openPopUp(popUpBigPhoto);
-      this._clickToCard();
+      this._handleClick();
     });
   }
 
