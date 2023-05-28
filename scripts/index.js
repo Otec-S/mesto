@@ -1,9 +1,9 @@
 import initialCards from './initial-cards-array.js';
 import Card from './Card.js';
 import Section from './Section.js';
-// import Popup from './Popup.js';
-// import PopupWithImage from './PopupWithImage.js';
-import { popUpBigPhoto } from './utils.js';
+import Popup from './Popup.js';
+import PopupWithImage from './PopupWithImage.js';
+// import { popUpBigPhoto } from './utils.js';
 import { FormValidator } from './FormValidator.js';
 
 // ПЕРЕМЕННЫЕ ДЛЯ POPUP PROFILE
@@ -65,12 +65,21 @@ const newCardLinkInput = editCardForm.querySelector(".popup__input_type_status")
 // });
 /***************************** */
 
+
+
+//создаем экземпляр класса Popup с селектором для большого фото
+const popUpBigPhoto = new PopupWithImage ('.popup-big-photo');
+//вызываем публичный метод setEventListeners из класса Popup
+popUpBigPhoto.setEventListeners();
+
 //отрисовываем изначальный массив карточек
-//() => {console.log('CLICK')}
 const cardList = new Section({
   items: initialCards,
   renderer: (data) => {
-    const card = new Card(data, (data) => {console.log(data)});
+    //второй параметр экземпляра Card - это и есть функция handleCardClick!!!
+    const card = new Card(data, (cardData) =>
+    {popUpBigPhoto.open(cardData)});
+
     const cardElement = card.generateCard();
     cardList.addItem(cardElement);
   }
@@ -87,6 +96,9 @@ cardList.renderItems();
 //   const bigPhotoOpen = popWithImage.open();
 // }
 // )
+
+
+
 
 
 

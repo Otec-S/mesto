@@ -1,12 +1,12 @@
 // ПЕРЕМЕННЫЕ ДЛЯ POP UP BIG PHOTO
-//делаю ссылку на popup с большим фото
-export const popUpBigPhoto = document.querySelector('.popup-big-photo');
-//делаю ссылку на <img> в этом попапе BIG PHOTO
-export const pictureOfPopUpBigPhoto = popUpBigPhoto.querySelector('.popup__big-photo-picture');
-//делаю ссылку на <figurecaption> в этом попапе BIG PHOTO
-export const titleOfPopUpBigPhoto = popUpBigPhoto.querySelector('.popup__big-photo-caption');
-//ссылка на псевдомассив NodeList всех крестиков закрывания попапов
-export const crossesToClose = document.querySelectorAll('.popup__close-cross');
+// //делаю ссылку на popup с большим фото
+// export const popUpBigPhoto = document.querySelector('.popup-big-photo');
+// //делаю ссылку на <img> в этом попапе BIG PHOTO
+// export const pictureOfPopUpBigPhoto = popUpBigPhoto.querySelector('.popup__big-photo-picture');
+// //делаю ссылку на <figurecaption> в этом попапе BIG PHOTO
+// export const titleOfPopUpBigPhoto = popUpBigPhoto.querySelector('.popup__big-photo-caption');
+// //ссылка на псевдомассив NodeList всех крестиков закрывания попапов
+// export const crossesToClose = document.querySelectorAll('.popup__close-cross');
 
 // // общая функция открывает окно попап
 // export function openPopUp(popName) {
