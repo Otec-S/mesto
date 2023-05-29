@@ -165,6 +165,7 @@ function handleEditCardSubmit(event) {
 editCardForm.addEventListener("submit", handleEditCardSubmit);
 
 
+
 /***************************************** */
 
 //ВАЛИДАЦИЯ форм
