@@ -3,20 +3,22 @@ import Card from './Card.js';
 import Section from './Section.js';
 import Popup from './Popup.js';
 import PopupWithImage from './PopupWithImage.js';
+import PopupWithForm from './PopupWithForm.js';
+
 // import { popUpBigPhoto } from './utils.js';
 import { FormValidator } from './FormValidator.js';
 
-// ПЕРЕМЕННЫЕ ДЛЯ POPUP PROFILE
-const popUpProfile = document.querySelector('.popup-profile');
-const editButton = document.querySelector('.profile__edit-button');
-//уже имеющиеся в профиле имя и статус
-const currentName = document.querySelector('.profile__title');
-const currentStatus = document.querySelector('.profile__subtitle');
-//имя и статус в формах для заполнения попапа
-const nameInput = popUpProfile.querySelector(".popup__input_type_name");
-const nameStatus = popUpProfile.querySelector(".popup__input_type_status");
-//ссылка на форму из попапа
-const formElement = popUpProfile.querySelector('.popup__form');
+// // ПЕРЕМЕННЫЕ ДЛЯ POPUP PROFILE
+// const popUpProfile = document.querySelector('.popup-profile');
+// const editButton = document.querySelector('.profile__edit-button');
+// //уже имеющиеся в профиле имя и статус
+// const currentName = document.querySelector('.profile__title');
+// const currentStatus = document.querySelector('.profile__subtitle');
+// //имя и статус в формах для заполнения попапа
+// const nameInput = popUpProfile.querySelector(".popup__input_type_name");
+// const nameStatus = popUpProfile.querySelector(".popup__input_type_status");
+// //ссылка на форму из попапа
+// const formElement = popUpProfile.querySelector('.popup__form');
 
 // ПЕРЕМЕННЫЕ ДЛЯ POPUP NEW CARD
 const popUpNewCard = document.querySelector('.popup-newcard');
@@ -90,45 +92,35 @@ cardList.renderItems();
 
 
 
-//нажатие на карточку - вызов попапа с большим фото
-// const card = new Card (cardData, () => {
-//   const popWithImage = new PopupWithImage (cardData, popUpBigPhoto);
-//   const bigPhotoOpen = popWithImage.open();
-// }
-// )
 
-
-
-
-
-
-//ФУНКЦИИ ДЛЯ ПОПАПА
+//ФУНКЦИИ ДЛЯ ПОПАПА PROFILE
 /*функция вставляет данные из заполненной формы попапа в профиль и закрывает попап*/
-function handleProfileFormSubmit(evt) {
-  evt.preventDefault();
-  currentName.textContent = nameInput.value;
-  currentStatus.textContent = nameStatus.value;
-  closePopUp(popUpProfile);
-}
+// function handleProfileFormSubmit(evt) {
+//   evt.preventDefault();
+//   currentName.textContent = nameInput.value;
+//   currentStatus.textContent = nameStatus.value;
+//   closePopUp(popUpProfile);
+// }
 
-// //цикл для крестиков закрытия всех попапов
-// crossesToClose.forEach(button => {
-//   const buttonsPopup = button.closest('.popup'); // нашли родителя с нужным классом
-//   button.addEventListener('click', () => closePopUp(buttonsPopup)); // закрыли попап
+// //слушатель события клика на кнопку editButton
+// editButton.addEventListener('click', () => {
+//   openPopUp(popUpProfile);
+//   nameInput.value = currentName.textContent;
+//   nameStatus.value = currentStatus.textContent;
 // });
 
-//слушатель события клика на кнопку editButton
-editButton.addEventListener('click', () => {
-  openPopUp(popUpProfile);
-  nameInput.value = currentName.textContent;
-  nameStatus.value = currentStatus.textContent;
-});
-
 //слушатель события нажатия на кнопку "Сохранить" Profile
-formElement.addEventListener('submit', handleProfileFormSubmit);
+// formElement.addEventListener('submit', handleProfileFormSubmit);
+
+
+//создаем экземпляр класса Popup с селектором для Profile
+const popUpProfile = new PopupWithForm ('.popup-profile', 'handleProfileFormSubmit');
+//вызываем публичный метод setEventListeners из класса Popup
+popUpProfile.setEventListeners();
 
 
 
+//ФУНКЦИИ ДЛЯ ПОПАПА NEW CARD
 //слушатель события клика на кнопку addButton
 addButton.addEventListener('click', () => {
   openPopUp(popUpNewCard);
@@ -162,6 +154,7 @@ function handleEditCardSubmit(event) {
   closePopUp(popUpNewCard);
 };
 
+//слушатель события нажатия на кнопку "Добавить" New Card
 editCardForm.addEventListener("submit", handleEditCardSubmit);
 
 
