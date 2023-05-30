@@ -21,12 +21,12 @@ import { FormValidator } from './FormValidator.js';
 // const formElement = popUpProfile.querySelector('.popup__form');
 
 // ПЕРЕМЕННЫЕ ДЛЯ POPUP NEW CARD
-const popUpNewCard = document.querySelector('.popup-newcard');
-const addButton = document.querySelector('.profile__add-button');
-//сохраняем в переменную ссылку на form из pop-up, который делает новые карточки
-const editCardForm = document.querySelector(".popup__form_type_edit-card");
-const newCardNameInput = editCardForm.querySelector(".popup__input_type_name");
-const newCardLinkInput = editCardForm.querySelector(".popup__input_type_status");
+// const popUpNewCard = document.querySelector('.popup-newcard');
+// const addButton = document.querySelector('.profile__add-button');
+// //сохраняем в переменную ссылку на form из pop-up, который делает новые карточки
+// const editCardForm = document.querySelector(".popup__form_type_edit-card");
+// const newCardNameInput = editCardForm.querySelector(".popup__input_type_name");
+// const newCardLinkInput = editCardForm.querySelector(".popup__input_type_status");
 
 
 /****************************** */
@@ -114,48 +114,53 @@ cardList.renderItems();
 
 
 //создаем экземпляр класса Popup с селектором для Profile
-const popUpProfile = new PopupWithForm ('.popup-profile', 'handleProfileFormSubmit');
+// const popUpProfile = new PopupWithForm ('.popup-profile', 'handleProfileFormSubmit');
 //вызываем публичный метод setEventListeners из класса Popup
-popUpProfile.setEventListeners();
+// popUpProfile.setEventListeners();
 
 
 
 //ФУНКЦИИ ДЛЯ ПОПАПА NEW CARD
 //слушатель события клика на кнопку addButton
-addButton.addEventListener('click', () => {
-  openPopUp(popUpNewCard);
-  //очищаем поля ввода при открытии нового попапа
-  newCardNameInput.value = '';
-  newCardLinkInput.value = '';
-});
+// addButton.addEventListener('click', () => {
+//   openPopUp(popUpNewCard);
+//   //очищаем поля ввода при открытии нового попапа
+//   newCardNameInput.value = '';
+//   newCardLinkInput.value = '';
+// });
+
+//создаем экземпляр класса Popup с селектором для New Card
+const popUpNewCard = new PopupWithForm ('.popup-newcard', 'handleProfileFormSubmit');
+//вызываем публичный метод setEventListeners из класса Popup
+popUpNewCard.setEventListeners();
 
 //пересылка пользовательских вводов в новую карточку
-function handleEditCardSubmit(event) {
-  event.preventDefault();
-  const name = newCardNameInput.value;
-  const link = newCardLinkInput.value;
-  const cardData = {
-    name,
-    link,
-  };
+// function handleEditCardSubmit(event) {
+//   event.preventDefault();
+//   const name = newCardNameInput.value;
+//   const link = newCardLinkInput.value;
+//   const cardData = {
+//     name,
+//     link,
+//   };
 
-  const newCard = new Section({
-    items: cardData,
-    renderer: (data) => {
-      const card = new Card(data);
-      const cardElement = card.generateCard();
-      newCard.addItem(cardElement);
-    }
-  }, ".cards");
+//   const newCard = new Section({
+//     items: cardData,
+//     renderer: (data) => {
+//       const card = new Card(data);
+//       const cardElement = card.generateCard();
+//       newCard.addItem(cardElement);
+//     }
+//   }, ".cards");
 
-  newCard.renderItem();
+//   newCard.renderItem();
 
-  // makeElementOfClassCard(cardData);
-  closePopUp(popUpNewCard);
-};
+//   // makeElementOfClassCard(cardData);
+//   closePopUp(popUpNewCard);
+// };
 
 //слушатель события нажатия на кнопку "Добавить" New Card
-editCardForm.addEventListener("submit", handleEditCardSubmit);
+// editCardForm.addEventListener("submit", handleEditCardSubmit);
 
 
 

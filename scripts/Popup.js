@@ -5,7 +5,6 @@ export default class Popup {
     //прибиваем конткекст к this в этой функции, иначе this - это весь html документ
     this._handleEscClose = this._handleEscClose.bind(this);
     this._crossToClose = this._popup.querySelector('.popup__close-cross');
-
   }
 
   // публичный метод открывает окно попап
@@ -13,14 +12,13 @@ export default class Popup {
     this._popup.classList.add('popup_opened');
     // вешаем слушатель функции на эскейп на этот элемент
     document.addEventListener('keydown', this._handleEscClose);
-  };
+  }
 
   // публичный метод закрывает окно попап
   close() {
     this._popup.classList.remove('popup_opened');
     // удаляем слушатель функции на эскейп с этого элемента
     document.removeEventListener('keydown', this._handleEscClose);
-
   }
 
   //приватный метод закрытия popup по клику на escape
@@ -28,10 +26,11 @@ export default class Popup {
     if (evt.key === 'Escape') {
       this.close();
     }
-  };
+  }
 
 
   setEventListeners() {
+
     // слушатель клика иконке (крестику) закрытия попапа.
     this._crossToClose.addEventListener('click', () => this.close());
 
@@ -41,7 +40,6 @@ export default class Popup {
         this.close();
       }
     })
-
   }
 
 }

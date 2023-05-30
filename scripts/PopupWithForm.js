@@ -18,9 +18,20 @@ export default class PopupWithForm extends Popup {
     this._nameStatus = this._popup.querySelector(".popup__input_type_status");
     //ссылка на форму из попапа
     this._formElement = this._popup.querySelector('.popup__form');
+
+    // ПЕРЕМЕННЫЕ ДЛЯ POPUP NEW CARD
+    // const popUpNewCard = document.querySelector('.popup-newcard');
+    this._addButton = document.querySelector('.profile__add-button');
+    //сохраняем в переменную ссылку на form из pop-up, который делает новые карточки
+    console.log(this._popup);
+
+    this._editCardForm = this._popup.querySelector(".popup__form_type_edit-card");
+    this._newCardNameInput = this._editCardForm.querySelector(".popup__input_type_name");
+    this._newCardLinkInput = this._editCardForm.querySelector(".popup__input_type_status");
   }
 
   // b.	Содержит приватный метод _getInputValues, который собирает данные всех полей формы.
+  //Эта функция - чтобы данные в колбэк сабмита формы передать, который приходит в конструктор  класса PopupWithForm
 
   _getInputValues() {
     this._nameInput.value = this._currentName.textContent;
@@ -32,6 +43,8 @@ export default class PopupWithForm extends Popup {
     super.close();
   }
 
+  //функция отправки формы сабмита
+  //Тело этой функции должно быть внутри PopupWithForm (как метод класса) или в index.js? - В index.js в конструктор передаешь, и вызываешь с аргументом объект с данными, этот объект тебе вернет функция _getInputValues()
   _handleProfileFormSubmit() {
     this._currentName.textContent = this._nameInput.value;
     this._currentStatus.textContent = this._nameStatus.value;
@@ -55,6 +68,16 @@ export default class PopupWithForm extends Popup {
       evt.preventDefault();
       this._handleProfileFormSubmit();
     });
+
+
+    //обработчик клика по кнопке addButton
+    this._addButton.addEventListener('click', () => {
+      this.open();
+      //очищаем поля ввода при открытии нового попапа
+      this._newCardNameInput.value = '';
+      this._newCardLinkInput.value = '';
+    });
+
 
   }
 
