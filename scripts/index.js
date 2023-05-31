@@ -70,7 +70,7 @@ import { FormValidator } from './FormValidator.js';
 
 
 //создаем экземпляр класса Popup с селектором для большого фото
-const popUpBigPhoto = new PopupWithImage ('.popup-big-photo');
+const popUpBigPhoto = new PopupWithImage('.popup-big-photo');
 //вызываем публичный метод setEventListeners из класса Popup
 popUpBigPhoto.setEventListeners();
 
@@ -79,8 +79,7 @@ const cardList = new Section({
   items: initialCards,
   renderer: (data) => {
     //второй параметр экземпляра Card - это и есть функция handleCardClick!!!
-    const card = new Card(data, (cardData) =>
-    {popUpBigPhoto.open(cardData)});
+    const card = new Card(data, (cardData) => { popUpBigPhoto.open(cardData) });
 
     const cardElement = card.generateCard();
     cardList.addItem(cardElement);
@@ -120,6 +119,8 @@ cardList.renderItems();
 
 
 
+/******************************* */
+
 //ФУНКЦИИ ДЛЯ ПОПАПА NEW CARD
 //слушатель события клика на кнопку addButton
 // addButton.addEventListener('click', () => {
@@ -129,10 +130,7 @@ cardList.renderItems();
 //   newCardLinkInput.value = '';
 // });
 
-//создаем экземпляр класса Popup с селектором для New Card
-const popUpNewCard = new PopupWithForm ('.popup-newcard', 'handleProfileFormSubmit');
-//вызываем публичный метод setEventListeners из класса Popup
-popUpNewCard.setEventListeners();
+
 
 //пересылка пользовательских вводов в новую карточку
 // function handleEditCardSubmit(event) {
@@ -144,20 +142,36 @@ popUpNewCard.setEventListeners();
 //     link,
 //   };
 
-//   const newCard = new Section({
-//     items: cardData,
-//     renderer: (data) => {
-//       const card = new Card(data);
-//       const cardElement = card.generateCard();
-//       newCard.addItem(cardElement);
-//     }
-//   }, ".cards");
 
-//   newCard.renderItem();
+//В качестве идеи - попробуйте совместить функцию коллбека при сабмите формы добавления карточки с аргументом renderer у класса Section
 
-//   // makeElementOfClassCard(cardData);
-//   closePopUp(popUpNewCard);
-// };
+
+
+//функция сабмита формы новой карты
+
+const handleCardFormSubmit = () => {
+
+  const newCard = new Section({
+    items: popUpNewCard.card,
+    renderer: (data) => {
+      const card = new Card(data);
+      const cardElement = card.generateCard();
+      newCard.addItem(cardElement);
+    }
+  }, ".cards");
+
+  newCard.renderItem();
+}
+
+// создаем экземпляр класса Popup с селектором для New Card
+const popUpNewCard = new PopupWithForm('.popup-newcard', handleCardFormSubmit);
+//вызываем публичный метод setEventListeners из класса Popup
+popUpNewCard.setEventListeners();
+
+
+// makeElementOfClassCard(cardData);
+// closePopUp(popUpNewCard);
+
 
 //слушатель события нажатия на кнопку "Добавить" New Card
 // editCardForm.addEventListener("submit", handleEditCardSubmit);
