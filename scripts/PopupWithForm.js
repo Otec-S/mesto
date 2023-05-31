@@ -100,6 +100,7 @@ export default class PopupWithForm extends Popup {
       //по нему должна вызываться функция handleEditCardSubmit
       this._formElement.addEventListener('submit', (evt) => {
         evt.preventDefault();
+        //...ниже не уверен, что именно сюда надо вставлять...
         this.card = this._getInputValues();
         this._submitForm();
       });

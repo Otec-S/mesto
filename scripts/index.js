@@ -145,11 +145,13 @@ cardList.renderItems();
 
 //В качестве идеи - попробуйте совместить функцию коллбека при сабмите формы добавления карточки с аргументом renderer у класса Section
 
-
+// создаем экземпляр класса Popup с селектором для New Card
+const popUpNewCard = new PopupWithForm('.popup-newcard', handleCardFormSubmit);
+//вызываем публичный метод setEventListeners из класса Popup
+popUpNewCard.setEventListeners();
 
 //функция сабмита формы новой карты
-
-const handleCardFormSubmit = () => {
+function handleCardFormSubmit() {
 
   const newCard = new Section({
     items: popUpNewCard.card,
@@ -161,12 +163,10 @@ const handleCardFormSubmit = () => {
   }, ".cards");
 
   newCard.renderItem();
+  popUpNewCard.close();
 }
 
-// создаем экземпляр класса Popup с селектором для New Card
-const popUpNewCard = new PopupWithForm('.popup-newcard', handleCardFormSubmit);
-//вызываем публичный метод setEventListeners из класса Popup
-popUpNewCard.setEventListeners();
+
 
 
 // makeElementOfClassCard(cardData);
