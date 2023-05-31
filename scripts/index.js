@@ -156,7 +156,7 @@ function handleCardFormSubmit() {
   const newCard = new Section({
     items: popUpNewCard.card,
     renderer: (data) => {
-      const card = new Card(data);
+      const card = new Card(data, (cardData) => { popUpBigPhoto.open(cardData) });
       const cardElement = card.generateCard();
       newCard.addItem(cardElement);
     }
