@@ -4,7 +4,7 @@ import Section from './Section.js';
 import Popup from './Popup.js';
 import PopupWithImage from './PopupWithImage.js';
 import PopupWithForm from './PopupWithForm.js';
-// import UserInfo from './UserInfo.js';
+import UserInfo from './UserInfo.js';
 
 // import { popUpBigPhoto } from './utils.js';
 import { FormValidator } from './FormValidator.js';
@@ -13,8 +13,8 @@ import { FormValidator } from './FormValidator.js';
 const popUpProfile = document.querySelector('.popup-profile');
 const editButton = document.querySelector('.profile__edit-button');
 //уже имеющиеся в профиле имя и статус
-const currentName = document.querySelector('.profile__title');
-const currentStatus = document.querySelector('.profile__subtitle');
+// const currentName = document.querySelector('.profile__title');
+// const currentStatus = document.querySelector('.profile__subtitle');
 // //имя и статус в формах для заполнения попапа
 // const nameInput = popUpProfile.querySelector(".popup__input_type_name");
 // const nameStatus = popUpProfile.querySelector(".popup__input_type_status");
@@ -94,7 +94,7 @@ cardList.renderItems();
 
 
 
-//=====PROFILE=====
+//                      =====PROFILE=====
 
 //делаем экземпляр класса UserInfo
 //???????? что передаем параметром ????
@@ -105,15 +105,25 @@ cardList.renderItems();
 const popUpProfileInstance = new PopupWithForm('.popup-profile', handleProfileFormSubmit);
 // вызываем публичный метод setEventListeners из класса Popup
 popUpProfileInstance.setEventListeners();
+
 // обработчик клика по кнопке Edit
 editButton.addEventListener('click', () => {
   popUpProfileInstance.open();
 })
 
+//класс UserInfo создается единожды
+const infoAboutUser = new UserInfo();
+
+
 /*функция вставляет данные из заполненной формы попапа в профиль и закрывает попап*/
 function handleProfileFormSubmit(cardInfo) {
-  currentName.textContent = cardInfo.name;
-  currentStatus.textContent = cardInfo.link;
+  // const infoAboutUser = new UserInfo(cardInfo);
+  // currentName.textContent = cardInfo.name;
+  // currentStatus.textContent = cardInfo.link;
+
+  infoAboutUser.setUserInfo(cardInfo);
+  // console.log(popUpProfileInstance.cardInfo);
+
 
   popUpProfileInstance.close();
 }

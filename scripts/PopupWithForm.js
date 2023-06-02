@@ -44,6 +44,7 @@ export default class PopupWithForm extends Popup {
       evt.preventDefault();
       //передаем данные из _getInputValues в колбэк сабмита формы
       this.cardInfo = this._getInputValues();
+      //тут функция колбека получает объект cardInfo
       this._submitForm(this.cardInfo);
     });
 
