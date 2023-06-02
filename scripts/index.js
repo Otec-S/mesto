@@ -10,8 +10,8 @@ import PopupWithForm from './PopupWithForm.js';
 import { FormValidator } from './FormValidator.js';
 
 // // ПЕРЕМЕННЫЕ ДЛЯ POPUP PROFILE
-// const popUpProfile = document.querySelector('.popup-profile');
-// const editButton = document.querySelector('.profile__edit-button');
+const popUpProfile = document.querySelector('.popup-profile');
+const editButton = document.querySelector('.profile__edit-button');
 //уже имеющиеся в профиле имя и статус
 const currentName = document.querySelector('.profile__title');
 const currentStatus = document.querySelector('.profile__subtitle');
@@ -23,7 +23,7 @@ const currentStatus = document.querySelector('.profile__subtitle');
 
 // ПЕРЕМЕННЫЕ ДЛЯ POPUP NEW CARD
 // const popUpNewCard = document.querySelector('.popup-newcard');
-// const addButton = document.querySelector('.profile__add-button');
+const addButton = document.querySelector('.profile__add-button');
 // //сохраняем в переменную ссылку на form из pop-up, который делает новые карточки
 // const editCardForm = document.querySelector(".popup__form_type_edit-card");
 // const newCardNameInput = editCardForm.querySelector(".popup__input_type_name");
@@ -102,16 +102,20 @@ cardList.renderItems();
 // console.log(UserInfo);
 
 // создаем экземпляр класса Popup с селектором для Profile
-const popUpProfile = new PopupWithForm('.popup-profile', handleProfileFormSubmit);
+const popUpProfileInstance = new PopupWithForm('.popup-profile', handleProfileFormSubmit);
 // вызываем публичный метод setEventListeners из класса Popup
-popUpProfile.setEventListeners();
+popUpProfileInstance.setEventListeners();
+// обработчик клика по кнопке Edit
+editButton.addEventListener('click', () => {
+  popUpProfileInstance.open();
+})
 
 /*функция вставляет данные из заполненной формы попапа в профиль и закрывает попап*/
 function handleProfileFormSubmit(cardInfo) {
   currentName.textContent = cardInfo.name;
   currentStatus.textContent = cardInfo.link;
 
-  // close(popUpProfile);
+  popUpProfileInstance.close();
 }
 
 // //слушатель события клика на кнопку editButton
@@ -164,6 +168,10 @@ function handleProfileFormSubmit(cardInfo) {
 const popUpNewCard = new PopupWithForm('.popup-newcard', handleCardFormSubmit);
 //вызываем публичный метод setEventListeners из класса Popup
 popUpNewCard.setEventListeners();
+//обработчик клика по кнопке addButton
+addButton.addEventListener('click', () => {
+  popUpNewCard.open();
+});
 
 //функция сабмита формы новой карты
 function handleCardFormSubmit(cardInfo) {
@@ -178,7 +186,7 @@ function handleCardFormSubmit(cardInfo) {
   }, ".cards");
 
   newCard.renderItem();
-  // popUpNewCard.close(popUpNewCard);
+  popUpNewCard.close();
 }
 
 
@@ -188,8 +196,15 @@ function handleCardFormSubmit(cardInfo) {
 // closePopUp(popUpNewCard);
 
 
-//слушатель события нажатия на кнопку "Добавить" New Card
-// editCardForm.addEventListener("submit", handleEditCardSubmit);
+
+// const popUpInstance = new Popup();
+// //вызываем публичный метод setEventListeners из класса Popup
+// popUpInstance.setEventListeners();
+
+
+
+
+
 
 
 
