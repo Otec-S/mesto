@@ -6,10 +6,6 @@ export default class PopupWithForm extends Popup {
     //Кроме селектора попапа принимает в конструктор колбэк сабмита формы
     this._submitForm = submitForm;
 
-    //можно как-то элегантнее записать?
-    // this._profilePopupToOpen = document.querySelector('.popup-profile');
-    // this._newcardPopupToOpen = document.querySelector('.popup-newcard');
-
     //общая ссылка на форму из попапа (есть в обеих формах)
     this._formElement = this._popup.querySelector('.popup__form');
     //первое поле
@@ -34,28 +30,15 @@ export default class PopupWithForm extends Popup {
     return cardData;
   }
 
-  close(popName) {
+  close() {
     this._formElement.reset();
-    super.close(popName);
+    super.close();
   }
 
   setEventListeners() {
     super.setEventListeners();
 
-    // обработчик клика по кнопке Edit
-    // this._editButton.addEventListener('click', () => {
-    //   this._profilePopupToOpen.open();
-    // })
-
-    // //обработчик клика по кнопке addButton
-    // this._addButton.addEventListener('click', () => {
-    //   this.open(this._newcardPopupToOpen);
-    //   //очищаем поля ввода при открытии нового попапа
-    //   this._nameInput.value = '';
-    //   this._nameStatus.value = '';
-    // });
-
-    //обработчик универсальный обработчик клика по кнопке для обоих попапов
+    //универсальный обработчик клика по кнопке для обоих попапов
     //по нему должна вызываться функция, переданная в колбэк
     this._formElement.addEventListener('submit', (evt) => {
       evt.preventDefault();
