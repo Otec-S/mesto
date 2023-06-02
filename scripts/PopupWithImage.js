@@ -17,15 +17,5 @@ export default class PopupWithImage extends Popup {
     this._image.alt = cardData.name;
     super.open();
   }
-
-
 }
-//a.	Должен перезаписывать родительский метод open. В методе open класса PopupWithImage нужно вставлять в попап картинку с src изображения и подписью к картинке.
-//используя логику полиморфизма надо перезаписать метод open, сначала сделать в нем то что описано в ТЗ, а потом вызвать метод родительского класса чтобы открыть попап
 
-//  _handleClosePopup() {
-  //   popupCaption.textContent = '';
-  //   super._handleClosePopup();
-  // }
-
-// };

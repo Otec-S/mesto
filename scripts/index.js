@@ -4,6 +4,7 @@ import Section from './Section.js';
 import Popup from './Popup.js';
 import PopupWithImage from './PopupWithImage.js';
 import PopupWithForm from './PopupWithForm.js';
+// import UserInfo from './UserInfo.js';
 
 // import { popUpBigPhoto } from './utils.js';
 import { FormValidator } from './FormValidator.js';
@@ -11,9 +12,9 @@ import { FormValidator } from './FormValidator.js';
 // // ПЕРЕМЕННЫЕ ДЛЯ POPUP PROFILE
 // const popUpProfile = document.querySelector('.popup-profile');
 // const editButton = document.querySelector('.profile__edit-button');
-// //уже имеющиеся в профиле имя и статус
-// const currentName = document.querySelector('.profile__title');
-// const currentStatus = document.querySelector('.profile__subtitle');
+//уже имеющиеся в профиле имя и статус
+const currentName = document.querySelector('.profile__title');
+const currentStatus = document.querySelector('.profile__subtitle');
 // //имя и статус в формах для заполнения попапа
 // const nameInput = popUpProfile.querySelector(".popup__input_type_name");
 // const nameStatus = popUpProfile.querySelector(".popup__input_type_status");
@@ -68,6 +69,7 @@ import { FormValidator } from './FormValidator.js';
 /***************************** */
 
 
+//=====BIG PHOTO=====
 
 //создаем экземпляр класса Popup с селектором для большого фото
 const popUpBigPhoto = new PopupWithImage('.popup-big-photo');
@@ -92,14 +94,25 @@ cardList.renderItems();
 
 
 
-//ФУНКЦИИ ДЛЯ ПОПАПА PROFILE
+//=====PROFILE=====
+
+//делаем экземпляр класса UserInfo
+//???????? что передаем параметром ????
+// const userInfo = new UserInfo();
+// console.log(UserInfo);
+
+// создаем экземпляр класса Popup с селектором для Profile
+const popUpProfile = new PopupWithForm('.popup-profile', handleProfileFormSubmit);
+// вызываем публичный метод setEventListeners из класса Popup
+popUpProfile.setEventListeners();
+
 /*функция вставляет данные из заполненной формы попапа в профиль и закрывает попап*/
-// function handleProfileFormSubmit(evt) {
-//   evt.preventDefault();
-//   currentName.textContent = nameInput.value;
-//   currentStatus.textContent = nameStatus.value;
-//   closePopUp(popUpProfile);
-// }
+function handleProfileFormSubmit(cardInfo) {
+  currentName.textContent = cardInfo.name;
+  currentStatus.textContent = cardInfo.link;
+
+  // close(popUpProfile);
+}
 
 // //слушатель события клика на кнопку editButton
 // editButton.addEventListener('click', () => {
@@ -112,16 +125,18 @@ cardList.renderItems();
 // formElement.addEventListener('submit', handleProfileFormSubmit);
 
 
-//создаем экземпляр класса Popup с селектором для Profile
-// const popUpProfile = new PopupWithForm ('.popup-profile', 'handleProfileFormSubmit');
-//вызываем публичный метод setEventListeners из класса Popup
-// popUpProfile.setEventListeners();
+
+
+
+
+
 
 
 
 /******************************* */
 
-//ФУНКЦИИ ДЛЯ ПОПАПА NEW CARD
+//===== NEW CARD =====
+
 //слушатель события клика на кнопку addButton
 // addButton.addEventListener('click', () => {
 //   openPopUp(popUpNewCard);
@@ -151,10 +166,10 @@ const popUpNewCard = new PopupWithForm('.popup-newcard', handleCardFormSubmit);
 popUpNewCard.setEventListeners();
 
 //функция сабмита формы новой карты
-function handleCardFormSubmit() {
+function handleCardFormSubmit(cardInfo) {
 
   const newCard = new Section({
-    items: popUpNewCard.card,
+    items: cardInfo,
     renderer: (data) => {
       const card = new Card(data, (cardData) => { popUpBigPhoto.open(cardData) });
       const cardElement = card.generateCard();
@@ -163,7 +178,7 @@ function handleCardFormSubmit() {
   }, ".cards");
 
   newCard.renderItem();
-  popUpNewCard.close();
+  // popUpNewCard.close(popUpNewCard);
 }
 
 
