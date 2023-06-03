@@ -12,12 +12,12 @@ import { FormValidator } from './FormValidator.js';
 // // ПЕРЕМЕННЫЕ ДЛЯ POPUP PROFILE
 const popUpProfile = document.querySelector('.popup-profile');
 const editButton = document.querySelector('.profile__edit-button');
-//уже имеющиеся в профиле имя и статус
-// const currentName = document.querySelector('.profile__title');
-// const currentStatus = document.querySelector('.profile__subtitle');
-// //имя и статус в формах для заполнения попапа
-// const nameInput = popUpProfile.querySelector(".popup__input_type_name");
-// const nameStatus = popUpProfile.querySelector(".popup__input_type_status");
+// уже имеющиеся в профиле имя и статус
+const currentName = document.querySelector('.profile__title');
+const currentStatus = document.querySelector('.profile__subtitle');
+//имя и статус в формах для заполнения попапа
+const nameInput = popUpProfile.querySelector(".popup__input_type_name");
+const nameStatus = popUpProfile.querySelector(".popup__input_type_status");
 // //ссылка на форму из попапа
 // const formElement = popUpProfile.querySelector('.popup__form');
 
@@ -101,18 +101,25 @@ cardList.renderItems();
 // const userInfo = new UserInfo();
 // console.log(UserInfo);
 
+//экземпляр класса UserInfo создается единожды
+const infoAboutUser = new UserInfo(currentName, currentStatus);
+
 // создаем экземпляр класса Popup с селектором для Profile
 const popUpProfileInstance = new PopupWithForm('.popup-profile', handleProfileFormSubmit);
 // вызываем публичный метод setEventListeners из класса Popup
 popUpProfileInstance.setEventListeners();
 
+
 // обработчик клика по кнопке Edit
 editButton.addEventListener('click', () => {
+
+  //передаем данные из _getInputValues в колбэк сабмита формы
+  const userInfo = infoAboutUser.getUserInfo();
+  nameInput.value = userInfo.name;
+  nameStatus.value = userInfo.link;
   popUpProfileInstance.open();
 })
 
-//класс UserInfo создается единожды
-const infoAboutUser = new UserInfo();
 
 
 /*функция вставляет данные из заполненной формы попапа в профиль и закрывает попап*/
