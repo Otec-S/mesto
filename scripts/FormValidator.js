@@ -95,5 +95,4 @@ class FormValidator {
   };
 };
 
-
 export { FormValidator };

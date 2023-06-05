@@ -23,7 +23,7 @@ export default class Card {
   }
 
   _handleClick() {
-    this._handleCardClick ({ name: this._name, link: this._link });
+    this._handleCardClick({ name: this._name, link: this._link });
   }
 
 

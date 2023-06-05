@@ -27,9 +27,6 @@ export default class Popup {
   //приватный метод закрытия popup по клику на escape
   _handleEscClose(evt) {
     if (evt.key === 'Escape') {
-      //ищем открытый popup по его модификатору
-      // const popUpOpened = document.querySelector('.popup_opened');
-      //команда закрыть именно этот открытый popup
       this.close();
     }
   }

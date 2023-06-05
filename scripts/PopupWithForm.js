@@ -19,8 +19,6 @@ export default class PopupWithForm extends Popup {
 
   }
 
-  //Эта функция - чтобы данные всех полей формы передать в функцию-колбэк сабмита формы (this._submitForm), который приходит в конструктор  класса PopupWithForm
-
   _getInputValues() {
     //создаем объект с данными обоих универсальных полей формы
     const cardData = {
