@@ -7,6 +7,9 @@ import PopupWithForm from '../components/PopupWithForm.js';
 import UserInfo from '../components/UserInfo.js';
 import { FormValidator } from '../components/FormValidator.js';
 
+// index.js
+import './index.css'; // добавьте импорт главного файла стилей
+
 
 //=====BIG PHOTO=====
 
