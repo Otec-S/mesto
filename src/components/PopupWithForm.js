@@ -5,19 +5,15 @@ export default class PopupWithForm extends Popup {
     super(popupSelector);
     //Кроме селектора попапа принимает в конструктор колбэк сабмита формы
     this._submitForm = submitForm;
-
     //общая ссылка на форму из попапа (есть в обеих формах)
     this._formElement = this._popup.querySelector('.popup__form');
     //первое поле
     this._nameInput = this._popup.querySelector(".popup__input_type_name");
     //второе поле
     this._nameStatus = this._popup.querySelector(".popup__input_type_status");
-    //editButton - кнопка редактирования Profile
-    this._editButton = document.querySelector('.profile__edit-button');
-    //addButton - кнопка добавления New Card
-    this._addButton = document.querySelector('.profile__add-button');
+   }
 
-  }
+  // Данный метод реализован некорректно. Он должен собирать данные с полей ввода вне зависимости от количества полей и типа формы и возвращать эти данные в виде объекта. То, что возвращает данный метод следует передавать в виде аргумента в метод this._submitForm
 
   _getInputValues() {
     //создаем объект с данными обоих универсальных полей формы
@@ -35,7 +31,6 @@ export default class PopupWithForm extends Popup {
 
   setEventListeners() {
     super.setEventListeners();
-
     //универсальный обработчик клика по кнопке для обоих попапов
     //по нему должна вызываться функция, переданная в колбэк
     this._formElement.addEventListener('submit', (evt) => {
@@ -45,8 +40,6 @@ export default class PopupWithForm extends Popup {
       //тут функция колбека получает объект cardInfo
       this._submitForm(this.cardInfo);
     });
-
   }
-
 
 }

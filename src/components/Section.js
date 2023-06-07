@@ -15,16 +15,9 @@ export default class Section {
   }
 
   //отрисовка массива карточек
-  // Отрисовка каждого отдельного элемента должна осуществляться функцией renderer.
   renderItems() {
     this._renderedItems.forEach(item => {
       this._renderer(item);
     });
   }
-
-  //отрисовка одной карточки
-  renderItem() {
-    this._renderer(this._renderedItems);
-  };
-
 }

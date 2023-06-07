@@ -6,13 +6,10 @@ import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import UserInfo from '../components/UserInfo.js';
 import { FormValidator } from '../components/FormValidator.js';
-
-// index.js
 import './index.css'; // добавьте импорт главного файла стилей
 
 
 //=====BIG PHOTO=====
-
 //создаем экземпляр класса Popup с селектором для большого фото
 const popUpBigPhoto = new PopupWithImage('.popup-big-photo');
 //вызываем публичный метод setEventListeners из класса Popup
@@ -32,9 +29,7 @@ const cardList = new Section({
 //отрисовка карточек на странице
 cardList.renderItems();
 
-
 //=====PROFILE=====
-
 //экземпляр класса UserInfo создается единожды
 const infoAboutUser = new UserInfo(currentName, currentStatus);
 
@@ -53,14 +48,12 @@ editButton.addEventListener('click', () => {
 })
 
 /*функция вставляет данные из заполненной формы попапа в профиль и закрывает попап*/
-function handleProfileFormSubmit(cardInfo) {
-  infoAboutUser.setUserInfo(cardInfo);
+function handleProfileFormSubmit(inputValues) {
+  infoAboutUser.setUserInfo(inputValues);
   popUpProfileInstance.close();
 }
 
-
 //===== NEW CARD =====
-
 // создаем экземпляр класса Popup с селектором для New Card
 const popUpNewCard = new PopupWithForm('.popup-newcard', handleCardFormSubmit);
 //вызываем публичный метод setEventListeners из класса Popup
@@ -70,11 +63,13 @@ addButton.addEventListener('click', () => {
   popUpNewCard.open();
 });
 
+// --- Экземпляр данного класса следует создавать только 1 раз и только в глобальной области видимости. Мы не должны создавать секцию каждый раз при добавлении новой карточки---
+
+
 //функция сабмита формы новой карты
 function handleCardFormSubmit(cardInfo) {
-
   const newCard = new Section({
-    items: cardInfo,
+    items: [cardInfo],
     renderer: (data) => {
       const card = new Card(data, (cardData) => { popUpBigPhoto.open(cardData) });
       const cardElement = card.generateCard();
@@ -82,7 +77,7 @@ function handleCardFormSubmit(cardInfo) {
     }
   }, ".cards");
 
-  newCard.renderItem();
+  newCard.renderItems();
   popUpNewCard.close();
 }
 
