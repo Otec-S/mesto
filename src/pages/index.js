@@ -8,28 +8,34 @@ import UserInfo from '../components/UserInfo.js';
 import { FormValidator } from '../components/FormValidator.js';
 import './index.css'; // добавьте импорт главного файла стилей
 
+//делаем отдельную функцию по созданию экземпляра класса Card
+function makeElementOfClassCard(data) {
+  //второй параметр экземпляра Card - это и есть функция handleCardClick!!!
+  const card = new Card(data, (cardData) => { popUpBigPhoto.open(cardData) });
+  const cardElement = card.generateCard();
+  return cardElement;
+}
+//создаем экземпляр класса Section и передаем в него изначальный массив карточек
+const section = new Section({
+  items: initialCards,
+  renderer: (data) => {
+    const element = makeElementOfClassCard(data);
+    section.addItem(element);
+  }
+}, ".cards");
+
+//отрисовываем изначальный массив карточек на странице
+section.renderItems();
 
 //=====BIG PHOTO=====
+
 //создаем экземпляр класса Popup с селектором для большого фото
 const popUpBigPhoto = new PopupWithImage('.popup-big-photo');
 //вызываем публичный метод setEventListeners из класса Popup
 popUpBigPhoto.setEventListeners();
 
-//отрисовываем изначальный массив карточек
-const cardList = new Section({
-  items: initialCards,
-  renderer: (data) => {
-    //второй параметр экземпляра Card - это и есть функция handleCardClick!!!
-    const card = new Card(data, (cardData) => { popUpBigPhoto.open(cardData) });
-    const cardElement = card.generateCard();
-    cardList.addItem(cardElement);
-  }
-}, ".cards");
-
-//отрисовка карточек на странице
-cardList.renderItems();
-
 //=====PROFILE=====
+
 //экземпляр класса UserInfo создается единожды
 const infoAboutUser = new UserInfo(currentName, currentStatus);
 
@@ -54,6 +60,7 @@ function handleProfileFormSubmit(inputValues) {
 }
 
 //===== NEW CARD =====
+
 // создаем экземпляр класса Popup с селектором для New Card
 const popUpNewCard = new PopupWithForm('.popup-newcard', handleCardFormSubmit);
 //вызываем публичный метод setEventListeners из класса Popup
@@ -63,24 +70,15 @@ addButton.addEventListener('click', () => {
   popUpNewCard.open();
 });
 
-// --- Экземпляр данного класса следует создавать только 1 раз и только в глобальной области видимости. Мы не должны создавать секцию каждый раз при добавлении новой карточки---
-
-
-//функция сабмита формы новой карты
+// функция сабмита формы новой карты. Аргумент cardInfo - объект с двумя полями name и link
 function handleCardFormSubmit(cardInfo) {
-  const newCard = new Section({
-    items: [cardInfo],
-    renderer: (data) => {
-      const card = new Card(data, (cardData) => { popUpBigPhoto.open(cardData) });
-      const cardElement = card.generateCard();
-      newCard.addItem(cardElement);
-    }
-  }, ".cards");
-
-  newCard.renderItems();
+  //создаем одну карточку с данными из полей формы попапа
+  const element = makeElementOfClassCard(cardInfo);
+  //методом addItem класса Section добавляем эту одну созданную карточку на страницу
+  section.addItem(element);
+  //закрываем попап
   popUpNewCard.close();
 }
-
 
 //ВАЛИДАЦИЯ форм
 
