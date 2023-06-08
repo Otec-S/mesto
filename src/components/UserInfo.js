@@ -12,9 +12,9 @@ export default class UserInfo {
     return currentUserInfo;
   }
 
-  setUserInfo(infoObject) {
-    this._userName.textContent = infoObject.name;
-    this._userStatus.textContent = infoObject.link;
+  setUserInfo(userInfo) {
+    this._userName.textContent = userInfo.name;
+    this._userStatus.textContent = userInfo.link;
   }
 
 }
