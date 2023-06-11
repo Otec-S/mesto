@@ -41,7 +41,6 @@ class FormValidator {
     });
   };
 
-
   //ВАЛИДАЦИЯ ПОЛЕЙ ВВОДА
   //функция вызывает показ ошибок при невалидации
   _checkInputValidity(config, formElement, inputElement) {

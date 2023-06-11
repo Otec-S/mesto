@@ -27,7 +27,6 @@ export default class Card {
     this._handleCardClick({ name: this._name, link: this._link });
   }
 
-
   _setEventListeners() {
     //далаем ссылку на сердечко карточки
     this._heart = this._element.querySelector('.card__heart');

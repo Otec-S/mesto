@@ -6,6 +6,7 @@ import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import UserInfo from '../components/UserInfo.js';
 import { FormValidator } from '../components/FormValidator.js';
+
 import './index.css'; // добавьте импорт главного файла стилей
 
 //делаем отдельную функцию по созданию экземпляра класса Card

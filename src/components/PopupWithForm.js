@@ -12,50 +12,13 @@ export default class PopupWithForm extends Popup {
   _getInputValues() {
     //делаем массив всех значений полей текущей формы
     this._inputsFromForm = Array.from(this._formElement.querySelectorAll('.popup__input'));
-
-    console.log(this._inputsFromForm);
-
+    //создаем пустой объект
     this._cardData = {};
-
+    //наполняем объект данными с всем полей-инпутов текущей формы
     this._inputsFromForm.forEach((input) => {
-      // console.log(input.name);
-      // console.log(input.value);
-
       this._cardData[input.name] = input.value;
     })
-
-    //Я
-    // делаем объект из полей
-    // name: this._inputsFromForm[0].value,
-    // link: this._inputsFromForm[1].value,
-
-//ключом поля объекта должно стать name инпута
-//значением поля объекта должно стать value инпута
-
-    console.log(this._cardData);
-
-    //ТЗ: Содержит приватный метод _getInputValues, который собирает данные всех полей формы.
-
-    //Сергей: ...Чтобы данные в колбэк сабмита формы передать, который в конструктор приходит класса PopupWithForm.
-    //В index.js в конструктор передаешь и вызываешь с аргументом объектом с данными, этот объект тебе вернет функция, которую напишешь из пункта 2
-
-    //Наталья:
-    //У тебя не должно быть привязки к названиям инпутов, надо через querySelectorAll выбрать все инпуты из формы, и циклом по ним собрать данные оттуда
-    //Можно собрать все поля по input.name, тогда ты как раз отвяжешься от name и link. Но надо будет аккуратно проверить name в html и в js, где дальше используешь значения из инпутов
-
-    //Артём
-    //data - это принимаемый объект
-    // _setInputValues(data) {
-    //   this._inputsFromForm.forEach((input) => {
-    //     input.value = data[input.name]
-    //   })
-    // }
-
-    //Наталья
-    // this._inputsFromForm.forEach((input) => {
-    //   this._formValues[input.name] = input.value;
-    // })
-
+    //возвращаем полученный объект
     return this._cardData;
   }
 

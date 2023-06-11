@@ -16,7 +16,6 @@ export default class Popup {
     // вешаем слушатель функции на эскейп на этот элемент
     document.addEventListener('keydown', this._handleEscClose);
     document.addEventListener('mousedown', this._closePopUpByClickToOverlay);
-
   }
 
   // публичный метод закрывает окно попап
