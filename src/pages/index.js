@@ -6,8 +6,24 @@ import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import UserInfo from '../components/UserInfo.js';
 import { FormValidator } from '../components/FormValidator.js';
+import Api from '../components/Api.js';
 
 import './index.css'; // добавьте импорт главного файла стилей
+
+
+
+
+//=====API=====
+const api = new Api({
+  url: 'https://mesto.nomoreparties.co/v1/cohort-68',
+  headers: {
+    authorization: '752cb7e1-403b-438a-9b48-05f4c5ae9d75'
+  }
+});
+
+const apiCardsPromise = api.getCards(); //это возвращенный Promise
+
+
 
 //делаем отдельную функцию по созданию экземпляра класса Card
 function makeElementOfClassCard(data) {
@@ -16,17 +32,18 @@ function makeElementOfClassCard(data) {
   const cardElement = card.generateCard();
   return cardElement;
 }
-//создаем экземпляр класса Section и передаем в него изначальный массив карточек
+//создаем экземпляр класса Section и передаем в него изначальный массив карточек с сервера через API
+apiCardsPromise.then((apiCards) => {
 const section = new Section({
-  items: initialCards,
+  items: apiCards,
   renderer: (data) => {
     const element = makeElementOfClassCard(data);
     section.addItem(element);
   }
 }, ".cards");
-
-//отрисовываем изначальный массив карточек на странице
 section.renderItems();
+});
+
 
 //=====BIG PHOTO=====
 
