@@ -20,6 +20,18 @@ export default class Api {
       })
   }
 
+  getUserId() {
+    return fetch(`${this._url}/users/me`, {
+      headers: {
+        authorization: this._authorization,
+        'Content-type': 'application/json'
+      }
+    })
+      .then((res) => {
+        if (res.ok) { return res.json() }
+        else { return Promise.reject(`Ошибка: ${res.status}`) }
+      })
+  }
 
 
 

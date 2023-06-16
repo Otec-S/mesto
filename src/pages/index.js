@@ -1,4 +1,4 @@
-import { editButton, currentName, currentStatus, nameInput, nameStatus, addButton, config } from '../scripts/utils.js';
+import { editButton, currentName, currentStatus, currentAvatar, nameInput, nameStatus, addButton, config } from '../scripts/utils.js';
 import initialCards from '../scripts/initial-cards-array.js';
 import Card from '../components/Card.js';
 import Section from '../components/Section.js';
@@ -21,9 +21,11 @@ const api = new Api({
   }
 });
 
-const apiCardsPromise = api.getCards(); //это возвращенный Promise
 
+//=====INITIAL CARDS=====
 
+//возвращаем Promise с карточками сервера
+const apiCardsPromise = api.getCards();
 
 //делаем отдельную функцию по созданию экземпляра класса Card
 function makeElementOfClassCard(data) {
@@ -34,14 +36,14 @@ function makeElementOfClassCard(data) {
 }
 //создаем экземпляр класса Section и передаем в него изначальный массив карточек с сервера через API
 apiCardsPromise.then((apiCards) => {
-const section = new Section({
-  items: apiCards,
-  renderer: (data) => {
-    const element = makeElementOfClassCard(data);
-    section.addItem(element);
-  }
-}, ".cards");
-section.renderItems();
+  const section = new Section({
+    items: apiCards,
+    renderer: (data) => {
+      const element = makeElementOfClassCard(data);
+      section.addItem(element);
+    }
+  }, ".cards");
+  section.renderItems();
 });
 
 
@@ -52,15 +54,27 @@ const popUpBigPhoto = new PopupWithImage('.popup-big-photo');
 //вызываем публичный метод setEventListeners из класса Popup
 popUpBigPhoto.setEventListeners();
 
+
 //=====PROFILE=====
 
-//экземпляр класса UserInfo создается единожды
+//???экземпляр класса UserInfo создается единожды
 const infoAboutUser = new UserInfo(currentName, currentStatus);
+
+//возвращаем Promise с данными пользователя с сервера (еще будет нужен?)
+const userInfoPromise = api.getUserId();
+
+userInfoPromise.then((result) => {
+  // infoAboutUser.setUserInfo(result);
+  currentName.textContent = result.name;
+  currentStatus.textContent = result.about;
+  currentAvatar.src = result.avatar;
+})
 
 // создаем экземпляр класса Popup с селектором для Profile
 const popUpProfileInstance = new PopupWithForm('.popup-profile', handleProfileFormSubmit);
 // вызываем публичный метод setEventListeners из класса Popup
 popUpProfileInstance.setEventListeners();
+// return infoAboutUser;
 
 // обработчик клика по кнопке Edit
 editButton.addEventListener('click', () => {
