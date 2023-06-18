@@ -1,5 +1,4 @@
 import { editButton, currentName, currentStatus, currentAvatar, nameInput, nameStatus, addButton, config } from '../scripts/utils.js';
-import initialCards from '../scripts/initial-cards-array.js';
 import Card from '../components/Card.js';
 import Section from '../components/Section.js';
 import PopupWithImage from '../components/PopupWithImage.js';
@@ -18,10 +17,7 @@ const api = new Api({
   }
 });
 
-//=====INITIAL CARDS=====
-
-//возвращаем Promise с карточками сервера
-const apiCardsPromise = api.getCards();
+//=====GENERAL: MAKE AN INSTANCE OF CARD=====
 
 //делаем отдельную функцию по созданию экземпляра класса Card
 function makeElementOfClassCard(data) {
@@ -30,9 +26,15 @@ function makeElementOfClassCard(data) {
   const cardElement = card.generateCard();
   return cardElement;
 }
+
+//=====RENDER ALL SERVER CARDS=====
+
+//возвращаем Promise с карточками сервера
+// const apiCardsPromise = api.getCards();
+let section = {};
 //создаем экземпляр класса Section и передаем в него изначальный массив карточек с сервера через API
-apiCardsPromise.then((apiCards) => {
-  const section = new Section({
+api.getCards().then((apiCards) => {
+  section = new Section({
     items: apiCards,
     renderer: (data) => {
       const element = makeElementOfClassCard(data);
@@ -41,6 +43,48 @@ apiCardsPromise.then((apiCards) => {
   }, ".cards");
   section.renderItems();
 });
+
+//===== NEW CARD =====
+
+//пробный запрос карточки на сервер
+// api.setCard('Странный котик', 'https://gdb.rferl.org/6E61CFE9-75D1-4EDF-A3DF-50731D80D47D_w650_r1_s.jpg');
+
+//ответ
+/*{
+  "likes": [],
+  "_id": "648eb695ebc96e08a58d498a",
+  "name": "Котик",
+  "link": "https://bipbap.ru/wp-content/uploads/2021/11/1619541010_52-oir_mobi-p-nyashnie-kotiki-zhivotnie-krasivo-foto-57-730x856.jpg",
+  "owner": {
+      "name": "Сергей",
+      "about": "Юристище",
+      "avatar": "https://pictures.s3.yandex.net/frontend-developer/common/ava.jpg",
+      "_id": "3f22f8c52c771af55a0fc4d1",
+      "cohort": "cohort-68"
+  },
+  "createdAt": "2023-06-18T07:47:33.568Z"
+},*/
+
+// создаем экземпляр класса Popup с селектором для New Card
+const popUpNewCard = new PopupWithForm('.popup-newcard', handleCardFormSubmit);
+//вызываем публичный метод setEventListeners из класса Popup
+popUpNewCard.setEventListeners();
+//обработчик клика по кнопке addButton
+addButton.addEventListener('click', () => {
+  popUpNewCard.open();
+});
+
+// функция сабмита/отправки формы новой карты. Аргумент cardInfo - объект с двумя полями name и link
+function handleCardFormSubmit(cardInfo) {
+  // создаем одну карточку с данными из полей формы попапа
+  const element = makeElementOfClassCard(cardInfo);
+    // методом addItem класса Section добавляем эту одну созданную карточку на страницу
+  section.addItem(element);
+
+  api.setCard(cardInfo.name, cardInfo.link);
+  popUpNewCard.close();
+}
+
 
 
 //=====BIG PHOTO=====
@@ -87,26 +131,7 @@ userInfoPromise.then((result) => {
   currentAvatar.src = result.avatar;
 })
 
-//===== NEW CARD =====
 
-// создаем экземпляр класса Popup с селектором для New Card
-const popUpNewCard = new PopupWithForm('.popup-newcard', handleCardFormSubmit);
-//вызываем публичный метод setEventListeners из класса Popup
-popUpNewCard.setEventListeners();
-//обработчик клика по кнопке addButton
-addButton.addEventListener('click', () => {
-  popUpNewCard.open();
-});
-
-// функция сабмита формы новой карты. Аргумент cardInfo - объект с двумя полями name и link
-function handleCardFormSubmit(cardInfo) {
-  //создаем одну карточку с данными из полей формы попапа
-  const element = makeElementOfClassCard(cardInfo);
-  //методом addItem класса Section добавляем эту одну созданную карточку на страницу
-  section.addItem(element);
-  //закрываем попап
-  popUpNewCard.close();
-}
 
 //ВАЛИДАЦИЯ форм
 

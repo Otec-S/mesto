@@ -17,6 +17,25 @@ export default class Api {
         else { return Promise.reject(`Ошибка: ${res.status}`) }
       })
   }
+  //отправляет запрос на добавление карточки на сервер
+  setCard(newCardName, newCardLink) {
+    return fetch(`${this._url}/cards`, {
+      method: 'POST',
+      headers: {
+        authorization: this._authorization,
+        'Content-type': 'application/json'
+      },
+      body: JSON.stringify({
+        name: newCardName,
+        link: newCardLink
+      })
+    })
+      .then((res) => {
+        if (res.ok) { return res.json() }
+        else { return Promise.reject(`Ошибка: ${res.status}`) }
+      })
+      .then((rest) => {console.log(rest);});
+  }
 
   getUserId() {
     return fetch(`${this._url}/users/me`, {
@@ -30,7 +49,7 @@ export default class Api {
         else { return Promise.reject(`Ошибка: ${res.status}`) }
       })
   }
-//принимает имя и статус и отправляет его на сервер
+  //принимает имя и статус и отправляет его на сервер
   setUserId(newUserName, newUserStatus) {
     return fetch(`${this._url}/users/me`, {
       method: 'PATCH',
@@ -43,10 +62,10 @@ export default class Api {
         about: newUserStatus
       })
     })
-    .then((res) => {
-      if (res.ok) { return res.json() }
-      else { return Promise.reject(`Ошибка: ${res.status}`) }
-    })
+      .then((res) => {
+        if (res.ok) { return res.json() }
+        else { return Promise.reject(`Ошибка: ${res.status}`) }
+      })
   }
 
 }
