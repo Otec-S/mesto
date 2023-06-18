@@ -10,9 +10,6 @@ import Api from '../components/Api.js';
 
 import './index.css'; // добавьте импорт главного файла стилей
 
-
-
-
 //=====API=====
 const api = new Api({
   url: 'https://mesto.nomoreparties.co/v1/cohort-68',
@@ -20,7 +17,6 @@ const api = new Api({
     authorization: '752cb7e1-403b-438a-9b48-05f4c5ae9d75'
   }
 });
-
 
 //=====INITIAL CARDS=====
 
@@ -57,16 +53,17 @@ popUpBigPhoto.setEventListeners();
 
 //=====PROFILE=====
 
-//???экземпляр класса UserInfo создается единожды
+//экземпляр класса UserInfo с текущими пустыми значениями name и about из html
 const infoAboutUser = new UserInfo(currentName, currentStatus);
 
 //возвращаем Promise с данными пользователя с сервера (еще будет нужен?)
 const userInfoPromise = api.getUserId();
 
+//заполняем шапку первоначальными данными с сервера
 userInfoPromise.then((result) => {
-  // infoAboutUser.setUserInfo(result);
-  currentName.textContent = result.name;
-  currentStatus.textContent = result.about;
+  // currentName.textContent = result.name;
+  // currentStatus.textContent = result.about;
+  infoAboutUser.setUserInfo(result);
   currentAvatar.src = result.avatar;
 })
 
