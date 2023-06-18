@@ -8,7 +8,7 @@ export default class UserInfo {
   getUserInfo() {
     const currentUserInfo = {
       name: this._userName.textContent,
-      link: this._userStatus.textContent,
+      about: this._userStatus.textContent,
     }
     return currentUserInfo;
   }

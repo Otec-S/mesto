@@ -3,10 +3,6 @@ export default class Api {
     this._url = config.url;
     this._headers = config.headers;
     this._authorization = config.headers.authorization;
-    this._body = config.body;
-    this._newUserName = config.body.name;
-    this._newUserStatus = config.body.about;
-
   }
 
   getCards() {
@@ -34,8 +30,8 @@ export default class Api {
         else { return Promise.reject(`Ошибка: ${res.status}`) }
       })
   }
-
-  setUserId() {
+//принимает имя и статус и отправляет его на сервер
+  setUserId(newUserName, newUserStatus) {
     return fetch(`${this._url}/users/me`, {
       method: 'PATCH',
       headers: {
@@ -43,8 +39,8 @@ export default class Api {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        name: this._newUserName,
-        about: this._newUserStatus
+        name: newUserName,
+        about: newUserStatus
       })
     })
     .then((res) => {

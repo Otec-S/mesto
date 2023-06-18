@@ -18,7 +18,7 @@ export default class PopupWithForm extends Popup {
     this._inputsFromForm.forEach((input) => {
       this._cardData[input.name] = input.value;
     })
-    //возвращаем полученный объект
+    //возвращаем полученный объект c полями name и link
     return this._cardData;
   }
 

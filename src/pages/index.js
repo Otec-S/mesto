@@ -50,7 +50,6 @@ const popUpBigPhoto = new PopupWithImage('.popup-big-photo');
 //вызываем публичный метод setEventListeners из класса Popup
 popUpBigPhoto.setEventListeners();
 
-
 //=====PROFILE=====
 
 //экземпляр класса UserInfo с текущими пустыми значениями name и about из html
@@ -58,14 +57,6 @@ const infoAboutUser = new UserInfo(currentName, currentStatus);
 
 //возвращаем Promise с данными пользователя с сервера (еще будет нужен?)
 const userInfoPromise = api.getUserId();
-
-//заполняем шапку первоначальными данными с сервера
-userInfoPromise.then((result) => {
-  // currentName.textContent = result.name;
-  // currentStatus.textContent = result.about;
-  infoAboutUser.setUserInfo(result);
-  currentAvatar.src = result.avatar;
-})
 
 // создаем экземпляр класса Popup с селектором для Profile
 const popUpProfileInstance = new PopupWithForm('.popup-profile', handleProfileFormSubmit);
@@ -78,15 +69,23 @@ editButton.addEventListener('click', () => {
   //передаем данные из _getInputValues в колбэк сабмита формы
   const userInfo = infoAboutUser.getUserInfo();
   nameInput.value = userInfo.name;
-  nameStatus.value = userInfo.link;
+  nameStatus.value = userInfo.about;
   popUpProfileInstance.open();
 })
 
 /*функция вставляет данные из заполненной формы попапа в профиль и закрывает попап*/
 function handleProfileFormSubmit(inputValues) {
   infoAboutUser.setUserInfo(inputValues);
+  // отправка данных на сервер
+  api.setUserId(inputValues.name, inputValues.about);
   popUpProfileInstance.close();
 }
+
+//заполняем шапку данными с сервера
+userInfoPromise.then((result) => {
+  infoAboutUser.setUserInfo(result);
+  currentAvatar.src = result.avatar;
+})
 
 //===== NEW CARD =====
 
