@@ -12,11 +12,9 @@ export default class Api {
         'Content-type': 'application/json'
       }
     })
-      .then((res) => {
-        if (res.ok) { return res.json() }
-        else { return Promise.reject(`Ошибка: ${res.status}`) }
-      })
+      .then(this._handleResponse);
   }
+
   //отправляет запрос на добавление карточки на сервер
   setCard(newCardName, newCardLink) {
     return fetch(`${this._url}/cards`, {
@@ -30,11 +28,7 @@ export default class Api {
         link: newCardLink
       })
     })
-      .then((res) => {
-        if (res.ok) { return res.json() }
-        else { return Promise.reject(`Ошибка: ${res.status}`) }
-      })
-      .then((rest) => {console.log(rest);});
+      .then(this._handleResponse);
   }
 
   getUserId() {
@@ -44,11 +38,9 @@ export default class Api {
         'Content-type': 'application/json'
       }
     })
-      .then((res) => {
-        if (res.ok) { return res.json() }
-        else { return Promise.reject(`Ошибка: ${res.status}`) }
-      })
+      .then(this._handleResponse);
   }
+
   //принимает имя и статус и отправляет его на сервер
   setUserId(newUserName, newUserStatus) {
     return fetch(`${this._url}/users/me`, {
@@ -62,10 +54,13 @@ export default class Api {
         about: newUserStatus
       })
     })
-      .then((res) => {
-        if (res.ok) { return res.json() }
-        else { return Promise.reject(`Ошибка: ${res.status}`) }
-      })
+      .then(this._handleResponse);
   }
 
+  _handleResponse(res) {
+    if (res.ok) { return res.json() }
+    else { return Promise.reject(`Ошибка: ${res.status}`) }
+  };
 }
+
+

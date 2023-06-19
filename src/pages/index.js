@@ -17,7 +17,7 @@ const api = new Api({
   }
 });
 
-//=====GENERAL: MAKE AN INSTANCE OF CARD=====
+//=====GENERAL: MAKE AN INSTANCE OF A CARD=====
 
 //делаем отдельную функцию по созданию экземпляра класса Card
 function makeElementOfClassCard(data) {
@@ -29,10 +29,8 @@ function makeElementOfClassCard(data) {
 
 //=====RENDER ALL SERVER CARDS=====
 
-//возвращаем Promise с карточками сервера
-// const apiCardsPromise = api.getCards();
 let section = {};
-//создаем экземпляр класса Section и передаем в него изначальный массив карточек с сервера через API
+//создаем экземпляр класса Section и передаем в него изначальный массив карточек apiCards с сервера через API
 api.getCards().then((apiCards) => {
   section = new Section({
     items: apiCards,
@@ -76,12 +74,17 @@ addButton.addEventListener('click', () => {
 
 // функция сабмита/отправки формы новой карты. Аргумент cardInfo - объект с двумя полями name и link
 function handleCardFormSubmit(cardInfo) {
-  // создаем одну карточку с данными из полей формы попапа
-  const element = makeElementOfClassCard(cardInfo);
-    // методом addItem класса Section добавляем эту одну созданную карточку на страницу
-  section.addItem(element);
+  //отправляем карточку на сервер
+  api.setCard(cardInfo.name, cardInfo.link)
+    .then((res) => {
+      console.log(res);
+      //создаем карточку
+      const element = makeElementOfClassCard(res);
+      // методом addItem класса Section добавляем эту одну созданную карточку на страницу
+      section.addItem(element)
+    })
+    .catch((err) => { `catch: ${err}` });
 
-  api.setCard(cardInfo.name, cardInfo.link);
   popUpNewCard.close();
 }
 
