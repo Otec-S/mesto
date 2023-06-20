@@ -5,6 +5,12 @@ export default class Api {
     this._authorization = config.headers.authorization;
   }
 
+  //вспомогательный метод
+  _handleResponse(res) {
+    if (res.ok) { return res.json() }
+    else { return Promise.reject(`Ошибка: ${res.status}`) }
+  };
+
   getCards() {
     return fetch(`${this._url}/cards`, {
       headers: {
@@ -57,10 +63,11 @@ export default class Api {
       .then(this._handleResponse);
   }
 
-  _handleResponse(res) {
-    if (res.ok) { return res.json() }
-    else { return Promise.reject(`Ошибка: ${res.status}`) }
-  };
+  getAppInfo() {
+    //возвращаю массив промисов. Первыми - карточки, вторым запрос к информации о пользователе
+    return Promise.all([this.getCards(), this.getUserId()]);
+  }
+
 }
 
 

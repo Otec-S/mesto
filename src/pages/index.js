@@ -31,8 +31,11 @@ function makeElementOfClassCard(data) {
 
 let section = {};
 //создаем экземпляр класса Section и передаем в него изначальный массив карточек apiCards с сервера через API
-api.getCards().then((apiCards) => {
+//пока не ясно, что делать с полученными usersId
+api.getAppInfo().then(([ apiCards, usersId ]) => {
+  console.log(usersId);
   section = new Section({
+    //методом reverse разворачиваем массив для лучшего отображения на странице - новые карточки выше
     items: apiCards.reverse(),
     renderer: (data) => {
       const element = makeElementOfClassCard(data);
@@ -42,27 +45,7 @@ api.getCards().then((apiCards) => {
   section.renderItems();
 });
 
-
 //===== NEW CARD =====
-
-//пробный запрос карточки на сервер
-// api.setCard('Странный котик', 'https://gdb.rferl.org/6E61CFE9-75D1-4EDF-A3DF-50731D80D47D_w650_r1_s.jpg');
-
-//ответ
-/*{
-  "likes": [],
-  "_id": "648eb695ebc96e08a58d498a",
-  "name": "Котик",
-  "link": "https://bipbap.ru/wp-content/uploads/2021/11/1619541010_52-oir_mobi-p-nyashnie-kotiki-zhivotnie-krasivo-foto-57-730x856.jpg",
-  "owner": {
-      "name": "Сергей",
-      "about": "Юристище",
-      "avatar": "https://pictures.s3.yandex.net/frontend-developer/common/ava.jpg",
-      "_id": "3f22f8c52c771af55a0fc4d1",
-      "cohort": "cohort-68"
-  },
-  "createdAt": "2023-06-18T07:47:33.568Z"
-},*/
 
 // создаем экземпляр класса Popup с селектором для New Card
 const popUpNewCard = new PopupWithForm('.popup-newcard', handleCardFormSubmit);
@@ -86,8 +69,6 @@ function handleCardFormSubmit(cardInfo) {
     .catch((err) => { `catch: ${err}` });
   popUpNewCard.close();
 }
-
-
 
 //=====BIG PHOTO=====
 
@@ -132,8 +113,6 @@ userInfoPromise.then((result) => {
   infoAboutUser.setUserInfo(result);
   currentAvatar.src = result.avatar;
 })
-
-
 
 //ВАЛИДАЦИЯ форм
 
