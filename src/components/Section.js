@@ -12,7 +12,7 @@ export default class Section {
 
   //cодержит публичный метод addItem, который принимает DOM-элемент и добавляет его в контейнер.
   addItem(element) {
-    this._container.append(element);
+    this._container.prepend(element);
   }
 
   //отрисовка массива карточек

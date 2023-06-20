@@ -33,7 +33,7 @@ let section = {};
 //создаем экземпляр класса Section и передаем в него изначальный массив карточек apiCards с сервера через API
 api.getCards().then((apiCards) => {
   section = new Section({
-    items: apiCards,
+    items: apiCards.reverse(),
     renderer: (data) => {
       const element = makeElementOfClassCard(data);
       section.addItem(element);
@@ -41,6 +41,7 @@ api.getCards().then((apiCards) => {
   }, ".cards");
   section.renderItems();
 });
+
 
 //===== NEW CARD =====
 
@@ -77,14 +78,12 @@ function handleCardFormSubmit(cardInfo) {
   //отправляем карточку на сервер
   api.setCard(cardInfo.name, cardInfo.link)
     .then((res) => {
-      console.log(res);
       //создаем карточку
       const element = makeElementOfClassCard(res);
       // методом addItem класса Section добавляем эту одну созданную карточку на страницу
       section.addItem(element)
     })
     .catch((err) => { `catch: ${err}` });
-
   popUpNewCard.close();
 }
 
