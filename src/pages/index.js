@@ -1,4 +1,4 @@
-import { editButton, currentName, currentStatus, currentAvatar, nameInput, nameStatus, addButton, config } from '../scripts/utils.js';
+import { editButton, currentName, currentStatus, currentAvatar, nameInput, nameStatus, addButton, config, likesCounter } from '../scripts/utils.js';
 import Card from '../components/Card.js';
 import Section from '../components/Section.js';
 import PopupWithImage from '../components/PopupWithImage.js';
@@ -8,6 +8,9 @@ import { FormValidator } from '../components/FormValidator.js';
 import Api from '../components/Api.js';
 
 import './index.css'; // добавьте импорт главного файла стилей
+
+//по тупому сначала
+
 
 //=====API=====
 const api = new Api({
@@ -30,20 +33,24 @@ function makeElementOfClassCard(data) {
 //=====RENDER ALL SERVER CARDS=====
 
 let section = {};
-//создаем экземпляр класса Section и передаем в него изначальный массив карточек apiCards с сервера через API
+//с помощью классов Section и Card отрисовываем все карточки изначального массива [apiCards], который получен с сервера через API
 //пока не ясно, что делать с полученными usersId
-api.getAppInfo().then(([ apiCards, usersId ]) => {
-  console.log(usersId);
-  section = new Section({
-    //методом reverse разворачиваем массив для лучшего отображения на странице - новые карточки выше
-    items: apiCards.reverse(),
-    renderer: (data) => {
-      const element = makeElementOfClassCard(data);
-      section.addItem(element);
-    }
-  }, ".cards");
-  section.renderItems();
-});
+api.getAppInfo()
+  .then(([apiCards, usersId]) => {
+    // console.log(apiCards[0].likes.length);
+    section = new Section({
+      //методом reverse переворачиваем массив для лучшего отображения на странице - новые карточки выше
+      items: apiCards.reverse(),
+      renderer: (data) => {
+        const card = new Card(data, (cardData) => { popUpBigPhoto.open(cardData) });
+        const element = card.generateCard();
+        //значение счетчика лайков равно длине массива тех, кто лайкнул
+        card.showLikesCounter().textContent = data.likes.length;
+        section.addItem(element);
+      }
+    }, ".cards");
+    section.renderItems();
+  });
 
 //===== NEW CARD =====
 
@@ -114,14 +121,14 @@ userInfoPromise.then((result) => {
   currentAvatar.src = result.avatar;
 })
 
-//ВАЛИДАЦИЯ форм
+//=====ВАЛИДАЦИЯ форм=====
 
 //создаем экземпляр класса FormValidator для формы заполнения новой карточки
 const cardFormValidator = new FormValidator(config, '.popup__form_type_profile');
 //запускаем проверку валидации этой формы через публичный метод класса
 cardFormValidator.enableValidation(config);
-
 //создаем экземпляр класса FormValidator для формы профайла
 const profileFormValidator = new FormValidator(config, '.popup__form_type_edit-card');
 //запускаем проверку валидации этой формы через публичный метод класса
 profileFormValidator.enableValidation(config);
+

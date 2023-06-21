@@ -21,3 +21,5 @@ export const config = {
   inactiveButtonClass: 'popup__submit_disabled',
   inputErrorClass: 'popup__input_invalid',
 }
+
+

@@ -5,6 +5,7 @@ export default class Card {
     this._link = cardData.link;
     this._templateSelector = templateSelector;
     this._handleCardClick = handleCardClick;
+
   }
 
   _getTemplate() {
@@ -15,6 +16,13 @@ export default class Card {
 
   _handleHeartToLike() {
     this._heart.classList.toggle('card__heart_active');
+  }
+
+  //метод возвращает ссылку на счетчик лайков в разметке карточки
+  showLikesCounter() {
+    return this._element.querySelector('.card__hearts-counter');
+    // console.log(this.likesCounter.textContent);
+    // return this.likesCounter;
   }
 
   _handleTrashCanToRemoveCard() {
