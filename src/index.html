@@ -46,8 +46,8 @@
         <input id="name" type="text" class="popup__input popup__input_type_name" name="name" required minlength="2"
           maxlength="40" autocomplete="off">
         <span id="error-name" class="error-message"></span>
-        <input id="status" type="text" class="popup__input popup__input_type_status" name="about" required
-          minlength="2" maxlength="200" autocomplete="off">
+        <input id="status" type="text" class="popup__input popup__input_type_status" name="about" required minlength="2"
+          maxlength="200" autocomplete="off">
         <span id="error-status" class="error-message"></span>
         <button type="submit" aria-label="Кнопка для сохранения изменений" class="popup__submit">Сохранить</button>
       </form>
@@ -91,7 +91,10 @@
         <img src="http://placekitten.com/200/300" class="card__photo">
       </a>
       <h2 class="card__title"></h2>
-      <button type="button" aria-label="Сердечко для лайка" class="card__heart"></button>
+      <div class="card__heart-area">
+        <button type="button" aria-label="Сердечко для лайка" class="card__heart"></button>
+        <div class="card__hearts-counter">0</div>
+      </div>
     </li>
   </template>
 
