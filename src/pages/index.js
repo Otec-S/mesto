@@ -47,6 +47,14 @@ api.getAppInfo()
         //значение счетчика лайков равно длине массива тех, кто лайкнул
         card.showLikesCounter().textContent = data.likes.length;
         section.addItem(element);
+
+        //если карточка не моя, значит айди ее собственника не равно моему айди
+        //добавляем мусорной корзине такой карточкм свойство display: none
+        if (data.owner._id !== usersId._id) {
+          //присваемваем классу мусорной корзинки аттрибут display: none
+          card.showTrashCan().classList.add('card__trash-can_inactive');
+        }
+
       }
     }, ".cards");
     section.renderItems();

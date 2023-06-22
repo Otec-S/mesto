@@ -25,6 +25,13 @@ export default class Card {
     // return this.likesCounter;
   }
 
+  //метод возарвщает ссылку на мусорную корзину в разметке карточки
+  showTrashCan() {
+    //делаем ссылку на мусорную корзину
+    const trashCan = this._element.querySelector('.card__trash-can');
+    return trashCan;
+  }
+
   _handleTrashCanToRemoveCard() {
     this._element.remove();
     this._element = null;
@@ -42,9 +49,8 @@ export default class Card {
       this._handleHeartToLike();
     });
 
-    //делаем ссылку на мусорную корзину
-    this._can = this._element.querySelector('.card__trash-can');
     //слушатель на корзину удаления карточки
+    this._can = this.showTrashCan();
     this._can.addEventListener("click", () => {
       this._handleTrashCanToRemoveCard();
     });
