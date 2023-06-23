@@ -68,6 +68,17 @@ export default class Api {
     return Promise.all([this.getCards(), this.getUserId()]);
   }
 
+  deleteCard(cardId) {
+    return fetch(`${this._url}/cards/${cardId}`, {
+      method: 'DELETE',
+      headers: {
+        authorization: this._authorization,
+        'Content-Type': 'application/json'
+      },
+    })
+      .then(this._handleResponse);
+  }
+
 }
 
 

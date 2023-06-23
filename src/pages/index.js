@@ -3,13 +3,13 @@ import Card from '../components/Card.js';
 import Section from '../components/Section.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
+import PopupWithConfirmation from '../components/PopupWithConfirmation.js';
 import UserInfo from '../components/UserInfo.js';
 import { FormValidator } from '../components/FormValidator.js';
 import Api from '../components/Api.js';
 
 import './index.css'; // добавьте импорт главного файла стилей
 
-//по тупому сначала
 
 
 //=====API=====
@@ -29,6 +29,17 @@ function makeElementOfClassCard(data) {
   const cardElement = card.generateCard();
   return cardElement;
 }
+
+//////////////////////////////////////////////////////
+//по тупому сначала
+
+const confirmPopUp = new PopupWithConfirmation('.popup-delete-confirmation');
+//вашаю обработчик клика на корзинку, найденную через класс PWC
+// confirmPopUp.confirmDeleteCard().addEventListener('click', () => {
+//   api.deleteCard('6495553a915f5d0902bf84ff');
+//   confirmPopUp.close();
+// })
+
 
 //=====RENDER ALL SERVER CARDS=====
 
@@ -54,6 +65,22 @@ api.getAppInfo()
           //присваемваем классу мусорной корзинки аттрибут display: none
           card.showTrashCan().classList.add('card__trash-can_inactive');
         }
+
+        //!!!!!!!!!!!!
+        //??? кривовато внизу ??? + не работает с удалением второй своей карточки
+        
+        //обработчик нажатия на корзину
+        card.showTrashCan().addEventListener('click', () => {
+          //вашаю обработчик клика на корзинку, найденную через класс PWC
+          confirmPopUp.confirmDeleteCard().addEventListener('click', () => {
+            api.deleteCard(data._id);
+            card._handleTrashCanToRemoveCard();
+            confirmPopUp.close();
+          })
+          confirmPopUp.open();
+        })
+
+        // console.log(data);
 
       }
     }, ".cards");
@@ -102,7 +129,7 @@ const userInfoPromise = api.getUserId();
 
 // создаем экземпляр класса Popup с селектором для Profile
 const popUpProfileInstance = new PopupWithForm('.popup-profile', handleProfileFormSubmit);
-// вызываем публичный метод setEventListeners из класса Popup
+// вызываем публичный метод setEventListeners из класса Popup, чтобы работало нажатие на крестик для закрывания окна
 popUpProfileInstance.setEventListeners();
 // return infoAboutUser;
 

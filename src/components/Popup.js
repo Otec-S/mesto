@@ -7,6 +7,7 @@ export default class Popup {
     this._closePopUpByClickToOverlay = this._closePopUpByClickToOverlay.bind(this);
     this.close = this.close.bind(this);
     this.open = this.open.bind(this);
+    //ссылка на крестик закрытия попапа
     this._crossToClose = this._popup.querySelector('.popup__close-cross');
   }
 

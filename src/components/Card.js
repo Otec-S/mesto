@@ -25,7 +25,7 @@ export default class Card {
     // return this.likesCounter;
   }
 
-  //метод возарвщает ссылку на мусорную корзину в разметке карточки
+  //метод возвращает ссылку на мусорную корзину в разметке карточки
   showTrashCan() {
     //делаем ссылку на мусорную корзину
     const trashCan = this._element.querySelector('.card__trash-can');
@@ -50,10 +50,10 @@ export default class Card {
     });
 
     //слушатель на корзину удаления карточки
-    this._can = this.showTrashCan();
-    this._can.addEventListener("click", () => {
-      this._handleTrashCanToRemoveCard();
-    });
+    // this._can = this.showTrashCan();
+    // this._can.addEventListener("click", () => {
+    //   this._handleTrashCanToRemoveCard();
+    // });
 
     //слушатель при нажатии на фотокарточку - просто вызываем функцию _clickToCard
     this._element.querySelector('.card__link').addEventListener('click', () => {
