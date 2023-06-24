@@ -68,11 +68,12 @@ api.getAppInfo()
 
         //!!!!!!!!!!!!
         //??? кривовато внизу ??? + не работает с удалением второй своей карточки
-        
+
         //обработчик нажатия на корзину
         card.showTrashCan().addEventListener('click', () => {
           //вашаю обработчик клика на корзинку, найденную через класс PWC
-          confirmPopUp.confirmDeleteCard().addEventListener('click', () => {
+          confirmPopUp.confirmDeleteCard().addEventListener('submit', (evt) => {
+            evt.preventDefault();
             api.deleteCard(data._id);
             card._handleTrashCanToRemoveCard();
             confirmPopUp.close();
