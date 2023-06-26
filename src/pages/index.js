@@ -36,7 +36,15 @@ function makeElementOfClassCard(data) {
               console.log('Что-то пошло не так', err)
             })
         }
+    },
+
+    {
+      confirmDelete:
+        () => {
+          confirmPopUp.open()
+        }
     }
+
   )
 
   const cardElement = card.generateCard();
