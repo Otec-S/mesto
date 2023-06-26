@@ -1,10 +1,13 @@
 export default class Card {
-  //принимаем данные из объекта
-  constructor(cardData, handleCardClick, templateSelector = '.card-template') {
+
+    //принимаем данные из объекта
+  constructor(cardData, handleCardClick, { handleDelete }, templateSelector = '.card-template') {
     this._name = cardData.name;
     this._link = cardData.link;
     this._templateSelector = templateSelector;
     this._handleCardClick = handleCardClick;
+    this._handleDelete = handleDelete;
+
 
   }
 
@@ -33,8 +36,9 @@ export default class Card {
   }
 
   _handleTrashCanToRemoveCard() {
-    this._element.remove();
-    this._element = null;
+    this._handleDelete(card);
+    // this._element.remove();
+    // this._element = null;
   }
 
   _handleClick() {

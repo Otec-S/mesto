@@ -25,8 +25,32 @@ const api = new Api({
 //делаем отдельную функцию по созданию экземпляра класса Card
 function makeElementOfClassCard(data) {
   //второй параметр экземпляра Card - это и есть функция handleCardClick!!!
-  const card = new Card(data, (cardData) => { popUpBigPhoto.open(cardData) });
+  //класс Card получил в параметр конструктора новую функцию handleDelete
+  const card = new Card(data, (cardData) => { popUpBigPhoto.open(cardData) },
+    {
+      handleDelete: (card) => {
+        api.deleteCard(data._id)
+          .then(() => {
+            card.remove();
+            card = null;
+          }).catch((err) => {
+            console.log('Что-то пошло не так', err)
+          })
+      }
+    })
   const cardElement = card.generateCard();
+
+  // значение счетчика лайков равно длине массива тех, кто лайкнул
+  card.showLikesCounter().textContent = data.likes.length;
+
+  //если карточка не моя, значит айди ее собственника не равно моему айди
+  //добавляем мусорной корзине такой карточкм свойство display: none
+  // if (data.owner._id !== usersId._id) {
+  //   //присваемваем классу мусорной корзинки аттрибут display: none
+  //   cardElement.showTrashCan().classList.add('card__trash-can_inactive');
+  // }
+
+
   return cardElement;
 }
 
@@ -45,43 +69,40 @@ const confirmPopUp = new PopupWithConfirmation('.popup-delete-confirmation');
 
 let section = {};
 //с помощью классов Section и Card отрисовываем все карточки изначального массива [apiCards], который получен с сервера через API
-//пока не ясно, что делать с полученными usersId
 api.getAppInfo()
   .then(([apiCards, usersId]) => {
-    // console.log(apiCards[0].likes.length);
     section = new Section({
-      //методом reverse переворачиваем массив для лучшего отображения на странице - новые карточки выше
       items: apiCards.reverse(),
       renderer: (data) => {
-        const card = new Card(data, (cardData) => { popUpBigPhoto.open(cardData) });
-        const element = card.generateCard();
-        //значение счетчика лайков равно длине массива тех, кто лайкнул
-        card.showLikesCounter().textContent = data.likes.length;
-        section.addItem(element);
+        const cardElement = makeElementOfClassCard(data);
+
+        // console.log(cardElement.querySelector('.card__hearts-counter'));
+
 
         //если карточка не моя, значит айди ее собственника не равно моему айди
         //добавляем мусорной корзине такой карточкм свойство display: none
-        if (data.owner._id !== usersId._id) {
-          //присваемваем классу мусорной корзинки аттрибут display: none
-          card.showTrashCan().classList.add('card__trash-can_inactive');
-        }
+        // if (data.owner._id !== usersId._id) {
+        //   //присваемваем классу мусорной корзинки аттрибут display: none
+        //   cardElement.showTrashCan().classList.add('card__trash-can_inactive');
+        // }
 
         //!!!!!!!!!!!!
         //??? кривовато внизу ??? + не работает с удалением второй своей карточки
 
-        //обработчик нажатия на корзину
-        card.showTrashCan().addEventListener('click', () => {
-          //вашаю обработчик клика на корзинку, найденную через класс PWC
-          confirmPopUp.confirmDeleteCard().addEventListener('submit', (evt) => {
-            evt.preventDefault();
-            api.deleteCard(data._id);
-            card._handleTrashCanToRemoveCard();
-            confirmPopUp.close();
-          })
-          confirmPopUp.open();
-        })
+        // обработчик нажатия на корзину
+        // card.showTrashCan().addEventListener('click', () => {
+        //   //вашаю обработчик клика на корзинку, найденную через класс PWC
+        //   confirmPopUp.confirmDeleteCard().addEventListener('click', () => {
+        //     // evt.preventDefault();
+        //     // api.deleteCard(data._id);
+        //     card._handleTrashCanToRemoveCard();
+        //     confirmPopUp.close();
+        //   })
+        //   confirmPopUp.open();
+        // })
 
         // console.log(data);
+        section.addItem(cardElement);
 
       }
     }, ".cards");
