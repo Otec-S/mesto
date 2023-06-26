@@ -28,16 +28,17 @@ function makeElementOfClassCard(data) {
   //класс Card получил в параметр конструктора новую функцию handleDelete
   const card = new Card(data, (cardData) => { popUpBigPhoto.open(cardData) },
     {
-      handleDelete: (card) => {
-        api.deleteCard(data._id)
-          .then(() => {
-            card.remove();
-            card = null;
-          }).catch((err) => {
-            console.log('Что-то пошло не так', err)
-          })
-      }
-    })
+      handleDelete:
+        () => {
+          //через api.deleteCard(data._id) удаляется карточка с сервера
+          api.deleteCard(data._id)
+            .catch((err) => {
+              console.log('Что-то пошло не так', err)
+            })
+        }
+    }
+  )
+
   const cardElement = card.generateCard();
 
   // значение счетчика лайков равно длине массива тех, кто лайкнул

@@ -12,4 +12,19 @@ export default class PopupWithConfirmation extends Popup {
     return deleteConfirmButton;
   }
 
+  setEventListeners() {
+    super.setEventListeners();
+    //обработчик клика на корзинку
+    card.showTrashCan().addEventListener('click', () => {
+      this._popup.open();
+    })
+
+
+    //вешаем обработчик на кнопку "Да" в попапе подтверждения удаления
+    // this._formElement.addEventListener('submit', (evt) => {
+    //   evt.preventDefault();
+
+    //   this._submitForm(this._getInputValues());
+    // });
+  }
 }

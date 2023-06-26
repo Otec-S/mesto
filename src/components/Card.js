@@ -35,10 +35,11 @@ export default class Card {
     return trashCan;
   }
 
+  ///////////////////////////
   _handleTrashCanToRemoveCard() {
-    this._handleDelete(card);
-    // this._element.remove();
-    // this._element = null;
+    this._handleDelete();
+    this._element.remove();
+    this._element = null;
   }
 
   _handleClick() {
@@ -53,11 +54,13 @@ export default class Card {
       this._handleHeartToLike();
     });
 
-    //слушатель на корзину удаления карточки
-    // this._can = this.showTrashCan();
-    // this._can.addEventListener("click", () => {
-    //   this._handleTrashCanToRemoveCard();
-    // });
+
+    //////////////////////////
+    // слушатель на корзину удаления карточки
+    this._can = this.showTrashCan();
+    this._can.addEventListener("click", () => {
+      this._handleTrashCanToRemoveCard();
+    });
 
     //слушатель при нажатии на фотокарточку - просто вызываем функцию _clickToCard
     this._element.querySelector('.card__link').addEventListener('click', () => {
