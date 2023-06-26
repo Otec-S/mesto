@@ -43,13 +43,14 @@ function makeElementOfClassCard(data) {
   // значение счетчика лайков равно длине массива тех, кто лайкнул
   card.showLikesCounter().textContent = data.likes.length;
 
-  //если карточка не моя, значит айди ее собственника не равно моему айди
-  //добавляем мусорной корзине такой карточкм свойство display: none
-  // if (data.owner._id !== usersId._id) {
-  //   //присваемваем классу мусорной корзинки аттрибут display: none
-  //   cardElement.showTrashCan().classList.add('card__trash-can_inactive');
-  // }
-
+  api.getUserId().then((res) => {
+    //если карточка не моя, значит айди ее собственника не равно моему айди
+    //добавляем мусорной корзине такой карточкм свойство display: none
+    if (data.owner._id !== res._id) {
+      //присваемваем классу мусорной корзинки аттрибут display: none
+      card.showTrashCan().classList.add('card__trash-can_inactive');
+    }
+  });
 
   return cardElement;
 }
@@ -76,15 +77,6 @@ api.getAppInfo()
       renderer: (data) => {
         const cardElement = makeElementOfClassCard(data);
 
-        // console.log(cardElement.querySelector('.card__hearts-counter'));
-
-
-        //если карточка не моя, значит айди ее собственника не равно моему айди
-        //добавляем мусорной корзине такой карточкм свойство display: none
-        // if (data.owner._id !== usersId._id) {
-        //   //присваемваем классу мусорной корзинки аттрибут display: none
-        //   cardElement.showTrashCan().classList.add('card__trash-can_inactive');
-        // }
 
         //!!!!!!!!!!!!
         //??? кривовато внизу ??? + не работает с удалением второй своей карточки
