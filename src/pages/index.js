@@ -27,16 +27,16 @@ function makeElementOfClassCard(data) {
   //второй параметр экземпляра Card - это и есть функция handleCardClick!!!
   //класс Card получил в параметр конструктора новую функцию handleDelete
   const card = new Card(data, (cardData) => { popUpBigPhoto.open(cardData) },
-    {
-      handleDelete:
-        () => {
-          //через api.deleteCard(data._id) удаляется карточка с сервера
-          api.deleteCard(data._id)
-            .catch((err) => {
-              console.log('Что-то пошло не так', err)
-            })
-        }
-    },
+    // {
+    //   handleDelete:
+    //     () => {
+    //       //через api.deleteCard(data._id) удаляется карточка с сервера
+    //       api.deleteCard(data._id)
+    //         .catch((err) => {
+    //           console.log('Что-то пошло не так', err)
+    //         })
+    //     }
+    // },
 
     {
       confirmDelete:
@@ -55,11 +55,29 @@ function makeElementOfClassCard(data) {
   api.getUserId().then((res) => {
     //если карточка не моя, значит айди ее собственника не равно моему айди
     //добавляем мусорной корзине такой карточкм свойство display: none
-    if (data.owner._id !== res._id) {
+    if (data.owner._id === res._id) {
       //присваемваем классу мусорной корзинки аттрибут display: none
-      card.showTrashCan().classList.add('card__trash-can_inactive');
+      card.showTrashCan().classList.remove('card__trash-can_inactive');
     }
   });
+
+  const confirmPopUp = new PopupWithConfirmation('.popup-delete-confirmation', {
+      handleDelete:
+        () => {
+          console.log(data._id);
+          //через api.deleteCard(data._id) удаляется карточка с сервера
+          // api.deleteCard(data._id)
+          //   .catch((err) => {
+          //     console.log('Что-то пошло не так', err)
+          //   })
+        }
+    });
+
+
+  confirmPopUp.setEventListeners();
+
+
+
 
   return cardElement;
 }
@@ -67,7 +85,7 @@ function makeElementOfClassCard(data) {
 //////////////////////////////////////////////////////
 //по тупому сначала
 
-const confirmPopUp = new PopupWithConfirmation('.popup-delete-confirmation');
+
 //вашаю обработчик клика на корзинку, найденную через класс PWC
 // confirmPopUp.confirmDeleteCard().addEventListener('click', () => {
 //   api.deleteCard('6495553a915f5d0902bf84ff');

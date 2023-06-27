@@ -1,12 +1,11 @@
 export default class Card {
 
   //принимаем данные из объекта
-  constructor(cardData, handleCardClick, { handleDelete }, { confirmDelete },templateSelector = '.card-template') {
+  constructor(cardData, handleCardClick, { confirmDelete }, templateSelector = '.card-template') {
     this._name = cardData.name;
     this._link = cardData.link;
     this._templateSelector = templateSelector;
     this._handleCardClick = handleCardClick;
-    this._handleDelete = handleDelete;
     this._confirmDelete = confirmDelete;
   }
 
@@ -35,13 +34,13 @@ export default class Card {
   }
 
   ///////////////////////////
-  _handleTrashCanToRemoveCard() {
-    this._handleDelete();
-    this._element.remove();
-    this._element = null;
-  }
+  // _handleTrashCanToRemoveCard() {
+  //   this._handleDelete();
+  //   this._element.remove();
+  //   this._element = null;
+  // }
 
-  _handleConfirmToRemoveCard() {
+  _confirmToRemoveCard() {
     this._confirmDelete();
   }
 
@@ -60,9 +59,8 @@ export default class Card {
 
     //////////////////////////
     // слушатель на корзину удаления карточки
-    this._can = this.showTrashCan();
-    this._can.addEventListener("click", () => {
-      this._handleConfirmToRemoveCard();
+    this.showTrashCan().addEventListener("click", () => {
+      this._confirmToRemoveCard();
       // this._handleTrashCanToRemoveCard();
     });
 
