@@ -10,9 +10,12 @@ import Api from '../components/Api.js';
 
 import './index.css'; // добавьте импорт главного файла стилей
 
+let section = {};
 
+const confirmPopUp = new PopupWithConfirmation('.popup-delete-confirmation');
 
 //=====API=====
+
 const api = new Api({
   url: 'https://mesto.nomoreparties.co/v1/cohort-68',
   headers: {
@@ -24,27 +27,25 @@ const api = new Api({
 
 //делаем отдельную функцию по созданию экземпляра класса Card
 function makeElementOfClassCard(data) {
-  //второй параметр экземпляра Card - это и есть функция handleCardClick!!!
-  //класс Card получил в параметр конструктора новую функцию handleDelete
-  const card = new Card(data, (cardData) => { popUpBigPhoto.open(cardData) },
-    // {
-    //   handleDelete:
-    //     () => {
-    //       //через api.deleteCard(data._id) удаляется карточка с сервера
-    //       api.deleteCard(data._id)
-    //         .catch((err) => {
-    //           console.log('Что-то пошло не так', err)
-    //         })
-    //     }
-    // },
-
+  const card = new Card(data,
     {
-      confirmDelete:
-        () => {
-          confirmPopUp.open()
-        }
+      handleCardClick: (cardData) => {
+        popUpBigPhoto.open(cardData)
+      }
+    },
+    {
+      confirmDelete: () => {
+        confirmPopUp.open();
+        confirmPopUp.confirmDeleteCard().addEventListener('click', () => {
+          api.deleteCard(data._id)
+            .then(() => { card.handleTrashCanToRemoveCard(); })
+            .catch((err) => {
+              console.log('Что-то пошло не так', err)
+            });
+          confirmPopUp.close();
+        })
+      }
     }
-
   )
 
   const cardElement = card.generateCard();
@@ -54,48 +55,17 @@ function makeElementOfClassCard(data) {
 
   api.getUserId().then((res) => {
     //если карточка не моя, значит айди ее собственника не равно моему айди
-    //добавляем мусорной корзине такой карточкм свойство display: none
     if (data.owner._id === res._id) {
-      //присваемваем классу мусорной корзинки аттрибут display: none
+      //убираем с класса мусорной корзинки аттрибут display: none
       card.showTrashCan().classList.remove('card__trash-can_inactive');
     }
   });
 
-  const confirmPopUp = new PopupWithConfirmation('.popup-delete-confirmation', {
-      handleDelete:
-        () => {
-          console.log(data._id);
-          //через api.deleteCard(data._id) удаляется карточка с сервера
-          // api.deleteCard(data._id)
-          //   .catch((err) => {
-          //     console.log('Что-то пошло не так', err)
-          //   })
-        }
-    });
-
-
-  confirmPopUp.setEventListeners();
-
-
-
-
   return cardElement;
 }
 
-//////////////////////////////////////////////////////
-//по тупому сначала
-
-
-//вашаю обработчик клика на корзинку, найденную через класс PWC
-// confirmPopUp.confirmDeleteCard().addEventListener('click', () => {
-//   api.deleteCard('6495553a915f5d0902bf84ff');
-//   confirmPopUp.close();
-// })
-
-
 //=====RENDER ALL SERVER CARDS=====
 
-let section = {};
 //с помощью классов Section и Card отрисовываем все карточки изначального массива [apiCards], который получен с сервера через API
 api.getAppInfo()
   .then(([apiCards, usersId]) => {
@@ -103,26 +73,7 @@ api.getAppInfo()
       items: apiCards.reverse(),
       renderer: (data) => {
         const cardElement = makeElementOfClassCard(data);
-
-
-        //!!!!!!!!!!!!
-        //??? кривовато внизу ??? + не работает с удалением второй своей карточки
-
-        // обработчик нажатия на корзину
-        // card.showTrashCan().addEventListener('click', () => {
-        //   //вашаю обработчик клика на корзинку, найденную через класс PWC
-        //   confirmPopUp.confirmDeleteCard().addEventListener('click', () => {
-        //     // evt.preventDefault();
-        //     // api.deleteCard(data._id);
-        //     card._handleTrashCanToRemoveCard();
-        //     confirmPopUp.close();
-        //   })
-        //   confirmPopUp.open();
-        // })
-
-        // console.log(data);
         section.addItem(cardElement);
-
       }
     }, ".cards");
     section.renderItems();
@@ -165,7 +116,7 @@ popUpBigPhoto.setEventListeners();
 //экземпляр класса UserInfo с текущими пустыми значениями name и about из html
 const infoAboutUser = new UserInfo(currentName, currentStatus);
 
-//возвращаем Promise с данными пользователя с сервера (еще будет нужен?)
+//возвращаем Promise с данными пользователя с сервера
 const userInfoPromise = api.getUserId();
 
 // создаем экземпляр класса Popup с селектором для Profile

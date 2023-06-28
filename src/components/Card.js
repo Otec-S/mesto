@@ -1,7 +1,7 @@
 export default class Card {
 
   //принимаем данные из объекта
-  constructor(cardData, handleCardClick, { confirmDelete }, templateSelector = '.card-template') {
+  constructor(cardData, { handleCardClick }, { confirmDelete }, templateSelector = '.card-template') {
     this._name = cardData.name;
     this._link = cardData.link;
     this._templateSelector = templateSelector;
@@ -22,8 +22,6 @@ export default class Card {
   //метод возвращает ссылку на счетчик лайков в разметке карточки
   showLikesCounter() {
     return this._element.querySelector('.card__hearts-counter');
-    // console.log(this.likesCounter.textContent);
-    // return this.likesCounter;
   }
 
   //метод возвращает ссылку на мусорную корзину в разметке карточки
@@ -33,12 +31,10 @@ export default class Card {
     return trashCan;
   }
 
-  ///////////////////////////
-  // _handleTrashCanToRemoveCard() {
-  //   this._handleDelete();
-  //   this._element.remove();
-  //   this._element = null;
-  // }
+  handleTrashCanToRemoveCard() {
+    this._element.remove();
+    this._element = null;
+  }
 
   _confirmToRemoveCard() {
     this._confirmDelete();
@@ -56,12 +52,9 @@ export default class Card {
       this._handleHeartToLike();
     });
 
-
-    //////////////////////////
     // слушатель на корзину удаления карточки
     this.showTrashCan().addEventListener("click", () => {
       this._confirmToRemoveCard();
-      // this._handleTrashCanToRemoveCard();
     });
 
     //слушатель при нажатии на фотокарточку - просто вызываем функцию _clickToCard
