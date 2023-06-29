@@ -13,6 +13,7 @@ import './index.css'; // добавьте импорт главного файл
 let section = {};
 
 const confirmPopUp = new PopupWithConfirmation('.popup-delete-confirmation');
+confirmPopUp.setEventListeners();
 
 //=====API=====
 
