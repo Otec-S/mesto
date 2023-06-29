@@ -1,12 +1,13 @@
 export default class Card {
 
   //принимаем данные из объекта
-  constructor(cardData, { handleCardClick }, { confirmDelete }, templateSelector = '.card-template') {
+  constructor(cardData, { handleCardClick }, { confirmDelete }, { putHeartToLike }, templateSelector = '.card-template') {
     this._name = cardData.name;
     this._link = cardData.link;
     this._templateSelector = templateSelector;
     this._handleCardClick = handleCardClick;
     this._confirmDelete = confirmDelete;
+    this.putHeartToLike = putHeartToLike;
   }
 
   _getTemplate() {
@@ -15,8 +16,13 @@ export default class Card {
     return cardElement;
   }
 
+  //переключение цвета сердечка понажатию на него
   _handleHeartToLike() {
     this._heart.classList.toggle('card__heart_active');
+  }
+
+  _handlePutHeartToLike() {
+    this.putHeartToLike();
   }
 
   //метод возвращает ссылку на счетчик лайков в разметке карточки
@@ -50,7 +56,8 @@ export default class Card {
     //вешаем на него вызов функции по клику
     this._heart.addEventListener('click', () => {
       this._handleHeartToLike();
-    });
+      this._handlePutHeartToLike();
+    })
 
     // слушатель на корзину удаления карточки
     this.showTrashCan().addEventListener("click", () => {

@@ -79,6 +79,28 @@ export default class Api {
       .then(this._handleResponse);
   }
 
+  putLike(cardId) {
+    return fetch(`${this._url}/cards/${cardId}/likes`, {
+      method: 'PUT',
+      headers: {
+        authorization: this._authorization,
+        'Content-Type': 'application/json'
+      },
+    })
+      .then(this._handleResponse);
+  }
+
+  deleteLike(cardId) {
+    return fetch(`${this._url}/cards/${cardId}/likes`, {
+      method: 'DELETE',
+      headers: {
+        authorization: this._authorization,
+        'Content-Type': 'application/json'
+      },
+    })
+      .then(this._handleResponse);
+  }
+
 }
 
 

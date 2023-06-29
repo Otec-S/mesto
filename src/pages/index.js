@@ -40,13 +40,21 @@ function makeElementOfClassCard(data) {
         confirmPopUp.open();
         confirmPopUp.confirmDeleteCard().addEventListener('click', function deleteCurrentCard() {
           api.deleteCard(data._id)
-            .then(() => { card.handleTrashCanToRemoveCard(); })
+            .then(() => { card.handleTrashCanToRemoveCard() })
             .catch((err) => {
               console.log('Что-то пошло не так', err)
             });
           confirmPopUp.confirmDeleteCard().removeEventListener('click', deleteCurrentCard);
           confirmPopUp.close();
         })
+      }
+    },
+    {
+      putHeartToLike: () => {
+        api.putLike(data._id)
+          .catch((err) => {
+            console.log('Что-то пошло не так', err)
+          });
       }
     }
   )
@@ -73,7 +81,7 @@ api.getAppInfo()
         // если карточка не моя, значит айди ее собственника не равно моему айди
         if (data.owner._id === usersId._id) {
           //убираем с класса мусорной корзинки аттрибут display: none
-          makeTrashCanVisible (cardElement);
+          makeTrashCanVisible(cardElement);
         }
 
         section.addItem(cardElement);
@@ -101,7 +109,7 @@ function handleCardFormSubmit(cardInfo) {
       //создаем карточку
       const element = makeElementOfClassCard(res);
       //показываем на ней корзинку
-      makeTrashCanVisible (element);
+      makeTrashCanVisible(element);
       // методом addItem класса Section добавляем эту одну созданную карточку на страницу
       section.addItem(element)
     })
