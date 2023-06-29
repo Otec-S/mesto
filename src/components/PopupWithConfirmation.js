@@ -1,8 +1,10 @@
 import Popup from "./Popup.js";
 
 export default class PopupWithConfirmation extends Popup {
-  constructor(popupSelector) {
+  constructor(popupSelector, submitCallback) {
     super(popupSelector);
+    this.submitCallback = submitCallback;
+
   }
 
   //ссылка на кнопку "ДА"
@@ -11,4 +13,12 @@ export default class PopupWithConfirmation extends Popup {
     return deleteConfirmButton;
   }
 
+  _handleSubmitCallback() {
+    this.submitCallback();
+  }
+
+  setEventListeners() {
+    super.setEventListeners();
+    this.confirmDeleteCard.addEventListener('click', this._handleSubmitCallback);
+  }
 }

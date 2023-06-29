@@ -13,6 +13,7 @@ import './index.css'; // добавьте импорт главного файл
 let section = {};
 
 const confirmPopUp = new PopupWithConfirmation('.popup-delete-confirmation');
+confirmPopUp.setEventListeners();
 
 //=====API=====
 
@@ -36,15 +37,24 @@ function makeElementOfClassCard(data) {
     {
       confirmDelete: () => {
         confirmPopUp.open();
-        confirmPopUp.confirmDeleteCard().addEventListener('click', function deleteCurrentCard() {
+        confirmPopUp.submitCallback(() => {
           api.deleteCard(data._id)
             .then(() => { card.handleTrashCanToRemoveCard(); })
             .catch((err) => {
               console.log('Что-то пошло не так', err)
             });
-          confirmPopUp.confirmDeleteCard().removeEventListener('click', deleteCurrentCard);
           confirmPopUp.close();
-        })
+        }
+        )
+        // confirmPopUp.confirmDeleteCard().addEventListener('click', function deleteCurrentCard() {
+        //   api.deleteCard(data._id)
+        //     .then(() => { card.handleTrashCanToRemoveCard(); })
+        //     .catch((err) => {
+        //       console.log('Что-то пошло не так', err)
+        //     });
+        //   confirmPopUp.confirmDeleteCard().removeEventListener('click', deleteCurrentCard);
+        //   confirmPopUp.close();
+        // })
       }
     }
   )
