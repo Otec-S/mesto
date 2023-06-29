@@ -1,3 +1,8 @@
+//ФУНКЦИИ
+export function makeTrashCanVisible (element) {
+  element.querySelector('.card__trash-can').classList.remove('card__trash-can_inactive');
+}
+
 // ПЕРЕМЕННЫЕ ДЛЯ POPUP PROFILE
 export const popUpProfile = document.querySelector('.popup-profile');
 export const editButton = document.querySelector('.profile__edit-button');

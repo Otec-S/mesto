@@ -1,4 +1,4 @@
-import { editButton, currentName, currentStatus, currentAvatar, nameInput, nameStatus, addButton, config, likesCounter } from '../scripts/utils.js';
+import { editButton, currentName, currentStatus, currentAvatar, nameInput, nameStatus, addButton, config, makeTrashCanVisible, likesCounter } from '../scripts/utils.js';
 import Card from '../components/Card.js';
 import Section from '../components/Section.js';
 import PopupWithImage from '../components/PopupWithImage.js';
@@ -10,7 +10,8 @@ import Api from '../components/Api.js';
 
 import './index.css'; // добавьте импорт главного файла стилей
 
-let section = {};
+
+//=====POPUP DELETE CONFIRMATION=====
 
 const confirmPopUp = new PopupWithConfirmation('.popup-delete-confirmation');
 confirmPopUp.setEventListeners();
@@ -55,19 +56,12 @@ function makeElementOfClassCard(data) {
   // значение счетчика лайков равно длине массива тех, кто лайкнул
   card.showLikesCounter().textContent = data.likes.length;
 
-  api.getUserId().then((res) => {
-    //если карточка не моя, значит айди ее собственника не равно моему айди
-    if (data.owner._id === res._id) {
-      //убираем с класса мусорной корзинки аттрибут display: none
-      card.showTrashCan().classList.remove('card__trash-can_inactive');
-    }
-  });
-
   return cardElement;
 }
 
 //=====RENDER ALL SERVER CARDS=====
 
+let section = {};
 //с помощью классов Section и Card отрисовываем все карточки изначального массива [apiCards], который получен с сервера через API
 api.getAppInfo()
   .then(([apiCards, usersId]) => {
@@ -75,6 +69,13 @@ api.getAppInfo()
       items: apiCards.reverse(),
       renderer: (data) => {
         const cardElement = makeElementOfClassCard(data);
+
+        // если карточка не моя, значит айди ее собственника не равно моему айди
+        if (data.owner._id === usersId._id) {
+          //убираем с класса мусорной корзинки аттрибут display: none
+          makeTrashCanVisible (cardElement);
+        }
+
         section.addItem(cardElement);
       }
     }, ".cards");
@@ -99,6 +100,8 @@ function handleCardFormSubmit(cardInfo) {
     .then((res) => {
       //создаем карточку
       const element = makeElementOfClassCard(res);
+      //показываем на ней корзинку
+      makeTrashCanVisible (element);
       // методом addItem класса Section добавляем эту одну созданную карточку на страницу
       section.addItem(element)
     })
