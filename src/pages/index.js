@@ -1,4 +1,4 @@
-import { editButton, currentName, currentStatus, currentAvatar, nameInput, nameStatus, addButton, config, makeTrashCanVisible, likesCounter } from '../scripts/utils.js';
+import { editButton, currentName, currentStatus, currentAvatar, nameInput, nameStatus, addButton, config, makeTrashCanVisible, makeHeartToLikeActive } from '../scripts/utils.js';
 import Card from '../components/Card.js';
 import Section from '../components/Section.js';
 import PopupWithImage from '../components/PopupWithImage.js';
@@ -99,6 +99,13 @@ api.getAppInfo()
           //убираем с класса мусорной корзинки аттрибут display: none
           makeTrashCanVisible(cardElement);
         }
+
+        //лайкнутая мною карточка должна иметь активное сердечко после перезагрузки страницы
+        data.likes.forEach(element => {
+          if (element._id.includes(usersId._id)) {
+            makeHeartToLikeActive(cardElement);
+          }
+        })
 
         section.addItem(cardElement);
       }

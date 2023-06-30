@@ -3,6 +3,10 @@ export function makeTrashCanVisible (element) {
   element.querySelector('.card__trash-can').classList.remove('card__trash-can_inactive');
 }
 
+export function makeHeartToLikeActive (element) {
+  element.querySelector('.card__heart').classList.add('card__heart_active');
+}
+
 // ПЕРЕМЕННЫЕ ДЛЯ POPUP PROFILE
 export const popUpProfile = document.querySelector('.popup-profile');
 export const editButton = document.querySelector('.profile__edit-button');
