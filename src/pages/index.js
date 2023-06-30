@@ -52,6 +52,7 @@ function makeElementOfClassCard(data) {
     {
       putHeartToLike: () => {
         api.putLike(data._id)
+          .then((res) => { card.showLikesCounter().textContent = res.likes.length })
           .catch((err) => {
             console.log('Что-то пошло не так', err)
           });
