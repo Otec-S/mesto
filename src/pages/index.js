@@ -52,7 +52,22 @@ function makeElementOfClassCard(data) {
     {
       putHeartToLike: () => {
         api.putLike(data._id)
-          .then((res) => { card.showLikesCounter().textContent = res.likes.length })
+          .then((res) => {
+            card.showLikesCounter().textContent = res.likes.length;
+            card.showHeartToLike().classList.add('card__heart_active');
+          })
+          .catch((err) => {
+            console.log('Что-то пошло не так', err)
+          });
+      }
+    },
+    {
+      deleteHeartToLike: () => {
+        api.deleteLike(data._id)
+          .then((res) => {
+            card.showLikesCounter().textContent = res.likes.length;
+            card.showHeartToLike().classList.remove('card__heart_active');
+          })
           .catch((err) => {
             console.log('Что-то пошло не так', err)
           });

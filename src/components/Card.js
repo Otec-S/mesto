@@ -1,13 +1,14 @@
 export default class Card {
 
   //принимаем данные из объекта
-  constructor(cardData, { handleCardClick }, { confirmDelete }, { putHeartToLike }, templateSelector = '.card-template') {
+  constructor(cardData, { handleCardClick }, { confirmDelete }, { putHeartToLike }, { deleteHeartToLike }, templateSelector = '.card-template') {
     this._name = cardData.name;
     this._link = cardData.link;
     this._templateSelector = templateSelector;
     this._handleCardClick = handleCardClick;
     this._confirmDelete = confirmDelete;
     this.putHeartToLike = putHeartToLike;
+    this.deleteHeartToLike = deleteHeartToLike;
   }
 
   _getTemplate() {
@@ -16,14 +17,30 @@ export default class Card {
     return cardElement;
   }
 
-  //переключение цвета сердечка понажатию на него
-  _handleHeartToLike() {
-    this._heart.classList.toggle('card__heart_active');
+  // let garage = document.querySelector('.bentley');
+
+  // garage.classList.contains('bentley'); // true — bentley есть
+  // garage.classList.contains('jaguar'); // false — а jaguar нет
+
+  //метод возвращает ссылку на сердечко в разметке карточки
+  showHeartToLike() {
+    return this._element.querySelector('.card__heart');
   }
 
-  _handlePutHeartToLike() {
-    this.putHeartToLike();
+
+  //переключение цвета сердечка понажатию на него
+  _handleHeartToLike() {
+    if (this._heart.classList.contains('card__heart_active')) {
+      this.deleteHeartToLike();
+    } else {
+      this.putHeartToLike();
+    }
+    // this._heart.classList.toggle('card__heart_active');
   }
+
+  // _handlePutHeartToLike() {
+  //   this.putHeartToLike();
+  // }
 
   //метод возвращает ссылку на счетчик лайков в разметке карточки
   showLikesCounter() {
@@ -51,13 +68,13 @@ export default class Card {
   }
 
   _setEventListeners() {
-    //далаем ссылку на сердечко карточки
-    this._heart = this._element.querySelector('.card__heart');
-    //вешаем на него вызов функции по клику
+
+    //вешаем на сердечко вызов функции по клику
+    this._heart = this.showHeartToLike();
     this._heart.addEventListener('click', () => {
       this._handleHeartToLike();
-      this._handlePutHeartToLike();
-    })
+      // this._handlePutHeartToLike();
+    });
 
     // слушатель на корзину удаления карточки
     this.showTrashCan().addEventListener("click", () => {
