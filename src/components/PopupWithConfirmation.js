@@ -13,7 +13,7 @@ export default class PopupWithConfirmation extends Popup {
 
   setEventListeners() {
     super.setEventListeners();
-    this.confirmDeleteCard.addEventListener('click', this.submitCallback);
+    this.confirmDeleteCard.addEventListener('click', () => this.submitCallback());
   }
 }
 
