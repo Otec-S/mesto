@@ -3,4 +3,35 @@
   width: 120px;
   object-fit: cover;
   border-radius: 50%;
+  z-index: 0;
+  /* position: relative; */
 }
+
+/* .profile__avatar::after {
+  background-image: url(../../../images/big-pencil-to-change-ava.svg);
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, .8);
+  z-index: 1;
+} */
+
+
+/* header {
+  position: relative;
+  background: url("images/landscape.jpg") no-repeat center / cover;
+} */
+
+/* header::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  /* Полупрозрачный фиолетовый */
+/* background-color: rgb(125 20 204 / 0.5);
+} */

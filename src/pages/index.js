@@ -156,7 +156,6 @@ const userInfoPromise = api.getUserId();
 const popUpProfileInstance = new PopupWithForm('.popup-profile', handleProfileFormSubmit);
 // вызываем публичный метод setEventListeners из класса Popup, чтобы работало нажатие на крестик для закрывания окна
 popUpProfileInstance.setEventListeners();
-// return infoAboutUser;
 
 // обработчик клика по кнопке Edit
 editButton.addEventListener('click', () => {
