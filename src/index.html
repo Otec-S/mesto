@@ -52,7 +52,20 @@
         <button type="submit" aria-label="Кнопка для сохранения изменений" class="popup__submit">Сохранить</button>
       </form>
     </div>
+  </div>
 
+  <!-- POP-UP TO CHANGE PROFILE -->
+  <div class="popup popup-change-profile">
+    <div class="popup__content">
+      <button type="button" aria-label="Крестик для закрытия окна" class="popup__close-cross"></button>
+      <h2 class="popup__title">Обновить аватар</h2>
+      <form name="formForProfilePopup" class="popup__form popup__form_type_profile" novalidate>
+        <input id="profile-url" type="url" class="popup__input popup__input_type_status popup__input-change-profile" name="link"
+          placeholder="Ссылка на аватар" required autocomplete="off">
+        <span id="error-profile-url" class="error-message"></span>
+        <button type="submit" aria-label="Кнопка для обновления аватара" class="popup__submit">Сохранить</button>
+      </form>
+    </div>
   </div>
 
   <!-- POP-UP NEW CARD -->
@@ -92,10 +105,11 @@
     </div>
   </div>
 
-  <!-- ШАБЛОН ДЛЯ КАРТИНОК-->
+  <!-- CARD TEMPLATE-->
   <template class="card-template">
     <li class="card">
-      <button type="button" aria-label="Кнопка для удаления картинки" class="card__trash-can card__trash-can_inactive"></button>
+      <button type="button" aria-label="Кнопка для удаления картинки"
+        class="card__trash-can card__trash-can_inactive"></button>
       <a class="card__link" href="#">
         <img src="http://placekitten.com/200/300" class="card__photo">
       </a>

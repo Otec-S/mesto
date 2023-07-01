@@ -30,7 +30,7 @@ export default class PopupWithForm extends Popup {
   setEventListeners() {
     super.setEventListeners();
     //универсальный обработчик клика по кнопке для обоих попапов
-    //по нему должна вызываться функция, переданная в колбэк
+    //по нему должна вызываться функция, переданная в колбэк, в которую передается this._cardData
     this._formElement.addEventListener('submit', (evt) => {
       evt.preventDefault();
       this._submitForm(this._getInputValues());
