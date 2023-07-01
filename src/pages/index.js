@@ -10,14 +10,11 @@ import Api from '../components/Api.js';
 
 import './index.css'; // добавьте импорт главного файла стилей
 
-
 //=====POPUP DELETE CONFIRMATION=====
-
 const confirmPopUp = new PopupWithConfirmation('.popup-delete-confirmation');
 confirmPopUp.setEventListeners();
 
 //=====API=====
-
 const api = new Api({
   url: 'https://mesto.nomoreparties.co/v1/cohort-68',
   headers: {

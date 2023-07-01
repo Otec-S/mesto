@@ -17,30 +17,18 @@ export default class Card {
     return cardElement;
   }
 
-  // let garage = document.querySelector('.bentley');
-
-  // garage.classList.contains('bentley'); // true — bentley есть
-  // garage.classList.contains('jaguar'); // false — а jaguar нет
-
   //метод возвращает ссылку на сердечко в разметке карточки
   showHeartToLike() {
     return this._element.querySelector('.card__heart');
   }
 
-
-  //переключение цвета сердечка понажатию на него
   _handleHeartToLike() {
     if (this._heart.classList.contains('card__heart_active')) {
       this.deleteHeartToLike();
     } else {
       this.putHeartToLike();
     }
-    // this._heart.classList.toggle('card__heart_active');
   }
-
-  // _handlePutHeartToLike() {
-  //   this.putHeartToLike();
-  // }
 
   //метод возвращает ссылку на счетчик лайков в разметке карточки
   showLikesCounter() {
@@ -49,9 +37,7 @@ export default class Card {
 
   //метод возвращает ссылку на мусорную корзину в разметке карточки
   showTrashCan() {
-    //делаем ссылку на мусорную корзину
-    const trashCan = this._element.querySelector('.card__trash-can');
-    return trashCan;
+    return this._element.querySelector('.card__trash-can');
   }
 
   handleTrashCanToRemoveCard() {
@@ -73,7 +59,6 @@ export default class Card {
     this._heart = this.showHeartToLike();
     this._heart.addEventListener('click', () => {
       this._handleHeartToLike();
-      // this._handlePutHeartToLike();
     });
 
     // слушатель на корзину удаления карточки
