@@ -37,7 +37,7 @@ function makeElementOfClassCard(data) {
     {
       confirmDelete: () => {
         confirmPopUp.open();
-        confirmPopUp.submitCallback(() => {
+        confirmPopUp.handleSubmitCallback(() => {
           api.deleteCard(data._id)
             .then(() => { card.handleTrashCanToRemoveCard(); })
             .catch((err) => {
