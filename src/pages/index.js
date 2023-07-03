@@ -182,20 +182,22 @@ userInfoPromise.then((result) => {
 
 //=====PROFILE AVATAR=====
 
-const popUpToChangeAvatar = new PopupWithForm('.popup-change-avatar');
+//экземпляр класса с функцией замены аватара
+const popUpToChangeAvatar = new PopupWithForm('.popup-change-avatar', handleAvatarChangeSubmit);
 popUpToChangeAvatar.setEventListeners();
 
-// обработчик клика по кнопке Edit
+// обработчик клика по карандашу
 avatarLink.addEventListener('click', () => {
-  //передаем данные из _getInputValues в колбэк сабмита формы
-  // const userInfo = infoAboutUser.getUserInfo();
-  // nameInput.value = userInfo.name;
-  // nameStatus.value = userInfo.about;
   popUpToChangeAvatar.open();
 })
 
-
-
+/*функция вставляет данные из заполненной формы попапа в аватар и закрывает попап*/
+function handleAvatarChangeSubmit(avatarInfo) {
+  api.setAvatar(avatarInfo.link)
+  .then((res) => {currentAvatar.src = res.avatar})
+  .catch((err) => { `catch: ${err}` });
+  popUpToChangeAvatar.close();
+}
 
 //=====ВАЛИДАЦИЯ форм=====
 

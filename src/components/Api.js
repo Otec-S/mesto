@@ -101,6 +101,21 @@ export default class Api {
       .then(this._handleResponse);
   }
 
+  //принимает ссылку на новый аватар и отправляет его на сервер
+  setAvatar(newAvatarLink) {
+    return fetch(`${this._url}/users/me/avatar`, {
+      method: 'PATCH',
+      headers: {
+        authorization: this._authorization,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        avatar: newAvatarLink
+      })
+    })
+      .then(this._handleResponse);
+  }
+
 }
 
 

@@ -18,7 +18,7 @@ export const currentAvatar = document.querySelector('.profile__avatar');
 //имя и статус в формах для заполнения попапа
 export const nameInput = popUpProfile.querySelector(".popup__input_type_name");
 export const nameStatus = popUpProfile.querySelector(".popup__input_type_status");
-
+//ссылка на поле для ввода нового адреса нового аватара
 export const avatarLink = document.querySelector('.profile__avatar-link');
 
 // ПЕРЕМЕННЫЕ ДЛЯ POPUP NEW CARD
@@ -32,5 +32,3 @@ export const config = {
   inactiveButtonClass: 'popup__submit_disabled',
   inputErrorClass: 'popup__input_invalid',
 }
-
-
