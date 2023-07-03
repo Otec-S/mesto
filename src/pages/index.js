@@ -35,15 +35,15 @@ function makeElementOfClassCard(data) {
     {
       confirmDelete: () => {
         confirmPopUp.open();
-        confirmPopUp.confirmDeleteCard().addEventListener('click', function deleteCurrentCard() {
+        confirmPopUp.handleSubmitCallback(() => {
           api.deleteCard(data._id)
-            .then(() => { card.handleTrashCanToRemoveCard() })
+            .then(() => { card.handleTrashCanToRemoveCard(); })
             .catch((err) => {
               console.log('Что-то пошло не так', err)
             });
-          confirmPopUp.confirmDeleteCard().removeEventListener('click', deleteCurrentCard);
           confirmPopUp.close();
-        })
+        }
+        )
       }
     },
     {
