@@ -1,4 +1,4 @@
-import { editButton, currentName, currentStatus, currentAvatar, nameInput, nameStatus, addButton, config, makeTrashCanVisible, makeHeartToLikeActive } from '../scripts/utils.js';
+import { editButton, currentName, currentStatus, currentAvatar, nameInput, nameStatus, addButton, config, makeTrashCanVisible, makeHeartToLikeActive, avatarLink } from '../scripts/utils.js';
 import Card from '../components/Card.js';
 import Section from '../components/Section.js';
 import PopupWithImage from '../components/PopupWithImage.js';
@@ -179,6 +179,23 @@ userInfoPromise.then((result) => {
   infoAboutUser.setUserInfo(result);
   currentAvatar.src = result.avatar;
 })
+
+//=====PROFILE AVATAR=====
+
+const popUpToChangeAvatar = new PopupWithForm('.popup-change-avatar');
+popUpToChangeAvatar.setEventListeners();
+
+// обработчик клика по кнопке Edit
+avatarLink.addEventListener('click', () => {
+  //передаем данные из _getInputValues в колбэк сабмита формы
+  // const userInfo = infoAboutUser.getUserInfo();
+  // nameInput.value = userInfo.name;
+  // nameStatus.value = userInfo.about;
+  popUpToChangeAvatar.open();
+})
+
+
+
 
 //=====ВАЛИДАЦИЯ форм=====
 

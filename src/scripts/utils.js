@@ -19,6 +19,8 @@ export const currentAvatar = document.querySelector('.profile__avatar');
 export const nameInput = popUpProfile.querySelector(".popup__input_type_name");
 export const nameStatus = popUpProfile.querySelector(".popup__input_type_status");
 
+export const avatarLink = document.querySelector('.profile__avatar-link');
+
 // ПЕРЕМЕННЫЕ ДЛЯ POPUP NEW CARD
 export const addButton = document.querySelector('.profile__add-button');
 
