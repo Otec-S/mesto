@@ -108,6 +108,9 @@ api.getAppInfo()
       }
     }, ".cards");
     section.renderItems();
+  })
+  .catch((err) => {
+    console.log('Что-то пошло не так', err)
   });
 
 //===== NEW CARD =====
@@ -151,9 +154,6 @@ popUpBigPhoto.setEventListeners();
 //экземпляр класса UserInfo с текущими пустыми значениями name и about из html
 const infoAboutUser = new UserInfo(currentName, currentStatus);
 
-//возвращаем Promise с данными пользователя с сервера
-const userInfoPromise = api.getUserId();
-
 // создаем экземпляр класса Popup с селектором для Profile
 const popUpProfileInstance = new PopupWithForm('.popup-profile', handleProfileFormSubmit);
 // вызываем публичный метод setEventListeners из класса Popup, чтобы работало нажатие на крестик для закрывания окна
@@ -168,7 +168,7 @@ editButton.addEventListener('click', () => {
   popUpProfileInstance.open();
 })
 
-/*функция вставляет данные из заполненной формы попапа в профиль и закрывает попап*/
+//функция вставляет данные из заполненной формы попапа в профиль и закрывает попап
 function handleProfileFormSubmit(inputValues) {
   popUpProfileInstance.renderLoading(true);
   infoAboutUser.setUserInfo(inputValues);
@@ -180,10 +180,12 @@ function handleProfileFormSubmit(inputValues) {
 }
 
 //заполняем шапку данными с сервера
-userInfoPromise.then((result) => {
+api.getUserId()
+.then((result) => {
   infoAboutUser.setUserInfo(result);
   currentAvatar.src = result.avatar;
 })
+.catch((err) => { `catch: ${err}` });
 
 //=====PROFILE AVATAR=====
 
@@ -196,7 +198,7 @@ avatarLink.addEventListener('click', () => {
   popUpToChangeAvatar.open();
 })
 
-/*функция вставляет данные из заполненной формы попапа в аватар и закрывает попап*/
+//функция вставляет данные из заполненной формы попапа в аватар и закрывает попап
 function handleAvatarChangeSubmit(avatarInfo) {
   popUpToChangeAvatar.renderLoading(true);
   api.setAvatar(avatarInfo.link)
