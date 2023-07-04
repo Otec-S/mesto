@@ -9,6 +9,8 @@ export default class Popup {
     this.open = this.open.bind(this);
     //ссылка на крестик закрытия попапа
     this._crossToClose = this._popup.querySelector('.popup__close-cross');
+    //ссылка на кнопку отправки формы
+    this._submitButton = this._popup.querySelector('.popup__submit');
   }
 
   // публичный метод открывает окно попап
@@ -40,6 +42,16 @@ export default class Popup {
       this.close();
     }
   }
+
+  //на период выполнения Response меняет текст на кнопках отправки форм
+  renderLoading(isLoading) {
+    if (isLoading) {
+      this.normalButtonText = this._submitButton.textContent;
+      this._submitButton.textContent = "Сохранение...";
+    } else {
+      this._submitButton.textContent = this.normalButtonText;
+    }
+  };
 
   setEventListeners() {
     // слушатель клика иконке (крестику) закрытия попапа.

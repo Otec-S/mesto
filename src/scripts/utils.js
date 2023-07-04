@@ -1,12 +1,3 @@
-//ФУНКЦИИ
-export function makeTrashCanVisible (element) {
-  element.querySelector('.card__trash-can').classList.remove('card__trash-can_inactive');
-}
-
-export function makeHeartToLikeActive (element) {
-  element.querySelector('.card__heart').classList.add('card__heart_active');
-}
-
 // ПЕРЕМЕННЫЕ ДЛЯ POPUP PROFILE
 export const popUpProfile = document.querySelector('.popup-profile');
 export const editButton = document.querySelector('.profile__edit-button');
@@ -31,4 +22,15 @@ export const config = {
   submitButtonSelector: '.popup__submit',
   inactiveButtonClass: 'popup__submit_disabled',
   inputErrorClass: 'popup__input_invalid',
+}
+
+//ФУНКЦИИ
+//делает видимой мусорную корзинку
+export function makeTrashCanVisible(element) {
+  element.querySelector('.card__trash-can').classList.remove('card__trash-can_inactive');
+}
+
+//делает черным/активным сердечко для лайков
+export function makeHeartToLikeActive(element) {
+  element.querySelector('.card__heart').classList.add('card__heart_active');
 }

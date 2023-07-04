@@ -123,6 +123,7 @@ addButton.addEventListener('click', () => {
 
 // функция сабмита/отправки формы новой карты. Аргумент cardInfo - объект с двумя полями name и link
 function handleCardFormSubmit(cardInfo) {
+  popUpNewCard.renderLoading(true);
   //отправляем карточку на сервер
   api.setCard(cardInfo.name, cardInfo.link)
     .then((res) => {
@@ -133,7 +134,8 @@ function handleCardFormSubmit(cardInfo) {
       // методом addItem класса Section добавляем эту одну созданную карточку на страницу
       section.addItem(element)
     })
-    .catch((err) => { `catch: ${err}` });
+    .catch((err) => { `catch: ${err}` })
+    .finally(() => { popUpNewCard.renderLoading(false) });
   popUpNewCard.close();
 }
 
@@ -168,9 +170,12 @@ editButton.addEventListener('click', () => {
 
 /*функция вставляет данные из заполненной формы попапа в профиль и закрывает попап*/
 function handleProfileFormSubmit(inputValues) {
+  popUpProfileInstance.renderLoading(true);
   infoAboutUser.setUserInfo(inputValues);
   // отправка данных на сервер
-  api.setUserId(inputValues.name, inputValues.about);
+  api.setUserId(inputValues.name, inputValues.about)
+  .catch((err) => { `catch: ${err}` })
+  .finally(() => { popUpProfileInstance.renderLoading(false) });
   popUpProfileInstance.close();
 }
 
@@ -193,9 +198,11 @@ avatarLink.addEventListener('click', () => {
 
 /*функция вставляет данные из заполненной формы попапа в аватар и закрывает попап*/
 function handleAvatarChangeSubmit(avatarInfo) {
+  popUpToChangeAvatar.renderLoading(true);
   api.setAvatar(avatarInfo.link)
   .then((res) => {currentAvatar.src = res.avatar})
-  .catch((err) => { `catch: ${err}` });
+  .catch((err) => { `catch: ${err}` })
+  .finally(() => { popUpToChangeAvatar.renderLoading(false) });
   popUpToChangeAvatar.close();
 }
 
