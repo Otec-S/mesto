@@ -209,4 +209,7 @@ cardFormValidator.enableValidation(config);
 const profileFormValidator = new FormValidator(config, '.popup__form_type_edit-card');
 //запускаем проверку валидации этой формы через публичный метод класса
 profileFormValidator.enableValidation(config);
-
+//создаем экземпляр класса FormValidator для формы смены аватара
+const avatarFormValidator = new FormValidator(config, '.popup__form_type_avatar');
+//запускаем проверку валидации этой формы через публичный метод класса
+avatarFormValidator.enableValidation(config);
