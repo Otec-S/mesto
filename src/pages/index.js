@@ -1,4 +1,4 @@
-import { editButton, currentName, currentStatus, currentAvatar, nameInput, nameStatus, addButton, config, makeTrashCanVisible, makeHeartToLikeActive, avatarLink } from '../scripts/utils.js';
+import { editButton, currentName, currentStatus, nameInput, nameStatus, addButton, config, makeTrashCanVisible, makeHeartToLikeActive, avatarLink } from '../scripts/utils.js';
 import Card from '../components/Card.js';
 import Section from '../components/Section.js';
 import PopupWithImage from '../components/PopupWithImage.js';
@@ -187,9 +187,9 @@ function handleProfileFormSubmit(inputValues) {
 
 //заполняем шапку данными с сервера
 api.getUserId()
-  .then((result) => {
-    infoAboutUser.setUserInfo(result);
-    currentAvatar.src = result.avatar;
+  .then((res) => {
+    infoAboutUser.setUserInfo(res);
+    infoAboutUser.changeAvatar(res);
   })
   .catch((err) => { `catch: ${err}` });
 
@@ -209,7 +209,7 @@ function handleAvatarChangeSubmit(avatarInfo) {
   popUpToChangeAvatar.renderLoading(true);
   api.setAvatar(avatarInfo.link)
     .then((res) => {
-      currentAvatar.src = res.avatar;
+      infoAboutUser.changeAvatar(res);
       popUpToChangeAvatar.close();
     })
     .catch((err) => { `catch: ${err}` })

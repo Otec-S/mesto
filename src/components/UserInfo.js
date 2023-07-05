@@ -3,6 +3,7 @@ export default class UserInfo {
   constructor(name, about) {
     this._userName = name;
     this._userStatus = about;
+    this._currentAvatar = document.querySelector('.profile__avatar');
   }
   //создает объект, в который записываем принятые в объект имя и статус
   getUserInfo() {
@@ -12,6 +13,12 @@ export default class UserInfo {
     }
     return currentUserInfo;
   }
+
+  //публичный метод замены аватара
+  changeAvatar(res) {
+    this._currentAvatar.src = res.avatar;
+  }
+
   //принимает !объект!, значения которого записывает в принятые в конструтор класса UserInfo имя и статус
   //то есть связывает принятые в класс значания со значениями, принятыми в метод setUserInfo
   setUserInfo(userInfo) {
