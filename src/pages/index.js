@@ -147,7 +147,9 @@ function handleCardFormSubmit(cardInfo) {
       section.addItem(element);
       popUpNewCard.close();
     })
-    .catch((err) => { `catch: ${err}` })
+    .catch((err) => {
+      console.log('Что-то пошло не так', err)
+    })
     .finally(() => { popUpNewCard.renderLoading(false) });
 }
 
@@ -186,7 +188,9 @@ function handleProfileFormSubmit(inputValues) {
       infoAboutUser.setUserInfo(inputValues);
       popUpProfileInstance.close();
     })
-    .catch((err) => { `catch: ${err}` })
+    .catch((err) => {
+      console.log('Что-то пошло не так', err)
+    })
     .finally(() => { popUpProfileInstance.renderLoading(false) })
 };
 
@@ -209,7 +213,9 @@ function handleAvatarChangeSubmit(avatarInfo) {
       infoAboutUser.changeAvatar(res);
       popUpToChangeAvatar.close();
     })
-    .catch((err) => { `catch: ${err}` })
+    .catch((err) => {
+      console.log('Что-то пошло не так', err)
+    })
     .finally(() => { popUpToChangeAvatar.renderLoading(false) });
 };
 
