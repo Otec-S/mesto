@@ -91,7 +91,6 @@ let section = {};
 api.getAppInfo()
   .then(([apiCards, usersId]) => {
     section = new Section({
-      items: apiCards.reverse(),
       renderer: (data) => {
         const cardElement = makeElementOfClassCard(data);
 
@@ -111,7 +110,9 @@ api.getAppInfo()
         section.addItem(cardElement);
       }
     }, ".cards");
-    section.renderItems();
+
+    //отрисовываем массив карточек с сервера
+    section.renderItems(apiCards.reverse());
 
     //заполняем шапку (профиль и аватар пользователя) данными с сервера
     infoAboutUser.setUserInfo(usersId);

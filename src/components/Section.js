@@ -3,9 +3,11 @@
 //renderer — это функция, которая отвечает за создание и отрисовку данных на странице
 //containerSelector - селектор контейнера, в который нужно добавлять созданные элементы
 
+//Лучше массив карточек передавать не как параметр конструктора, а как параметр метода renderItems.
+// Когда данные будут приходить с сервера, для их отображения можно будет вызвать cardsSection.renderItems(cards), передав полученные данные как параметр метода.
+
 export default class Section {
-  constructor({ items, renderer }, containerSelector) {
-    this._renderedItems = items;
+  constructor({ renderer }, containerSelector) {
     this._renderer = renderer;
     this._container = document.querySelector(containerSelector);
   }
@@ -16,8 +18,8 @@ export default class Section {
   }
 
   //отрисовка массива карточек
-  renderItems() {
-    this._renderedItems.forEach(item => {
+  renderItems(items) {
+    items.forEach(item => {
       this._renderer(item);
     });
   }
