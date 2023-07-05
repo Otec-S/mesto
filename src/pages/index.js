@@ -36,12 +36,16 @@ function makeElementOfClassCard(data) {
       confirmDelete: () => {
         confirmPopUp.open();
         confirmPopUp.handleSubmitCallback(() => {
+          confirmPopUp.renderLoading(true);
           api.deleteCard(data._id)
-            .then(() => { card.handleTrashCanToRemoveCard(); })
+            .then(() => {
+              card.handleTrashCanToRemoveCard();
+              confirmPopUp.close();
+            })
             .catch((err) => {
               console.log('Что-то пошло не так', err)
-            });
-          confirmPopUp.close();
+            })
+            .finally(() => { confirmPopUp.renderLoading(false) });
         }
         )
       }
@@ -135,11 +139,11 @@ function handleCardFormSubmit(cardInfo) {
       //показываем на ней корзинку
       makeTrashCanVisible(element);
       // методом addItem класса Section добавляем эту одну созданную карточку на страницу
-      section.addItem(element)
+      section.addItem(element);
+      popUpNewCard.close();
     })
     .catch((err) => { `catch: ${err}` })
     .finally(() => { popUpNewCard.renderLoading(false) });
-  popUpNewCard.close();
 }
 
 //=====BIG PHOTO=====
@@ -171,21 +175,23 @@ editButton.addEventListener('click', () => {
 //функция вставляет данные из заполненной формы попапа в профиль и закрывает попап
 function handleProfileFormSubmit(inputValues) {
   popUpProfileInstance.renderLoading(true);
-  infoAboutUser.setUserInfo(inputValues);
   // отправка данных на сервер
   api.setUserId(inputValues.name, inputValues.about)
-  .catch((err) => { `catch: ${err}` })
-  .finally(() => { popUpProfileInstance.renderLoading(false) });
-  popUpProfileInstance.close();
-}
+    .then(() => {
+      infoAboutUser.setUserInfo(inputValues);
+      popUpProfileInstance.close();
+    })
+    .catch((err) => { `catch: ${err}` })
+    .finally(() => { popUpProfileInstance.renderLoading(false) })
+};
 
 //заполняем шапку данными с сервера
 api.getUserId()
-.then((result) => {
-  infoAboutUser.setUserInfo(result);
-  currentAvatar.src = result.avatar;
-})
-.catch((err) => { `catch: ${err}` });
+  .then((result) => {
+    infoAboutUser.setUserInfo(result);
+    currentAvatar.src = result.avatar;
+  })
+  .catch((err) => { `catch: ${err}` });
 
 //=====PROFILE AVATAR=====
 
@@ -202,11 +208,13 @@ avatarLink.addEventListener('click', () => {
 function handleAvatarChangeSubmit(avatarInfo) {
   popUpToChangeAvatar.renderLoading(true);
   api.setAvatar(avatarInfo.link)
-  .then((res) => {currentAvatar.src = res.avatar})
-  .catch((err) => { `catch: ${err}` })
-  .finally(() => { popUpToChangeAvatar.renderLoading(false) });
-  popUpToChangeAvatar.close();
-}
+    .then((res) => {
+      currentAvatar.src = res.avatar;
+      popUpToChangeAvatar.close();
+    })
+    .catch((err) => { `catch: ${err}` })
+    .finally(() => { popUpToChangeAvatar.renderLoading(false) });
+};
 
 //=====ВАЛИДАЦИЯ форм=====
 

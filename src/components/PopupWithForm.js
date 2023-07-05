@@ -9,6 +9,22 @@ export default class PopupWithForm extends Popup {
     this._formElement = this._popup.querySelector('.popup__form');
   }
 
+  //на период выполнения Response меняет текст на кнопке отправки
+  renderLoading(isLoading) {
+    if (isLoading) {
+      this.normalButtonText = this._submitButton.textContent;
+      this._normalButtonBackgroundColor = this._submitButton.style.backgroundColor;
+      this._normalButtonTextColor = this._submitButton.style.color;
+      this._submitButton.textContent = "Сохранение...";
+      this._submitButton.style.backgroundColor = 'black';
+      this._submitButton.style.color = 'white';
+    } else {
+      this._submitButton.textContent = this.normalButtonText;
+      this._submitButton.style.backgroundColor = this._normalButtonBackgroundColor;
+      this._submitButton.style.color = this._normalButtonTextColor;
+    }
+  };
+
   _getInputValues() {
     //делаем массив всех значений полей текущей формы
     this._inputsFromForm = Array.from(this._formElement.querySelectorAll('.popup__input'));
