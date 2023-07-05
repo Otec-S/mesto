@@ -112,6 +112,10 @@ api.getAppInfo()
       }
     }, ".cards");
     section.renderItems();
+
+    //заполняем шапку (профиль и аватар пользователя) данными с сервера
+    infoAboutUser.setUserInfo(usersId);
+    infoAboutUser.changeAvatar(usersId);
   })
   .catch((err) => {
     console.log('Что-то пошло не так', err)
@@ -184,14 +188,6 @@ function handleProfileFormSubmit(inputValues) {
     .catch((err) => { `catch: ${err}` })
     .finally(() => { popUpProfileInstance.renderLoading(false) })
 };
-
-//заполняем шапку данными с сервера
-api.getUserId()
-  .then((res) => {
-    infoAboutUser.setUserInfo(res);
-    infoAboutUser.changeAvatar(res);
-  })
-  .catch((err) => { `catch: ${err}` });
 
 //=====PROFILE AVATAR=====
 

@@ -4,8 +4,6 @@ export const editButton = document.querySelector('.profile__edit-button');
 // уже имеющиеся в профиле имя и статус
 export const currentName = document.querySelector('.profile__title');
 export const currentStatus = document.querySelector('.profile__subtitle');
-//текущий аватар
-// export const currentAvatar = document.querySelector('.profile__avatar');
 //имя и статус в формах для заполнения попапа
 export const nameInput = popUpProfile.querySelector(".popup__input_type_name");
 export const nameStatus = popUpProfile.querySelector(".popup__input_type_status");
